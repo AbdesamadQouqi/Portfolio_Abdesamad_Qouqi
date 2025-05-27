@@ -578,12 +578,12 @@
                         </div>
                     </div>
                     <div data-aos="fade-left">
-                        <h3 class="text-2xl font-semibold mb-4">Ingénieur en IA spécialisé Marketing Digital</h3>
+                        <h3 class="text-2xl font-semibold mb-4">Étudiant Ingénieur IA & Digital Marketing</h3>
                         <p class="text-gray-600 mb-6">
                             Passionné par l'intersection entre l'Intelligence Artificielle et le Marketing Digital, je souhaite me spécialiser dans l'application des technologies d'IA pour résoudre des problématiques marketing. Mon parcours pluridisciplinaire, alliant sciences de la santé et ingénierie informatique, me donne une perspective unique pour innover dans ce domaine.
                         </p>
                         <p class="text-gray-600 mb-6">
-                            Actuellement en formation d'ingénieur à l'EFREI, je compte m'orienter vers la majeure "Technologies immersives IA", avec pour objectif de développer des solutions innovantes qui transforment l'expérience client et optimisent les stratégies digitales.
+                            Actuellement en formation d'ingénieur à l'EFREI, je compte m'orienter vers la majeure "Technologies immersives & IA", avec pour objectif de développer des solutions innovantes qui transforment l'expérience client et optimisent les stratégies digitales.
                         </p>
                         <div class="grid grid-cols-2 gap-4 mb-6">
                             <div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
@@ -667,31 +667,29 @@
                 </div>
 
                 <!-- Hard Skills -->
-                <h3 class="text-2xl font-semibold mb-8 text-center" data-aos="fade-up">Hard Skills</h3>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div v-for="(category, index) in hardSkills" 
-                         :key="index"
-                         class="bg-gray-50 p-6 rounded-lg shadow-lg card-hover"
-                         data-aos="fade-up"
-                         :data-aos-delay="index * 100">
-                        <h3 class="text-xl font-semibold mb-6 text-center">{{ category.name }}</h3>
-                        <div class="space-y-4">
-                            <div v-for="(skill, skillIndex) in category.items" 
-                                 :key="skillIndex"
-                                 class="relative">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-gray-700">{{ skill.name }}</span>
-                                    <span class="text-blue-600">{{ skill.level }}%</span>
-                                </div>
-                                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="skill-progress h-full bg-blue-600 rounded-full"
-                                         :style="{ width: isVisible ? skill.level + '%' : '0%' }">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Hard Skills -->
+<h3 class="text-2xl font-semibold mb-8 text-center" data-aos="fade-up">Hard Skills</h3>
+<div class="grid md:grid-cols-3 gap-8">
+    <div v-for="(category, index) in hardSkills" 
+         :key="index"
+         class="bg-gray-50 p-6 rounded-lg shadow-lg card-hover"
+         data-aos="fade-up"
+         :data-aos-delay="index * 100">
+        <h3 class="text-xl font-semibold mb-6 text-center">{{ category.name }}</h3>
+        <div class="space-y-4">
+            <div v-for="(skill, skillIndex) in category.items" 
+                 :key="skillIndex"
+                 class="flex items-center space-x-3 relative group cursor-pointer">
+                <i class="fas fa-check-circle text-blue-600"></i>
+                <span class="text-gray-700">{{ skill.name }}</span>
+                <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white text-sm text-gray-700 p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 w-48 text-center">
+                    {{ skill.description }}
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
             </div>
         </section>
 
@@ -874,7 +872,7 @@
                             </div>
                         </div>
                         <div data-aos="fade-left">
-                            <h3 class="text-2xl font-semibold mb-6">Disponibilités</h3>
+                            <h3 class="text-2xl font-semibold mb-6">Possibilités d'entretiens</h3>
                             <div class="bg-gray-50 p-6 rounded-lg">
                                 <div class="flex items-start mb-4">
                                     <i class="fas fa-calendar-check text-blue-600 text-xl mt-1 mr-4"></i>
@@ -888,7 +886,7 @@
                                     <a href="https://calendar.google.com" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center">
                                         <i class="fas fa-video mr-2"></i> Visio
                                     </a>
-                                    <a href="tel:+33612345678" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center">
+                                    <a href="tel:+33764548945" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center">
                                         <i class="fas fa-phone mr-2"></i> Appel
                                     </a>
                                 </div>
@@ -905,7 +903,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="mb-6 md:mb-0">
                         <h3 class="text-2xl font-bold gradient-text">Abdesamad QOUQI</h3>
-                        <p class="mt-2 text-gray-400">Ingénieur IA & Marketing Digital</p>
+                        <p class="mt-2 text-gray-400">Étudiant Ingénieur IA & Digital Marketing</p>
                     </div>
                     <div class="flex space-x-6">
                         <a :href="linkedinUrl" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
@@ -928,7 +926,7 @@
                 <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
                     <div class="flex items-center">
                         <i class="fas fa-robot mr-2"></i>
-                        <span>Abdesamad - Assistant IA</span>
+                        <span>Abdesamad Qouqi</span>
                     </div>
                     <button @click="toggleChatbot" class="text-white hover:text-gray-200">
                         <i class="fas fa-times"></i>
@@ -1041,34 +1039,38 @@
                         {
                             name: 'Programmation',
                             items: [
-                                { name: 'Python', level: 95, description: 'Développement d\'algorithmes d\'IA et analyse de données' },
-                                { name: 'JavaScript', level: 90, description: 'Développement web et création d\'interfaces interactives' },
-                                { name: 'Java', level: 85, description: 'Développement d\'applications back-end et systèmes distribués' },
-                                { name: 'SQL', level: 90, description: 'Conception et optimisation de bases de données relationnelles' }
+                                { name: 'Python', level: 95, description: "Langage principal pour l'IA, l'automatisation et l'analyse de données" },
+                                { name: 'HTML', level: 95, description: 'Structure de pages web accessibles et bien organisées' },
+                                { name: 'CSS', level: 95, description: 'Stylisation responsive et animations modernes en web design' },
+                                { name: 'JavaScript', level: 95, description: 'Création d’interfaces interactives et dynamiques' },
+                                { name: 'Java', level: 85, description: 'Applications back-end robustes et orientées objet' }
                             ]
                         },
                         {
                             name: 'Intelligence Artificielle',
                             items: [
-                                { name: 'Machine Learning', level: 90, description: 'Création de modèles prédictifs et systèmes de recommandation' },
-                                { name: 'Deep Learning', level: 85, description: 'Développement de réseaux neuronaux pour le traitement d\'images et texte' },
-                                { name: 'NLP', level: 80, description: 'Traitement automatique du langage pour chatbots et analyse de sentiment' },
-                                { name: 'Computer Vision', level: 75, description: 'Reconnaissance d\'images et vidéos pour applications marketing' }
+                                { name: 'Machine Learning', level: 90, description: 'Modèles prédictifs à partir de données structurées' },
+                                { name: 'Apprentissage supervisé', level: 85, description: 'Utilisation d’étiquettes pour entraîner des algorithmes efficaces' },
+                                { name: 'Deep Learning', level: 85, description: 'Réseaux neuronaux profonds pour images, sons et textes' },
+                                { name: 'NLP', level: 80, description: 'Analyse et génération automatique de langage naturel' },
+                                { name: 'Computer Vision', level: 75, description: 'Analyse visuelle automatisée pour détecter objets et comportements' }
                             ]
                         },
                         {
                             name: 'Gestion & Marketing',
                             items: [
-                                { name: 'Gestion de projet', level: 85, description: 'Méthodologies Agile (Scrum, Kanban) et gestion d\'équipe' },
-                                { name: 'Analyse de données', level: 90, description: 'Extraction d\'insights à partir de données marketing complexes' },
-                                { name: 'SEO/SEA', level: 80, description: 'Optimisation pour les moteurs de recherche et publicité digitale' },
-                                { name: 'Growth Hacking', level: 75, description: 'Techniques innovantes pour la croissance des entreprises digitales' }
+                                { name: 'Gestion de projet', level: 85, description: 'Suivi agile (Scrum, Kanban) et coordination d’équipe' },
+                                { name: 'Méthodologies AGILE & WATERFALL', level: 90, description: 'Approches adaptatives ou planifiées pour piloter les projets' },
+                                { name: 'Analyse de données', level: 90, description: 'Exploration de données marketing pour insights décisionnels' },
+                                { name: 'SEO/SEA', level: 80, description: 'Amélioration de la visibilité sur Google (naturelle et payante)' },
+                                { name: 'Growth Hacking', level: 75, description: 'Stratégies digitales innovantes pour accélérer la croissance' }
                             ]
                         }
                     ],
+
                     projects: [
                         {
-                            title: 'Rapport Machine Learning (Fraude bancaire)',
+                            title: 'Algorithme Machine Learning de détection de fraudes bancaires',
                             type: 'Projet académique - PDF',
                             image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
                             technologies: ['Python', 'TensorFlow', 'Pandas'],
@@ -1082,7 +1084,7 @@
                             pdf: 'rapport_uml.pdf'
                         },
                         {
-                            title: 'Ecospot!',
+                            title: 'Application de signalement des dépôts sauvages urbains (Ecospot)!',
                             type: 'Projet de groupe - EFREI',
                             image: 'https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=3136&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                             technologies: ['Figma', 'React', 'Node.js']
@@ -1199,12 +1201,6 @@
                             description: 'Bibliothèque d\'apprentissage automatique basée sur Torch'
                         },
                         { 
-                            name: 'Tableau', 
-                            icon: 'fas fa-chart-bar', 
-                            category: 'Data Viz',
-                            description: 'Outil de visualisation de données pour créer des dashboards interactifs'
-                        },
-                        { 
                             name: 'Docker', 
                             icon: 'fab fa-docker', 
                             category: 'DevOps',
@@ -1221,18 +1217,6 @@
                             icon: 'fab fa-figma', 
                             category: 'Prototypage',
                             description: 'Outil de design collaboratif pour créer des interfaces utilisateur'
-                        },
-                        { 
-                            name: 'Trello', 
-                            icon: 'fas fa-tasks', 
-                            category: 'Gestion',
-                            description: 'Outil de gestion de projet basé sur la méthodologie Kanban'
-                        },
-                        { 
-                            name: 'MySQL', 
-                            icon: 'fas fa-database', 
-                            category: 'Bases de données',
-                            description: 'Système de gestion de bases de données relationnelles open-source'
                         },
                         { 
                             name: 'Postman', 
@@ -1268,6 +1252,9 @@
                         })
                     }
                 },
+                downloadToeic() {
+                     window.open('toeic.pdf', '_blank');
+                    },
                 scrollToBottom() {
                     const container = this.$refs.chatMessages
                     if (container) {
@@ -1436,8 +1423,7 @@
                     return techIcons[tech] || 'fas fa-code';
                 },
                 openPdf(pdfName) {
-                    // In a real app, this would open the PDF
-                    alert(`Ouverture du PDF: ${pdfName}`);
+                    window.open(pdfName, '_blank');
                 },
                 async submitForm() {
                     this.errors = {};
