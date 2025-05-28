@@ -471,6 +471,17 @@
             z-index: 10;
         }
         
+        @keyframes subtle-bounce {
+            0%, 100% {
+                transform: translateY(0);
+        }
+        50% {
+            transform: translateY(10px);
+        }
+    }
+    .animate-subtle-bounce {
+        animation: subtle-bounce 2s ease-in-out infinite;
+    }    
         .language-item:hover .certification-tooltip {
             opacity: 1;
         }
@@ -518,6 +529,9 @@
                      class="particle"
                      :style="getParticleStyle()">
                 </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-blue-600 text-3xl">
+                <i class="fas fa-chevron-down"></i>
             </div>
             <div class="container mx-auto px-6 text-center relative z-10">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text" data-aos="fade-up">
@@ -877,7 +891,7 @@
                                 <div class="flex items-start mb-4">
                                     <i class="fas fa-calendar-check text-blue-600 text-xl mt-1 mr-4"></i>
                                     <div>
-                                        <h4 class="font-medium">Stage en IA & Marketing Digital (Filière Information Technology IT)</h4>
+                                        <h4 class="font-medium">Stage en IA & Marketing Digital</h4>
                                         <p class="text-gray-600">3 novembre 2025 - 3 avril 2026</p>
                                     </div>
                                 </div>
