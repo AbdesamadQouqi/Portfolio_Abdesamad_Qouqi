@@ -1,28 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Abdesamad Qouqi - Étudiant Ingénieur en informatique IA & Digital Marketing</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS Library for scroll animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Custom Styles -->
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio Abdesamad Qouqi - Étudiant Ingénieur en informatique IA &amp; Digital Marketing</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Vue.js -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- AOS Library for scroll animations -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- Custom Styles -->
+<style>
         :root {
             --primary-color: #4f46e5;
             --secondary-color: #818cf8;
@@ -488,534 +483,499 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <div id="app">
-        <!-- Navigation -->
-        <nav class="fixed w-full bg-white shadow-md z-50" :class="{'bg-opacity-90': scrolled}">
-            <div class="container mx-auto px-6 py-3">
-                <div class="flex items-center justify-between">
-                    <div class="text-2xl font-bold gradient-text">
-                        Abdesamad QOUQI
-                    </div>
-                    <div class="hidden md:flex space-x-8">
-                        <a v-for="item in navigation" 
-                           :key="item.id" 
-                           :href="item.href" 
-                           class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-300">
+<div id="app">
+<!-- Navigation -->
+<nav :class="{'bg-opacity-90': scrolled}" class="fixed w-full bg-white shadow-md z-50">
+<div class="container mx-auto px-6 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="text-2xl font-bold gradient-text">
+        Abdesamad QOUQI
+      </div>
+<button @click="switchLanguage" class="text-sm hover:underline text-gray-600">
+        🌐 {{ language === 'fr' ? 'EN' : 'FR' }}
+      </button>
+</div>
+<div class="hidden md:flex space-x-8">
+<a :href="item.href" :key="item.id" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-300" v-for="item in navigation">
                             {{ item.name }}
                         </a>
-                    </div>
-                    <button @click="toggleMobileMenu" class="md:hidden text-gray-700">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-                <!-- Mobile Menu -->
-                <div v-show="mobileMenuOpen" class="md:hidden mt-4 pb-4">
-                    <a v-for="item in navigation" 
-                       :key="item.id" 
-                       :href="item.href" 
-                       class="block py-2 text-gray-700 hover:text-blue-600"
-                       @click="mobileMenuOpen = false">
+</div>
+<button @click="toggleMobileMenu" class="md:hidden text-gray-700">
+<i class="fas fa-bars text-2xl"></i>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div class="md:hidden mt-4 pb-4" v-show="mobileMenuOpen">
+<a :href="item.href" :key="item.id" @click="mobileMenuOpen = false" class="block py-2 text-gray-700 hover:text-blue-600" v-for="item in navigation">
                         {{ item.name }}
                     </a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center justify-center relative overflow-hidden" 
-         style="background: linear-gradient(rgba(37,99,235,0.1), rgba(37,99,235,0.2))">
-  <div class="floating-particles">
-    <div v-for="n in 30" :key="n" 
-         class="particle"
-         :style="getParticleStyle()">
-    </div>
-  </div>
-  <div class="container mx-auto px-6 text-center relative z-10">
-    <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text" data-aos="fade-up">
-      Étudiant Ingénieur IA & Digital Marketing
-    </h1>
-    <p class="text-xl md:text-2xl mb-8 text-gray-700" data-aos="fade-up" data-aos-delay="200">
-      À la recherche d'un stage en IA appliquée au Marketing Digital<br>
-      Du 3 novembre 2025 au 3 avril 2026
-    </p>
-    <div class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6" data-aos="fade-up" data-aos-delay="400">
-      <a href="#contact" 
-         class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300">
-        Me Contacter
-      </a>
-      <a href="#about" 
-         class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full transition-colors duration-300">
-        En Savoir Plus
-      </a>
-      <a href="Abdesamad_Qouqi_CV_LettreDeMotivation_2025.pdf" download
-         class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300">
-        <i class="fas fa-download"></i> Télécharger mon CV et ma lettre de motivation
-      </a>
-    </div>
-  </div>
-  <!-- Flèche incitative scroll -->
-<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-  <a href="#about" class="text-blue-600 hover:text-blue-800 text-3xl">
-    <i class="fas fa-chevron-down"></i>
-  </a>
 </div>
-
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(rgba(37,99,235,0.1), rgba(37,99,235,0.2))">
+<div class="floating-particles">
+<div :key="n" :style="getParticleStyle()" class="particle" v-for="n in 30">
+</div>
+</div>
+<div class="container mx-auto px-6 text-center relative z-10">
+<h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text" data-aos="fade-up">{{ texts.hero.title[language] }}</h1>
+<p class="text-xl md:text-2xl mb-8 text-gray-700" data-aos="fade-up" data-aos-delay="200" v-html="texts.hero.subtitle[language]"></p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6" data-aos="fade-up" data-aos-delay="400">
+<a class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300" href="#contact">{{ texts.hero.contact[language] }}</a>
+<a class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full transition-colors duration-300" href="#about">{{ texts.hero.more[language] }}</a>
+<a class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300" download="" href="Abdesamad_Qouqi_CV_LettreDeMotivation_2025.pdf"><i class="fas fa-download"></i> {{ texts.hero.download[language] }}</a>
+</div>
+</div>
+<!-- Flèche incitative scroll -->
+<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+<a class="text-blue-600 hover:text-blue-800 text-3xl" href="#about">
+<i class="fas fa-chevron-down"></i>
+</a>
+</div>
 </section>
-
-
-        <!-- About Section -->
-        <section id="about" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+<!-- About Section -->
+<section class="py-20 bg-white" id="about">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     À Propos de Moi
                 </h2>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="relative" data-aos="fade-right">
-                        <div class="globe-container">
-                            <div class="globe" @click="rotateGlobe">
-                                <!-- Points on globe -->
-                                <div class="globe-point" style="top: 30%; left: 50%;" @click.stop="showGlobeTooltip('bac')"></div>
-                                <div class="globe-tooltip" style="top: 15%; left: 60%;">
-                                    <h4 class="font-bold">Baccalauréat Scientifique</h4>
-                                    <p class="text-sm">Spécialités Maths, Physique-Chimie, SVT</p>
-                                </div>
-                                
-                                <div class="globe-point" style="top: 45%; left: 30%;" @click.stop="showGlobeTooltip('upec')"></div>
-                                <div class="globe-tooltip" style="top: 30%; left: 40%;">
-                                    <h4 class="font-bold">Licence Sciences pour la Santé</h4>
-                                    <p class="text-sm">UPEC - Biologie, Immunologie, Bioinformatique</p>
-                                </div>
-                                
-                                <div class="globe-point" style="top: 60%; left: 50%;" @click.stop="showGlobeTooltip('efrei')"></div>
-                                <div class="globe-tooltip" style="top: 45%; left: 60%;">
-                                    <h4 class="font-bold">Diplôme d'Ingénieur</h4>
-                                    <p class="text-sm">EFREI - Majeure: Technologies Immersives & IA (Filière Information Technology)</p>
-                                </div>
-                                
-                                <div class="globe-point" style="top: 40%; left: 20%;" @click.stop="showGlobeTooltip('staffs')"></div>
-                                <div class="globe-tooltip" style="top: 25%; left: 30%;">
-                                    <h4 class="font-bold">Semestre International</h4>
-                                    <p class="text-sm">Staffordshire University - Machine Learning, UML</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-aos="fade-left">
-                        <h3 class="text-2xl font-semibold mb-4">Étudiant Ingénieur IA & Digital Marketing</h3>
-                        <p class="text-gray-600 mb-6">
-                            Passionné par l'intersection entre l'Intelligence Artificielle et le Marketing Digital, je souhaite me spécialiser dans l'application des technologies d'IA pour résoudre des problématiques marketing. Mon parcours pluridisciplinaire, alliant sciences de la santé et ingénierie informatique, me donne une perspective unique pour innover dans ce domaine.
-                        </p>
-                        <p class="text-gray-600 mb-6">
-                            Actuellement en formation d'ingénieur à l'EFREI, je compte m'orienter vers la majeure "Technologies immersives & IA", avec pour objectif de développer des solutions innovantes qui transforment l'expérience client et optimisent les stratégies digitales.
-                        </p>
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
-                                <i class="fas fa-graduation-cap text-blue-600 text-2xl mb-2"></i>
-                                <h4 class="font-semibold">Formation</h4>
-                                <p class="text-sm text-gray-600">2021 - 2027</p>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
-                                <i class="fas fa-robot text-blue-600 text-2xl mb-2"></i>
-                                <h4 class="font-semibold">Majeure</h4>
-                                <p class="text-sm text-gray-600">Technologies Immersives & IA</p>
-                            </div>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a :href="linkedinUrl" target="_blank" class="text-blue-600 hover:text-blue-800">
-                                <i class="fab fa-linkedin text-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div class="relative" data-aos="fade-right">
+<div class="w-full h-96 rounded-xl shadow-xl border border-blue-100 z-10" data-aos="fade-right" id="map"></div>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  #map { filter: hue-rotate(190deg) brightness(1.1) saturate(1.2); }
+  .leaflet-popup-content-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+  .leaflet-popup-content {
+    color: #1e3a8a;
+    font-size: 14px;
+  }
+  .leaflet-container a {
+    color: #1e40af;
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const map = L.map('map', {
+    minZoom: 4,
+    maxBounds: [[40.0, -5.0], [56.0, 10.0]], // Limite à France/UK/Belgique
+    zoomControl: false
+  }).setView([48.85, 2.35], 6); // Centré sur Paris
 
-        <!-- Languages Section -->
-        <section id="languages" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors & CartoDB',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  const locations = [
+    {
+      name: "Baccalauréat Scientifique",
+      desc: "Lycée Racine",
+      coords: [48.875, 2.31]
+    },
+    {
+      name: "Licence Sciences pour la Santé - UPEC",
+      desc: "Biologie & Bioinformatique",
+      coords: [48.8170, 2.4653]
+    },
+    {
+      name: "Diplôme d'Ingénieur en informatique - EFREI",
+      desc: "Filière Information Technology (IT)",
+      coords: [48.7904, 2.3274]
+    },
+    {
+      name: "Semestre à l'international - Staffordshire University",
+      desc: "Machine Learning, UML, Networks and Protocols, ...",
+      coords: [52.9931, -2.1796]
+    }
+  ];
+
+  locations.forEach(loc => {
+    L.marker(loc.coords, { title: loc.name })
+     .addTo(map)
+     .bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+  });
+});
+</script>
+</div>
+<div data-aos="fade-left">
+<h3 class="text-2xl font-semibold mb-4">Étudiant Ingénieur IA &amp; Digital Marketing</h3>
+<p class="text-gray-600 mb-6">
+                            Passionné par l'intersection entre l'Intelligence Artificielle, la Gestion de Projet et le Marketing Digital, je souhaite me spécialiser dans l'application des technologies d'IA pour résoudre des problématiques variées. Mon parcours pluridisciplinaire, alliant sciences de la santé et ingénierie informatique, me donne une perspective unique pour innover dans ce domaine.
+                        </p>
+<p class="text-gray-600 mb-6">
+                            Actuellement en formation d'ingénieur à l'EFREI, je compte m'orienter vers la filière "Information Technology (IT)", avec pour objectif de développer des solutions innovantes qui transforment l'expérience client et optimisent les stratégies digitales.
+                        </p>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
+<i class="fas fa-graduation-cap text-blue-600 text-2xl mb-2"></i>
+<h4 class="font-semibold">Formation</h4>
+<p class="text-sm text-gray-600">2021 - 2027</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
+<i class="fas fa-robot text-blue-600 text-2xl mb-2"></i>
+<h4 class="font-semibold">Filière</h4>
+<p class="text-sm text-gray-600">Information Technology (IT)</p>
+</div>
+</div>
+<div class="flex space-x-4">
+<a :href="linkedinUrl" class="text-blue-600 hover:text-blue-800" target="_blank">
+<i class="fab fa-linkedin text-2xl"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Languages Section -->
+<section class="py-20 bg-gray-50" id="languages">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Langues
                 </h2>
-                <div class="flex flex-wrap justify-center gap-8">
-                    <div v-for="(lang, index) in languages" 
-                         :key="lang.name"
-                         class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full md:w-1/4 relative language-item"
-                         data-aos="fade-up"
-                         :data-aos-delay="index * 100">
-                        <div class="flex items-center mb-4">
-                            <img :src="lang.flag" :alt="lang.name" class="w-12 h-8 mr-3 rounded shadow-sm">
-                            <div>
-                                <h3 class="font-semibold">{{ lang.name }}</h3>
-                                <p class="text-sm text-gray-600">{{ lang.level }}</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div v-for="n in 5" 
-                                 :key="n"
-                                 :class="['w-2 h-2 rounded-full mr-1', 
-                                         n <= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']">
-                            </div>
-                        </div>
-                        <div v-if="lang.name === 'Anglais'" class="certification-tooltip">
-                            <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
-                            <button @click="downloadToeic" class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto">
-                                <i class="fas fa-download mr-1"></i> Télécharger
+<div class="flex flex-wrap justify-center gap-8">
+<div :data-aos-delay="index * 100" :key="lang.name" class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full md:w-1/4 relative language-item" data-aos="fade-up" v-for="(lang, index) in languages">
+<div class="flex items-center mb-4">
+<img :alt="lang.name" :src="lang.flag" class="w-12 h-8 mr-3 rounded shadow-sm"/>
+<div>
+<h3 class="font-semibold">{{ lang.name }}</h3>
+<p class="text-sm text-gray-600">{{ lang.level }}</p>
+</div>
+</div>
+<div class="flex">
+<div :class="['w-2 h-2 rounded-full mr-1', 
+                                         n &lt;= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']" :key="n" v-for="n in 5">
+</div>
+</div>
+<div class="certification-tooltip" v-if="lang.name === 'Anglais'">
+<p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
+<button @click="downloadToeic" class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto">
+<i class="fas fa-download mr-1"></i> Télécharger
                             </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-<section id="certifications" class="pt-20 pb-10 bg-white">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="pt-20 pb-10 bg-white" id="certifications">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
       Mes Certifications
     </h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      
-      <!-- TOEIC -->
-      <a href="toeic.pdf" target="_blank" class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="0">
-        <i class="fas fa-language text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">TOEIC</h3>
-        <p class="text-gray-600 text-sm">Certification officielle d'anglais niveau B2</p>
-      </a>
-
-      <!-- Cisco Cybersecurity -->
-      <a href="cybersecurity_cisco_abdesamad_qouqi.pdf" target="_blank" class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="100">
-        <i class="fas fa-shield-alt text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">Junior Cybersecurity Analyst</h3>
-        <p class="text-gray-600 text-sm">Délivrée par Cisco Networking Academy</p>
-      </a>
-
-      <!-- PSC1 -->
-      <a target="_blank" class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="200">
-        <i class="fas fa-first-aid text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">PSC1 - Secourisme</h3>
-        <p class="text-gray-600 text-sm">Certificat de citoyen de sécurité civile (PSC1)</p>
-      </a>
-      
-    </div>
-  </div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- TOEIC -->
+<a class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="0" href="toeic.pdf" target="_blank">
+<i class="fas fa-language text-blue-600 text-3xl mb-4"></i>
+<h3 class="font-semibold text-lg mb-2">TOEIC</h3>
+<p class="text-gray-600 text-sm">Certification officielle d'anglais niveau B2</p>
+</a>
+<!-- Cisco Cybersecurity -->
+<a class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="100" href="cybersecurity_cisco_abdesamad_qouqi.pdf" target="_blank">
+<i class="fas fa-shield-alt text-blue-600 text-3xl mb-4"></i>
+<h3 class="font-semibold text-lg mb-2">Junior Cybersecurity Analyst</h3>
+<p class="text-gray-600 text-sm">Délivrée par Cisco Networking Academy</p>
+</a>
+<!-- PSC1 -->
+<a class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect" data-aos="fade-up" data-aos-delay="200" target="_blank">
+<i class="fas fa-first-aid text-blue-600 text-3xl mb-4"></i>
+<h3 class="font-semibold text-lg mb-2">PSC1 - Secourisme</h3>
+<p class="text-gray-600 text-sm">Certificat de citoyen de sécurité civile (PSC1)</p>
+</a>
+</div>
+</div>
 </section>
-
-
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+<!-- Skills Section -->
+<section class="py-20 bg-white" id="skills">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Mes compétences
                 </h2>
-                
-                <!-- Soft Skills -->
-                <h3 class="text-2xl font-semibold mb-8 text-center" data-aos="fade-up">Soft Skills</h3>
-                <div class="grid md:grid-cols-4 gap-6 mb-16">
-                    <div v-for="skill in softSkills" 
-                         :key="skill.name"
-                         class="bg-gray-50 p-6 rounded-lg text-center skill-card"
-                         data-aos="fade-up">
-                        <i :class="skill.icon + ' text-3xl text-blue-600 mb-4'"></i>
-                        <h4 class="font-semibold">{{ skill.name }}</h4>
-                        <div class="skill-tooltip">
-                            <p class="text-sm text-gray-600">{{ skill.description }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hard Skills -->
-                <!-- Hard Skills -->
+<!-- Soft Skills -->
+<h3 class="text-2xl font-semibold mb-8 text-center" data-aos="fade-up">Soft Skills</h3>
+<div class="grid md:grid-cols-4 gap-6 mb-16">
+<div :key="skill.name" class="bg-gray-50 p-6 rounded-lg text-center skill-card" data-aos="fade-up" v-for="skill in softSkills">
+<i :class="skill.icon + ' text-3xl text-blue-600 mb-4'"></i>
+<h4 class="font-semibold">{{ skill.name }}</h4>
+<div class="skill-tooltip">
+<p class="text-sm text-gray-600">{{ skill.description }}</p>
+</div>
+</div>
+</div>
+<!-- Hard Skills -->
+<!-- Hard Skills -->
 <h3 class="text-2xl font-semibold mb-8 text-center" data-aos="fade-up">Hard Skills</h3>
 <div class="grid md:grid-cols-3 gap-8">
-    <div v-for="(category, index) in hardSkills" 
-         :key="index"
-         class="bg-gray-50 p-6 rounded-lg shadow-lg card-hover"
-         data-aos="fade-up"
-         :data-aos-delay="index * 100">
-        <h3 class="text-xl font-semibold mb-6 text-center">{{ category.name }}</h3>
-        <div class="space-y-4">
-            <div v-for="(skill, skillIndex) in category.items" 
-                 :key="skillIndex"
-                 class="flex items-center space-x-3 relative group cursor-pointer">
-                <i class="fas fa-check-circle text-blue-600"></i>
-                <span class="text-gray-700">{{ skill.name }}</span>
-                <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white text-sm text-gray-700 p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 w-48 text-center">
+<div :data-aos-delay="index * 100" :key="index" class="bg-gray-50 p-6 rounded-lg shadow-lg card-hover" data-aos="fade-up" v-for="(category, index) in hardSkills">
+<h3 class="text-xl font-semibold mb-6 text-center">{{ category.name }}</h3>
+<div class="space-y-4">
+<div :key="skillIndex" class="flex items-center space-x-3 relative group cursor-pointer" v-for="(skill, skillIndex) in category.items">
+<i class="fas fa-check-circle text-blue-600"></i>
+<span class="text-gray-700">{{ skill.name }}</span>
+<div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white text-sm text-gray-700 p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 w-48 text-center">
                     {{ skill.description }}
                 </div>
-            </div>
-        </div>
-    </div>
 </div>
-
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="py-20 bg-gray-50" id="projects">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Quelques Projets ...
                 </h2>
-                <div class="projects-mosaic">
-                    <div v-for="(project, index) in projects" 
-                         :key="index"
-                         class="project-item"
-                         data-aos="fade-up"
-                         :data-aos-delay="index * 100">
-                        <img :src="project.image" :alt="project.title" class="project-image">
-                        <div class="project-overlay">
-                            <h3 class="font-bold text-lg">{{ project.title }}</h3>
-                            <p class="text-sm mt-2">{{ project.type }}</p>
-                            <div class="mt-3 flex flex-wrap gap-2">
-                                <span v-for="(tech, techIndex) in project.technologies" 
-                                      :key="techIndex"
-                                      class="px-2 py-1 text-xs rounded-full"
-                                      :class="getTechBadgeClass(tech)">
+<div class="projects-mosaic">
+<div :data-aos-delay="index * 100" :key="index" class="project-item" data-aos="fade-up" v-for="(project, index) in projects">
+<img :alt="project.title" :src="project.image" class="project-image"/>
+<div class="project-overlay">
+<h3 class="font-bold text-lg">{{ project.title }}</h3>
+<p class="text-sm mt-2">{{ project.type }}</p>
+<div class="mt-3 flex flex-wrap gap-2">
+<span :class="getTechBadgeClass(tech)" :key="techIndex" class="px-2 py-1 text-xs rounded-full" v-for="(tech, techIndex) in project.technologies">
                                     {{ tech }}
                                 </span>
-                            </div>
-                            <button v-if="project.pdf" @click.stop="openPdf(project.pdf)" class="mt-3 text-blue-400 hover:text-blue-600 text-sm flex items-center">
-                                <i class="fas fa-file-pdf mr-1"></i> Voir le rapport
+</div>
+<button @click.stop="openPdf(project.pdf)" class="mt-3 text-blue-400 hover:text-blue-600 text-sm flex items-center" v-if="project.pdf">
+<i class="fas fa-file-pdf mr-1"></i> Voir le rapport
                             </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Experience Section -->
+<section class="py-20 bg-white" id="experience">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Mes Expériences
                 </h2>
-                <div class="space-y-12">
-                    <div v-for="(exp, index) in experiences" 
-                         :key="index"
-                         class="bg-white p-8 rounded-xl shadow-lg experience-card card-3d glass-effect"
-                         :class="{'active': exp.showDetails}"
-                         data-aos="fade-up"
-                         :data-aos-delay="index * 100"
-                         @click="toggleExperience(exp)">
-                        <div class="flex flex-wrap md:flex-nowrap items-start gap-8">
-                            <div class="w-full md:w-1/4 relative">
-                                <div class="sticky top-4">
-                                    <span class="text-blue-600 font-semibold inline-block mb-2 px-4 py-1 bg-blue-50 rounded-full">
+<div class="space-y-12">
+<div :class="{'active': exp.showDetails}" :data-aos-delay="index * 100" :key="index" @click="toggleExperience(exp)" class="bg-white p-8 rounded-xl shadow-lg experience-card card-3d glass-effect" data-aos="fade-up" v-for="(exp, index) in experiences">
+<div class="flex flex-wrap md:flex-nowrap items-start gap-8">
+<div class="w-full md:w-1/4 relative">
+<div class="sticky top-4">
+<span class="text-blue-600 font-semibold inline-block mb-2 px-4 py-1 bg-blue-50 rounded-full">
                                         {{ exp.date }}
                                     </span>
-                                    <h3 class="text-2xl font-bold mt-2 gradient-text">{{ exp.title }}</h3>
-                                    <p class="text-gray-600 mt-1">{{ exp.company }}</p>
-                                    <div class="mt-4">
-                                        <div class="w-16 h-16 bg-gradient-1 rounded-lg flex items-center justify-center transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                                            <i :class="exp.icon + ' text-white text-2xl'"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-3/4">
-                                <p class="text-gray-700 mb-6 text-lg">{{ exp.description }}</p>
-                                <div class="space-y-4">
-                                    <div v-for="(point, pointIndex) in exp.points" 
-                                         :key="pointIndex"
-                                         class="flex items-start hover-scale"
-                                         :class="{'animate-slide-in': exp.showDetails}"
-                                         :style="{'animation-delay': pointIndex * 100 + 'ms'}">
-                                        <i class="fas fa-check-circle text-blue-600 mt-1 mr-3"></i>
-                                        <p class="text-gray-700">{{ point }}</p>
-                                    </div>
-                                </div>
-                                <div class="mt-6 flex flex-wrap gap-2" 
-                                     v-if="exp.showDetails"
-                                     :class="{'animate-fade-in': exp.showDetails}">
-                                    <span v-for="(tech, techIndex) in exp.technologies" 
-                                          :key="techIndex"
-                                          class="px-4 py-2 rounded-full text-sm font-medium"
-                                          :class="getTechBadgeClass(tech)">
-                                        <i :class="getTechIcon(tech) + ' mr-2'"></i>
+<h3 class="text-2xl font-bold mt-2 gradient-text">{{ exp.title }}</h3>
+<p class="text-gray-600 mt-1">{{ exp.company }}</p>
+<div class="mt-4">
+<div class="w-16 h-16 bg-gradient-1 rounded-lg flex items-center justify-center transform rotate-3 hover:rotate-6 transition-transform duration-300">
+<i :class="exp.icon + ' text-white text-2xl'"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-3/4">
+<p class="text-gray-700 mb-6 text-lg">{{ exp.description }}</p>
+<div class="space-y-4">
+<div :class="{'animate-slide-in': exp.showDetails}" :key="pointIndex" :style="{'animation-delay': pointIndex * 100 + 'ms'}" class="flex items-start hover-scale" v-for="(point, pointIndex) in exp.points">
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-3"></i>
+<p class="text-gray-700">{{ point }}</p>
+</div>
+</div>
+<div :class="{'animate-fade-in': exp.showDetails}" class="mt-6 flex flex-wrap gap-2" v-if="exp.showDetails">
+<span :class="getTechBadgeClass(tech)" :key="techIndex" class="px-4 py-2 rounded-full text-sm font-medium" v-for="(tech, techIndex) in exp.technologies">
+<i :class="getTechIcon(tech) + ' mr-2'"></i>
                                         {{ tech }}
                                     </span>
-                                </div>
-                                <div v-if="exp.showDetails" class="mt-6 pt-6 border-t border-gray-100 animate-fade-in">
-                                    <h4 class="text-lg font-semibold mb-4">Compétences acquises</h4>
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        <div v-for="(skill, skillIndex) in exp.skills" 
-                                             :key="skillIndex"
-                                             class="bg-gray-50 p-3 rounded-lg text-center hover-scale">
-                                            <i :class="skill.icon + ' text-blue-600 text-xl mb-2'"></i>
-                                            <p class="text-sm text-gray-700">{{ skill.name }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Software Section -->
-        <section id="software" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+</div>
+<div class="mt-6 pt-6 border-t border-gray-100 animate-fade-in" v-if="exp.showDetails">
+<h4 class="text-lg font-semibold mb-4">Compétences acquises</h4>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div :key="skillIndex" class="bg-gray-50 p-3 rounded-lg text-center hover-scale" v-for="(skill, skillIndex) in exp.skills">
+<i :class="skill.icon + ' text-blue-600 text-xl mb-2'"></i>
+<p class="text-sm text-gray-700">{{ skill.name }}</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Software Section -->
+<section class="py-20 bg-gray-50" id="software">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Logiciels
                 </h2>
-                <div class="software-grid">
-                    <div v-for="(software, index) in softwareList" 
-                         :key="index"
-                         class="software-item"
-                         data-aos="fade-up"
-                         :data-aos-delay="index * 50">
-                        <i :class="software.icon + ' text-4xl text-blue-600 mb-4'"></i>
-                        <h3 class="font-semibold text-center">{{ software.name }}</h3>
-                        <p class="text-sm text-gray-600 mt-2 text-center">{{ software.category }}</p>
-                        <div class="software-tooltip">
-                            <p class="text-sm text-gray-600">{{ software.description }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+<div class="software-grid">
+<div :data-aos-delay="index * 50" :key="index" class="software-item" data-aos="fade-up" v-for="(software, index) in softwareList">
+<i :class="software.icon + ' text-4xl text-blue-600 mb-4'"></i>
+<h3 class="font-semibold text-center">{{ software.name }}</h3>
+<p class="text-sm text-gray-600 mt-2 text-center">{{ software.category }}</p>
+<div class="software-tooltip">
+<p class="text-sm text-gray-600">{{ software.description }}</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-20 bg-white" id="contact">
+<div class="container mx-auto px-6">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
                     Me Contacter
                 </h2>
-                <div class="max-w-4xl mx-auto">
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div data-aos="fade-right">
-                            <h3 class="text-2xl font-semibold mb-6">Informations de contact</h3>
-                            <div class="space-y-6">
-                                <div class="flex items-start">
-                                    <i class="fas fa-phone text-blue-600 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-medium">Téléphone</h4>
-                                        <p class="text-gray-600">+33 7 64 54 89 45</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-envelope text-blue-600 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-medium">Email</h4>
-                                        <p class="text-gray-600">abdesamad.qouqi.pro@gmail.com</p>
-                                        <div class="flex space-x-3 mt-2">
-                                            <a href="mailto:abdesamad.qouqi.pro@gmail.com?subject=Contact depuis portfolio&body=Bonjour Abdesamad," class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
-                                                <i class="fab fa-google mr-1"></i> Gmail
+<div class="max-w-4xl mx-auto">
+<div class="grid md:grid-cols-2 gap-12">
+<div data-aos="fade-right">
+<h3 class="text-2xl font-semibold mb-6">Informations de contact</h3>
+<div class="space-y-6">
+<div class="flex items-start">
+<i class="fas fa-phone text-blue-600 text-xl mt-1 mr-4"></i>
+<div>
+<h4 class="font-medium">Téléphone</h4>
+<p class="text-gray-600">+33 7 64 54 89 45</p>
+</div>
+</div>
+<div class="flex items-start">
+<i class="fas fa-envelope text-blue-600 text-xl mt-1 mr-4"></i>
+<div>
+<h4 class="font-medium">Email</h4>
+<p class="text-gray-600">abdesamad.qouqi.pro@gmail.com</p>
+<div class="flex space-x-3 mt-2">
+<a class="text-blue-600 hover:text-blue-800 text-sm flex items-center" href="mailto:abdesamad.qouqi.pro@gmail.com?subject=Contact depuis portfolio&amp;body=Bonjour Abdesamad,">
+<i class="fab fa-google mr-1"></i> Gmail
                                             </a>
-                                            <a href="mailto:abdesamad.qouqi@efrei.net?subject=Contact depuis portfolio&body=Bonjour Abdesamad," class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
-                                                <i class="fab fa-microsoft mr-1"></i> Outlook
+<a class="text-blue-600 hover:text-blue-800 text-sm flex items-center" href="mailto:abdesamad.qouqi@efrei.net?subject=Contact depuis portfolio&amp;body=Bonjour Abdesamad,">
+<i class="fab fa-microsoft mr-1"></i> Outlook
                                             </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fab fa-linkedin text-blue-600 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-medium">LinkedIn</h4>
-                                        <a :href="linkedinUrl" target="_blank" class="text-blue-600 hover:text-blue-800">Abdesamad Qouqi</a>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-map-marker-alt text-blue-600 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-medium">Localisation</h4>
-                                        <p class="text-gray-600">Paris, France</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div data-aos="fade-left">
-                            <h3 class="text-2xl font-semibold mb-6">Possibilités d'entretiens</h3>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <div class="flex items-start mb-4">
-                                    <i class="fas fa-calendar-check text-blue-600 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-medium">Stage en IA & Marketing Digital</h4>
-                                        <p class="text-gray-600">3 novembre 2025 - 3 avril 2026</p>
-                                    </div>
-                                </div>
-                                <p class="text-gray-700 mb-6">Je suis actuellement à la recherche d'un stage de 5 mois dans le domaine de l'IA appliquée au Marketing Digital. N'hésitez pas à me contacter pour discuter d'opportunités potentielles.</p>
-                                <div class="flex space-x-3">
-                                    <a href="https://calendar.google.com" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center">
-                                        <i class="fas fa-video mr-2"></i> Visio
+</div>
+</div>
+</div>
+<div class="flex items-start">
+<i class="fab fa-linkedin text-blue-600 text-xl mt-1 mr-4"></i>
+<div>
+<h4 class="font-medium">LinkedIn</h4>
+<a :href="linkedinUrl" class="text-blue-600 hover:text-blue-800" target="_blank">Abdesamad Qouqi</a>
+</div>
+</div>
+<div class="flex items-start">
+<i class="fas fa-map-marker-alt text-blue-600 text-xl mt-1 mr-4"></i>
+<div>
+<h4 class="font-medium">Localisation</h4>
+<p class="text-gray-600">Paris, France</p>
+</div>
+</div>
+</div>
+</div>
+<div data-aos="fade-left">
+<h3 class="text-2xl font-semibold mb-6">Possibilités d'entretiens</h3>
+<div class="bg-gray-50 p-6 rounded-lg">
+<div class="flex items-start mb-4">
+<i class="fas fa-calendar-check text-blue-600 text-xl mt-1 mr-4"></i>
+<div>
+<h4 class="font-medium">Stage en IA &amp; Gestion de Projet &amp; Marketing Digital</h4>
+<p class="text-gray-600">3 novembre 2025 - 3 avril 2026</p>
+</div>
+</div>
+<p class="text-gray-700 mb-6">Je suis actuellement à la recherche d'un stage de 5 mois dans le domaine de l'IA appliquée à la Gestion de Projet et au Marketing Digital. N'hésitez pas à me contacter pour discuter d'opportunités potentielles.</p>
+<div class="flex space-x-3">
+<a class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center" href="https://calendar.google.com" target="_blank">
+<i class="fas fa-video mr-2"></i> Visio
                                     </a>
-                                    <a href="tel:+33764548945" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center">
-                                        <i class="fas fa-phone mr-2"></i> Appel
+<a class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center" href="tel:+33764548945">
+<i class="fas fa-phone mr-2"></i> Appel
                                     </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-gray-900 text-white py-12">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-6 md:mb-0">
-                        <h3 class="text-2xl font-bold gradient-text">Abdesamad QOUQI</h3>
-                        <p class="mt-2 text-gray-400">Étudiant Ingénieur IA & Digital Marketing</p>
-                    </div>
-                    <div class="flex space-x-6">
-                        <a :href="linkedinUrl" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-8 text-center text-gray-400">
-                    <p>&copy; {{ new Date().getFullYear() }} Tous droits réservés</p>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Chatbot -->
-        <div class="chatbot-container" v-if="!isMobile || (isMobile && chatbotOpen)">
-            <div class="chatbot-button" @click="toggleChatbot" v-if="!chatbotOpen">
-                <i class="fas fa-robot text-white text-2xl"></i>
-            </div>
-            <div v-if="chatbotOpen" class="chatbot-window">
-                <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fas fa-robot mr-2"></i>
-                        <span>Abdesamad Qouqi</span>
-                    </div>
-                    <button @click="toggleChatbot" class="text-white hover:text-gray-200">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="chat-messages" ref="chatMessages">
-                    <div v-for="(message, index) in chatMessages" 
-                         :key="index"
-                         :class="['message p-3 rounded-lg mb-3', 
-                                 message.type === 'bot' ? 'bg-gray-100 text-gray-700' : 'bg-blue-600 text-white ml-auto']">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<div class="mb-6 md:mb-0">
+<h3 class="text-2xl font-bold gradient-text">Abdesamad QOUQI</h3>
+<p class="mt-2 text-gray-400">Étudiant Ingénieur IA &amp; Digital Marketing</p>
+</div>
+<div class="flex space-x-6">
+<a :href="linkedinUrl" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank">
+<i class="fab fa-linkedin text-2xl"></i>
+</a>
+</div>
+</div>
+<div class="mt-8 text-center text-gray-400">
+<p>© {{ new Date().getFullYear() }} Tous droits réservés</p>
+</div>
+</div>
+</footer>
+<!-- Chatbot -->
+<div class="chatbot-container" v-if="!isMobile || (isMobile &amp;&amp; chatbotOpen)">
+<div @click="toggleChatbot" class="chatbot-button" v-if="!chatbotOpen">
+<i class="fas fa-robot text-white text-2xl"></i>
+</div>
+<div class="chatbot-window" v-if="chatbotOpen">
+<div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+<div class="flex items-center">
+<i class="fas fa-robot mr-2"></i>
+<span>Abdesamad Qouqi</span>
+</div>
+<button @click="toggleChatbot" class="text-white hover:text-gray-200">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="chat-messages" ref="chatMessages">
+<div :class="['message p-3 rounded-lg mb-3', 
+                                 message.type === 'bot' ? 'bg-gray-100 text-gray-700' : 'bg-blue-600 text-white ml-auto']" :key="index" v-for="(message, index) in chatMessages">
                         {{ message.text }}
                     </div>
-                </div>
-                <div class="chat-input bg-white">
-                    <input type="text" 
-                           v-model="currentMessage" 
-                           @keyup.enter="sendMessage"
-                           placeholder="Posez votre question..."
-                           class="flex-1 px-4 py-2 focus:outline-none">
-                    <button @click="sendMessage" 
-                            class="px-4 text-blue-600 hover:text-blue-800">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Vue.js Script -->
-    <script>
+</div>
+<div class="chat-input bg-white">
+<input @keyup.enter="sendMessage" class="flex-1 px-4 py-2 focus:outline-none" placeholder="Posez votre question..." type="text" v-model="currentMessage"/>
+<button @click="sendMessage" class="px-4 text-blue-600 hover:text-blue-800">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Vue.js Script -->
+<script>
         const { createApp } = Vue
 
         createApp({
             data() {
-                return {
+        return {
+          language: 'fr',
+          texts: {
+            hero: {
+              title: {
+                fr: "Étudiant Ingénieur IA & Digital Marketing",
+                en: "AI & Digital Marketing Engineering Student"
+              },
+              subtitle: {
+                fr: "À la recherche d'un stage en IA appliquée à la Gestion de Projet et au Marketing Digital<br>Du 3 novembre 2025 au 3 avril 2026",
+                en: "Looking for an internship in AI applied to Project Management and Digital Marketing<br>From November 3, 2025 to April 3, 2026"
+              },
+              contact: { fr: "Me Contacter", en: "Contact Me" },
+              more: { fr: "En Savoir Plus", en: "Learn More" },
+              download: {
+                fr: "Télécharger mon CV et ma lettre de motivation",
+                en: "Download my CV and cover letter"
+              }
+            }
+          },
+    
                     scrolled: false,
                     mobileMenuOpen: false,
                     isVisible: false,
@@ -1303,6 +1263,10 @@
                 }
             },
             methods: {
+        switchLanguage() {
+            this.language = this.language === 'fr' ? 'en' : 'fr';
+        },
+    
                 toggleMobileMenu() {
                     this.mobileMenuOpen = !this.mobileMenuOpen
                 },
