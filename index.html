@@ -525,7 +525,17 @@
 <div class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6" data-aos="fade-up" data-aos-delay="400">
 <a class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300" href="#contact">{{ texts.hero.contact[language] }}</a>
 <a class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full transition-colors duration-300" href="#about">{{ texts.hero.more[language] }}</a>
-<a class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300" download="" href="Abdesamad_Qouqi_CV_LettreDeMotivation_2025.pdf"><i class="fas fa-download"></i> {{ texts.hero.download[language] }}</a>
+
+<div class="relative group">
+<button class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300">
+<i class="fas fa-download"></i> Télécharger mon CV et ma lettre de motivation
+  </button>
+<div class="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 w-64">
+<a class="block px-4 py-2 hover:bg-blue-50 text-gray-700" download="" href="Abdesamad_Qouqi_CV_LettreDeMotivation_2025.pdf">Version Française</a>
+<a class="block px-4 py-2 hover:bg-blue-50 text-gray-700" download="" href="Abdesamad_Qouqi_CV_MotivationLetter_2025.pdf">English Version</a>
+</div>
+</div>
+
 </div>
 </div>
 <!-- Flèche incitative scroll -->
@@ -575,7 +585,7 @@ document.addEventListener('DOMContentLoaded', function () {
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors & CartoDB',
     subdomains: 'abcd',
-    maxZoom: 19
+    maxZoom: 20
   }).addTo(map);
 
   const locations = [
