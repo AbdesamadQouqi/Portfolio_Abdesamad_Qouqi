@@ -604,16 +604,12 @@
             data-aos="fade-up"
             data-aos-delay="400"
           >
-            <a
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300"
-              href="#contact"
-              >{{ texts.hero.contact[language] }}</a
-            >
-            <a
-              class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full transition-colors duration-300"
-              href="#about"
-              >{{ texts.hero.more[language] }}</a
-            >
+<button
+  @click="showContactPopup = true"
+  class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300"
+>
+  {{ texts.hero.contact[language] }}
+</button>
 
             <div class="relative group">
               <button
@@ -649,6 +645,27 @@
             <i class="fas fa-chevron-down"></i>
           </a>
         </div>
+        <!-- Contact popup in Hero -->
+<div
+  v-show="showContactPopup"
+  class="absolute top-20 right-10 w-full max-w-sm bg-white border border-blue-200 rounded-lg shadow-lg p-6 z-30 animate-fade-in"
+>
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-xl font-semibold text-blue-600">Contact</h3>
+    <button @click="showContactPopup = false" class="text-gray-500 hover:text-red-600">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="space-y-3 text-sm text-gray-700">
+    <div><i class="fas fa-phone mr-2 text-blue-600"></i>+33 7 64 54 89 45</div>
+    <div><i class="fas fa-envelope mr-2 text-blue-600"></i>abdesamad.qouqi.pro@gmail.com</div>
+    <div><i class="fab fa-linkedin mr-2 text-blue-600"></i>
+      <a :href="linkedinUrl" target="_blank" class="hover:underline text-blue-600">LinkedIn</a>
+    </div>
+    <div><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Paris, France</div>
+  </div>
+</div>
+
       </section>
       <!-- About Section -->
       <section class="py-20 bg-white" id="about">
@@ -791,110 +808,6 @@
           </div>
         </div>
       </section>
-      <!-- Languages Section -->
-      <section class="py-20 bg-gray-50" id="languages">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Langues
-          </h2>
-          <div class="flex flex-wrap justify-center gap-8">
-            <div
-              :data-aos-delay="index * 100"
-              :key="lang.name"
-              class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full md:w-1/4 relative language-item"
-              data-aos="fade-up"
-              v-for="(lang, index) in languages"
-            >
-              <div class="flex items-center mb-4">
-                <img
-                  :alt="lang.name"
-                  :src="lang.flag"
-                  class="w-12 h-8 mr-3 rounded shadow-sm"
-                />
-                <div>
-                  <h3 class="font-semibold">{{ lang.name }}</h3>
-                  <p class="text-sm text-gray-600">{{ lang.level }}</p>
-                </div>
-              </div>
-              <div class="flex">
-                <div
-                  :class="['w-2 h-2 rounded-full mr-1', 
-                                         n &lt;= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']"
-                  :key="n"
-                  v-for="n in 5"
-                ></div>
-              </div>
-              <div class="certification-tooltip" v-if="lang.name === 'Anglais'">
-                <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
-                <button
-                  @click="downloadToeic"
-                  class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
-                >
-                  <i class="fas fa-download mr-1"></i> Télécharger
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="pt-20 pb-10 bg-white" id="certifications">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Mes Certifications
-          </h2>
-          <div class="grid md:grid-cols-3 gap-8">
-            <!-- TOEIC -->
-            <a
-              class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-              data-aos="fade-up"
-              data-aos-delay="0"
-              href="toeic.pdf"
-              target="_blank"
-            >
-              <i class="fas fa-language text-blue-600 text-3xl mb-4"></i>
-              <h3 class="font-semibold text-lg mb-2">TOEIC</h3>
-              <p class="text-gray-600 text-sm">
-                Certification officielle d'anglais niveau B2
-              </p>
-            </a>
-            <!-- Cisco Cybersecurity -->
-            <a
-              class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              href="cybersecurity_cisco_abdesamad_qouqi.pdf"
-              target="_blank"
-            >
-              <i class="fas fa-shield-alt text-blue-600 text-3xl mb-4"></i>
-              <h3 class="font-semibold text-lg mb-2">
-                Junior Cybersecurity Analyst
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Délivrée par Cisco Networking Academy
-              </p>
-            </a>
-            <!-- PSC1 -->
-            <a
-              class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-              data-aos="fade-up"
-              data-aos-delay="200"
-              target="_blank"
-            >
-              <i class="fas fa-first-aid text-blue-600 text-3xl mb-4"></i>
-              <h3 class="font-semibold text-lg mb-2">PSC1 - Secourisme</h3>
-              <p class="text-gray-600 text-sm">
-                Certificat de citoyen de sécurité civile (PSC1)
-              </p>
-            </a>
-          </div>
-        </div>
-      </section>
       <!-- Skills Section -->
       <section class="py-20 bg-white" id="skills">
         <div class="container mx-auto px-6">
@@ -902,7 +815,7 @@
             class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
             data-aos="fade-up"
           >
-            Mes compétences
+            Mes Compétences
           </h2>
           <!-- Soft Skills -->
           <h3
@@ -963,54 +876,7 @@
           </div>
         </div>
       </section>
-      <!-- Projects Section -->
-      <section class="py-20 bg-gray-50" id="projects">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Quelques Projets ...
-          </h2>
-          <div class="projects-mosaic">
-            <div
-              :data-aos-delay="index * 100"
-              :key="index"
-              class="project-item"
-              data-aos="fade-up"
-              v-for="(project, index) in projects"
-            >
-              <img
-                :alt="project.title"
-                :src="project.image"
-                class="project-image"
-              />
-              <div class="project-overlay">
-                <h3 class="font-bold text-lg">{{ project.title }}</h3>
-                <p class="text-sm mt-2">{{ project.type }}</p>
-                <div class="mt-3 flex flex-wrap gap-2">
-                  <span
-                    :class="getTechBadgeClass(tech)"
-                    :key="techIndex"
-                    class="px-2 py-1 text-xs rounded-full"
-                    v-for="(tech, techIndex) in project.technologies"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
-                <button
-                  @click.stop="openPdf(project.pdf)"
-                  class="mt-3 text-blue-400 hover:text-blue-600 text-sm flex items-center"
-                  v-if="project.pdf"
-                >
-                  <i class="fas fa-file-pdf mr-1"></i> Voir le rapport
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Experience Section -->
+       <!-- Experience Section -->
       <section class="py-20 bg-white" id="experience">
         <div class="container mx-auto px-6">
           <h2
@@ -1109,6 +975,53 @@
           </div>
         </div>
       </section>
+      <!-- Projects Section -->
+      <section class="py-20 bg-gray-50" id="projects">
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
+            data-aos="fade-up"
+          >
+            Quelques Projets ...
+          </h2>
+          <div class="projects-mosaic">
+            <div
+              :data-aos-delay="index * 100"
+              :key="index"
+              class="project-item"
+              data-aos="fade-up"
+              v-for="(project, index) in projects"
+            >
+              <img
+                :alt="project.title"
+                :src="project.image"
+                class="project-image"
+              />
+              <div class="project-overlay">
+                <h3 class="font-bold text-lg">{{ project.title }}</h3>
+                <p class="text-sm mt-2">{{ project.type }}</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    :class="getTechBadgeClass(tech)"
+                    :key="techIndex"
+                    class="px-2 py-1 text-xs rounded-full"
+                    v-for="(tech, techIndex) in project.technologies"
+                  >
+                    {{ tech }}
+                  </span>
+                </div>
+                <button
+                  @click.stop="openPdf(project.pdf)"
+                  class="mt-3 text-blue-400 hover:text-blue-600 text-sm flex items-center"
+                  v-if="project.pdf"
+                >
+                  <i class="fas fa-file-pdf mr-1"></i> Voir le rapport
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <!-- Software Section -->
       <section class="py-20 bg-gray-50" id="software">
         <div class="container mx-auto px-6">
@@ -1135,6 +1048,97 @@
                 <p class="text-sm text-gray-600">{{ software.description }}</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      <!-- Languages Section -->
+      <section class="py-20 bg-gray-50" id="languages">
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
+            data-aos="fade-up"
+          >
+            Langues
+          </h2>
+          <div class="flex flex-wrap justify-center gap-8">
+            <div
+              :data-aos-delay="index * 100"
+              :key="lang.name"
+              class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full md:w-1/4 relative language-item"
+              data-aos="fade-up"
+              v-for="(lang, index) in languages"
+            >
+              <div class="flex items-center mb-4">
+                <img
+                  :alt="lang.name"
+                  :src="lang.flag"
+                  class="w-12 h-8 mr-3 rounded shadow-sm"
+                />
+                <div>
+                  <h3 class="font-semibold">{{ lang.name }}</h3>
+                  <p class="text-sm text-gray-600">{{ lang.level }}</p>
+                </div>
+              </div>
+              <div class="flex">
+                <div
+                  :class="['w-2 h-2 rounded-full mr-1', 
+                                         n &lt;= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']"
+                  :key="n"
+                  v-for="n in 5"
+                ></div>
+              </div>
+              <div class="certification-tooltip" v-if="lang.name === 'Anglais'">
+                <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
+                <button
+                  @click="downloadToeic"
+                  class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
+                >
+                  <i class="fas fa-download mr-1"></i> Télécharger
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="pt-20 pb-10 bg-white" id="certifications">
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
+            data-aos="fade-up"
+          >
+            Mes Certifications
+          </h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- TOEIC -->
+            <a
+              class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
+              data-aos="fade-up"
+              data-aos-delay="0"
+              href="toeic.pdf"
+              target="_blank"
+            >
+              <i class="fas fa-language text-blue-600 text-3xl mb-4"></i>
+              <h3 class="font-semibold text-lg mb-2">TOEIC</h3>
+              <p class="text-gray-600 text-sm">
+                Certification officielle d'anglais niveau B2
+              </p>
+            </a>
+            <!-- Cisco Cybersecurity -->
+            <a
+              class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
+              data-aos="fade-up"
+              data-aos-delay="100"
+              href="cybersecurity_cisco_abdesamad_qouqi.pdf"
+              target="_blank"
+            >
+              <i class="fas fa-shield-alt text-blue-600 text-3xl mb-4"></i>
+              <h3 class="font-semibold text-lg mb-2">
+                Junior Cybersecurity Analyst
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Délivrée par Cisco Networking Academy
+              </p>
+            </a>
           </div>
         </div>
       </section>
@@ -1337,6 +1341,8 @@
       createApp({
         data() {
           return {
+            showContactPopup: false,
+
             language: "fr",
             texts: {
               hero: {
@@ -1345,7 +1351,7 @@
                   en: "Data, AI & IT Engineering Student",
                 },
                 subtitle: {
-                  fr: "À la recherche d'un stage en IA appliquée à l'IT et à la Data<br>Du 3 novembre 2025 au 3 avril 2026",
+                  fr: "À la recherche d'un stage en IA appliquée à l'IT, à la Data et au Marketing Digital<br>Du 3 novembre 2025 au 3 avril 2026",
                   en: "Looking for an internship in AI applied to Project Management and Data<br>From November 3, 2025 to April 3, 2026",
                 },
                 contact: { fr: "Me Contacter", en: "Contact Me" },
@@ -1401,11 +1407,12 @@
             navigation: [
               { id: 1, name: "Accueil", href: "#" },
               { id: 2, name: "À Propos", href: "#about" },
-              { id: 3, name: "Langues", href: "#languages" },
               { id: 4, name: "Skills", href: "#skills" },
-              { id: 5, name: "Projets", href: "#projects" },
               { id: 6, name: "Expérience", href: "#experience" },
+              { id: 5, name: "Projets", href: "#projects" },
               { id: 7, name: "Logiciels", href: "#software" },
+              { id: 3, name: "Langues", href: "#languages" },
+              { id: 9, name: "Certifications", href: "#certifications" },
               { id: 8, name: "Contact", href: "#contact" },
             ],
             softSkills: [
@@ -1606,11 +1613,11 @@
                     "Base de données + Back-End Django (utilisateur et admin)",
                     "Soutenance tech + présentation client pour validation finale",
                 ],
-                technologies: ["Python", "TensorFlow", "Vue.js", "NLP"],
+                technologies: ["Python", "Django", "Vue.js"],
                 showDetails: false,
                 skills: [
                   {
-                    name: "Communication internationale",
+                    name: "Collaboration",
                     icon: "fas fa-comments",
                   },
                   { name: "Gestion de projet agile", icon: "fas fa-tasks" },
