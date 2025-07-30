@@ -569,102 +569,104 @@
         </div>
       </nav>
       <!-- Hero Section -->
-      <section
-        class="min-h-screen flex items-center justify-center relative overflow-hidden"
-        style="
-          background: linear-gradient(
-            rgba(37, 99, 235, 0.1),
-            rgba(37, 99, 235, 0.2)
-          );
-        "
-      >
-        <div class="floating-particles">
-          <div
-            :key="n"
-            :style="getParticleStyle()"
-            class="particle"
-            v-for="n in 30"
-          ></div>
-        </div>
-        <div class="container mx-auto px-6 text-center relative z-10">
-          <h1
-            class="text-4xl md:text-6xl font-bold mb-6 gradient-text"
-            data-aos="fade-up"
-          >
-            {{ texts.hero.title[language] }}
-          </h1>
-          <p
-            class="text-xl md:text-2xl mb-8 text-gray-700"
-            data-aos="fade-up"
-            data-aos-delay="200"
-            v-html="texts.hero.subtitle[language]"
-          ></p>
-          <div
-            class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
-<button
-  @click="showContactPopup = true"
-  class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300"
+<section
+  class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  style="
+    background: linear-gradient(
+      rgba(37, 99, 235, 0.1),
+      rgba(37, 99, 235, 0.2)
+    );
+  "
 >
-  {{ texts.hero.contact[language] }}
-</button>
-
-            <div class="relative group">
-              <button
-                class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300"
-              >
-                <i class="fas fa-download"></i> Télécharger mon CV et ma lettre
-                de motivation
-              </button>
-              <div
-                class="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 w-64"
-              >
-                <a
-                  class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
-                  download=""
-                  href="Abdesamad_Qouqi_CV_et_LDM_version_française.pdf"
-                  >Version Française</a
-                >
-                <a
-                  class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
-                  download=""
-                  href="Abdesamad_Qouqi_CV_and_LDM_english_version.pdf"
-                  >English Version</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Flèche incitative scroll -->
-        <div
-          class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-        >
-          <a class="text-blue-600 hover:text-blue-800 text-3xl" href="#about">
-            <i class="fas fa-chevron-down"></i>
-          </a>
-        </div>
-        <!-- Contact popup in Hero -->
-<div
-  v-show="showContactPopup"
-  class="absolute top-20 right-10 w-full max-w-sm bg-white border border-blue-200 rounded-lg shadow-lg p-6 z-30 animate-fade-in"
->
-  <div class="flex justify-between items-center mb-4">
-    <h3 class="text-xl font-semibold text-blue-600">Contact</h3>
-    <button @click="showContactPopup = false" class="text-gray-500 hover:text-red-600">
-      <i class="fas fa-times"></i>
-    </button>
+  <div class="floating-particles">
+    <div
+      :key="n"
+      :style="getParticleStyle()"
+      class="particle"
+      v-for="n in 30"
+    ></div>
   </div>
-  <div class="space-y-3 text-sm text-gray-700">
-    <div><i class="fas fa-phone mr-2 text-blue-600"></i>+33 7 64 54 89 45</div>
-    <div><i class="fas fa-envelope mr-2 text-blue-600"></i>abdesamad.qouqi.pro@gmail.com</div>
-    <div><i class="fab fa-linkedin mr-2 text-blue-600"></i>
-      <a :href="linkedinUrl" target="_blank" class="hover:underline text-blue-600">LinkedIn</a>
-    </div>
-</div>
+  <div class="container mx-auto px-6 text-center relative z-10">
+    <h1
+      class="text-4xl md:text-6xl font-bold mb-6 gradient-text"
+      data-aos="fade-up"
+    >
+      {{ texts.hero.title[language] }}
+    </h1>
+    <p
+      class="text-xl md:text-2xl mb-8 text-gray-700"
+      data-aos="fade-up"
+      data-aos-delay="200"
+      v-html="texts.hero.subtitle[language]"
+    ></p>
+    <div
+      class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6"
+      data-aos="fade-up"
+      data-aos-delay="400"
+    >
+      <button
+        @click="showContactPopup = true"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300"
+      >
+        {{ texts.hero.contact[language] }}
+      </button>
 
-      </section>
+      <div class="relative group">
+        <button
+          class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300"
+        >
+          <i class="fas fa-download"></i> Télécharger mon CV
+        </button>
+        <div
+          class="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 w-64"
+        >
+          <a
+            class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
+            download=""
+            href="Abdesamad_Qouqi_CV_version_française.pdf"
+            >Version Française</a
+          >
+          <a
+            class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
+            download=""
+            href="Abdesamad_Qouqi_CV_english_version.pdf"
+            >English Version</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Flèche incitative scroll -->
+  <div
+    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+  >
+    <a class="text-blue-600 hover:text-blue-800 text-3xl" href="#about">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </div>
+  <!-- Contact popup in Hero -->
+  <div
+    v-show="showContactPopup"
+    class="fixed inset-0 flex items-center justify-center p-4 z-30 bg-black bg-opacity-50"
+    @click.self="showContactPopup = false"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm animate-fade-in">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold text-blue-600">Contact</h3>
+        <button @click="showContactPopup = false" class="text-gray-500 hover:text-red-600">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-sm text-gray-700">
+        <div><i class="fas fa-phone mr-2 text-blue-600"></i>+33 (0)7 64 54 89 45</div>
+        <div><i class="fas fa-envelope mr-2 text-blue-600"></i>abdesamad.qouqi.pro@gmail.com</div>
+        <div><i class="fab fa-linkedin mr-2 text-blue-600"></i>
+          <a :href="linkedinUrl" target="_blank" class="hover:underline text-blue-600">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       <!-- About Section -->
       <section class="py-20 bg-white" id="about">
         <div class="container mx-auto px-6">
@@ -1161,7 +1163,7 @@
                     <i class="fas fa-phone text-blue-600 text-xl mt-1 mr-4"></i>
                     <div>
                       <h4 class="font-medium">Téléphone</h4>
-                      <p class="text-gray-600">+33 7 64 54 89 45</p>
+                      <p class="text-gray-600">+33 (0)7 64 54 89 45</p>
                     </div>
                   </div>
                   <div class="flex items-start">
@@ -1351,13 +1353,13 @@
                 },
                 subtitle: {
                   fr: "À la recherche d'un stage en IA appliquée à l'IT, à la Data et au Marketing Digital<br>Du 3 novembre 2025 au 3 avril 2026",
-                  en: "Looking for an internship in AI applied to Project Management and Data<br>From November 3, 2025 to April 3, 2026",
+                  en: "Looking for an internship in AI applied to Project Management, Data and Digital Marketing<br>From November 3, 2025 to April 3, 2026",
                 },
                 contact: { fr: "Me Contacter", en: "Contact Me" },
                 more: { fr: "En Savoir Plus", en: "Learn More" },
                 download: {
-                  fr: "Télécharger mon CV et ma lettre de motivation",
-                  en: "Download my CV and cover letter",
+                  fr: "Télécharger mon CV",
+                  en: "Download my CV",
                 },
               },
             },
