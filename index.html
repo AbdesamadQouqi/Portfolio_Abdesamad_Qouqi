@@ -1050,54 +1050,55 @@
         </div>
       </section>
       <!-- Languages Section -->
-      <section class="py-20 bg-gray-50" id="languages">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Langues
-          </h2>
-          <div class="flex flex-wrap justify-center gap-8">
-            <div
-              :data-aos-delay="index * 100"
-              :key="lang.name"
-              class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full md:w-1/4 relative language-item"
-              data-aos="fade-up"
-              v-for="(lang, index) in languages"
-            >
-              <div class="flex items-center mb-4">
-                <img
-                  :alt="lang.name"
-                  :src="lang.flag"
-                  class="w-12 h-8 mr-3 rounded shadow-sm"
-                />
-                <div>
-                  <h3 class="font-semibold">{{ lang.name }}</h3>
-                  <p class="text-sm text-gray-600">{{ lang.level }}</p>
-                </div>
-              </div>
-              <div class="flex">
-                <div
-                  :class="['w-2 h-2 rounded-full mr-1', 
-                                         n &lt;= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']"
-                  :key="n"
-                  v-for="n in 5"
-                ></div>
-              </div>
-              <div class="certification-tooltip" v-if="lang.name === 'Anglais'">
-                <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
-                <button
-                  @click="downloadToeic"
-                  class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
-                >
-                  <i class="fas fa-download mr-1"></i> Télécharger
-                </button>
-              </div>
-            </div>
+<section class="py-20 bg-gray-50" id="languages">
+  <div class="container mx-auto px-6">
+    <h2
+      class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
+      data-aos="fade-up"
+    >
+      Langues
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+      <div
+        :data-aos-delay="index * 100"
+        :key="lang.name"
+        class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full max-w-xs relative language-item"
+        data-aos="fade-up"
+        v-for="(lang, index) in languages"
+      >
+        <div class="flex items-center mb-4">
+          <img
+            :alt="lang.name"
+            :src="lang.flag"
+            class="w-12 h-8 mr-3 rounded shadow-sm"
+          />
+          <div>
+            <h3 class="font-semibold">{{ lang.name }}</h3>
+            <p class="text-sm text-gray-600">{{ lang.level }}</p>
           </div>
         </div>
-      </section>
+        <div class="flex">
+          <div
+            :class="['w-2 h-2 rounded-full mr-1', 
+                               n <= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']"
+            :key="n"
+            v-for="n in 5"
+          ></div>
+        </div>
+        <div class="certification-tooltip" v-if="lang.name === 'Anglais'">
+          <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
+          <button
+            @click="downloadToeic"
+            class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
+          >
+            <i class="fas fa-download mr-1"></i> Télécharger
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
       <section class="pt-20 pb-10 bg-white" id="certifications">
         <div class="container mx-auto px-6">
           <h2
@@ -1376,26 +1377,33 @@
             ],
             hoveredLanguage: null,
             linkedinUrl: "https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269",
-            languages: [
-              {
-                name: "Français",
-                level: "Langue maternelle",
-                score: 5,
-                flag: "https://flagcdn.com/w160/fr.png",
-              },
-              {
-                name: "Anglais",
-                level: "Niveau TOEIC B2",
-                score: 4,
-                flag: "https://flagcdn.com/w160/gb.png",
-              },
-              {
-                name: "Espagnol",
-                level: "Niveau B1",
-                score: 3,
-                flag: "https://flagcdn.com/w160/es.png",
-              },
-            ],
+languages: [
+  {
+    name: "Français",
+    level: "Langue maternelle",
+    score: 5,
+    flag: "https://flagcdn.com/w160/fr.png",
+  },
+  {
+    name: "Darija",
+    level: "Langue maternelle",
+    score: 5,
+    flag: "https://flagcdn.com/w160/ma.png", // Drapeau du Maroc 🇲🇦
+  },
+  {
+    name: "Anglais",
+    level: "Niveau TOEIC B2",
+    score: 4,
+    flag: "https://flagcdn.com/w160/gb.png",
+  },
+  {
+    name: "Espagnol",
+    level: "Niveau B1",
+    score: 3,
+    flag: "https://flagcdn.com/w160/es.png",
+  },
+],
+
             form: {
               name: "",
               email: "",
