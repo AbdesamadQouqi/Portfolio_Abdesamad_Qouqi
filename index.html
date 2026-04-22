@@ -1,2158 +1,1104 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Abdesamad Qouqi</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
-      rel="stylesheet"
-    />
-    <!-- AOS Library for scroll animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Custom Styles -->
-    <style>
-      :root {
-        --primary-color: #4f46e5;
-        --secondary-color: #818cf8;
-        --accent-color: #c7d2fe;
-        --background-light: #f8fafc;
-        --gradient-1: linear-gradient(135deg, #4f46e5, #818cf8);
-        --gradient-2: linear-gradient(135deg, #818cf8, #c7d2fe);
-        --gradient-3: linear-gradient(135deg, #c7d2fe, #e0e7ff);
-      }
-
-      @keyframes float {
-        0% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-        100% {
-          transform: translateY(0px);
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      @keyframes slideIn {
-        from {
-          transform: translateX(-100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-
-      .animate-pulse {
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      .animate-slide-in {
-        animation: slideIn 0.5s ease-out forwards;
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 0.5s ease-out forwards;
-      }
-
-      .glass-effect {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
-
-      .hover-scale {
-        transition: transform 0.3s ease;
-      }
-
-      .hover-scale:hover {
-        transform: scale(1.05);
-      }
-
-      .card-3d {
-        transform-style: preserve-3d;
-        transition: transform 0.5s ease;
-      }
-
-      .card-3d:hover {
-        transform: translateY(-10px) rotateX(10deg);
-      }
-
-      body {
-        font-family: "Space Grotesk", sans-serif;
-        scroll-behavior: smooth;
-      }
-
-      .gradient-text {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .gradient-bg {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-      }
-
-      .timeline-dot::before {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 100%;
-        background: var(--secondary-color);
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: -1;
-      }
-
-      .skill-progress {
-        transition: width 1.5s ease-in-out;
-      }
-
-      .nav-link {
-        position: relative;
-      }
-
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: -2px;
-        left: 0;
-        background: var(--secondary-color);
-        transition: width 0.3s ease;
-      }
-
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      .card-hover {
-        transition: all 0.3s ease;
-      }
-
-      .card-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .chatbot-container {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        transition: all 0.3s ease;
-      }
-
-      .chatbot-button {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: var(--primary-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .chatbot-button:hover {
-        transform: scale(1.1);
-      }
-
-      .chatbot-window {
-        position: absolute;
-        bottom: 80px;
-        right: 0;
-        width: 350px;
-        height: 500px;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-
-      .chat-messages {
-        height: calc(100% - 120px);
-        overflow-y: auto;
-        padding: 20px;
-      }
-
-      .chat-input {
-        height: 60px;
-        border-top: 1px solid #eee;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-      }
-
-      .message {
-        margin-bottom: 15px;
-        max-width: 80%;
-      }
-
-      .message.bot {
-        margin-right: auto;
-      }
-
-      .message.user {
-        margin-left: auto;
-      }
-
-      .floating-particles {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-      }
-
-      .particle {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      @keyframes float {
-        0% {
-          transform: translateY(0) translateX(0);
-          opacity: 0;
-        }
-        50% {
-          opacity: 0.8;
-        }
-        100% {
-          transform: translateY(-100vh) translateX(100px);
-          opacity: 0;
-        }
-      }
-
-      .language-level {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        margin-right: 5px;
-      }
-
-      .level-native {
-        background: var(--primary-color);
-      }
-
-      .level-advanced {
-        background: var(--secondary-color);
-      }
-
-      .level-intermediate {
-        background: var(--accent-color);
-      }
-
-      .skill-card {
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-      }
-
-      .skill-card:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      .skill-tooltip {
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        width: 200px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 10;
-      }
-
-      .skill-card:hover .skill-tooltip {
-        opacity: 1;
-      }
-
-      .experience-card {
-        position: relative;
-        overflow: hidden;
-      }
-
-      .experience-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: var(--primary-color);
-        transition: all 0.3s ease;
-      }
-
-      .experience-card:hover::before {
-        width: 100%;
-        opacity: 0.1;
-      }
-
-      /* Interactive globe */
-      .globe-container {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        margin: 0 auto;
-      }
-
-      .globe {
-        width: 100%;
-        height: 100%;
-        background: url("https://cdn.pixabay.com/photo/2012/04/11/17/43/globe-29192_960_720.png")
-          no-repeat center center;
-        background-size: contain;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: transform 0.5s ease;
-        cursor: pointer;
-      }
-
-      .globe-point {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 10;
-      }
-
-      .globe-point:hover {
-        transform: translate(-50%, -50%) scale(1.5);
-        box-shadow: 0 0 10px rgba(79, 70, 229, 0.7);
-      }
-
-      .globe-tooltip {
-        position: absolute;
-        background: white;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        z-index: 100;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        width: 200px;
-      }
-
-      .globe-point:hover + .globe-tooltip {
-        opacity: 1;
-      }
-
-      /* Projects grid */
-      .projects-mosaic {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-      }
-
-      .project-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-        aspect-ratio: 1/1;
-      }
-
-      .project-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-
-      .project-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 15px;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-      }
-
-      .project-item:hover .project-overlay {
-        transform: translateY(0);
-      }
-
-      .project-item:hover .project-image {
-        transform: scale(1.1);
-      }
-
-      /* Software section */
-      .software-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 20px;
-      }
-
-      .software-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 10px;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .software-item:hover {
-        background: rgba(79, 70, 229, 0.1);
-        transform: translateY(-5px);
-      }
-
-      .software-tooltip {
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        width: 200px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 10;
-      }
-
-      .software-item:hover .software-tooltip {
-        opacity: 1;
-      }
-
-      /* Language certification */
-      .certification-tooltip {
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        width: 200px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 10;
-      }
-
-      @keyframes subtle-bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(10px);
-        }
-      }
-      .animate-subtle-bounce {
-        animation: subtle-bounce 2s ease-in-out infinite;
-      }
-      .language-item:hover .certification-tooltip {
-        opacity: 1;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-50">
-    <div id="app">
-      <!-- Navigation -->
-      <nav
-        :class="{'bg-opacity-90': scrolled}"
-        class="fixed w-full bg-white shadow-md z-50"
-      >
-        <div class="container mx-auto px-6 py-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <div class="text-2xl font-bold gradient-text">
-                Abdesamad QOUQI
-              </div>
-              <button
-                @click="switchLanguage"
-                class="text-sm hover:underline text-gray-600"
-              >
-                🌐 {{ language === 'fr' ? 'EN' : 'FR' }}
-              </button>
-            </div>
-            <div class="hidden md:flex space-x-8">
-              <a
-                :href="item.href"
-                :key="item.id"
-                class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-300"
-                v-for="item in navigation"
-              >
-                {{ item.name }}
-              </a>
-            </div>
-            <button @click="toggleMobileMenu" class="md:hidden text-gray-700">
-              <i class="fas fa-bars text-2xl"></i>
-            </button>
-          </div>
-          <!-- Mobile Menu -->
-          <div class="md:hidden mt-4 pb-4" v-show="mobileMenuOpen">
-            <a
-              :href="item.href"
-              :key="item.id"
-              @click="mobileMenuOpen = false"
-              class="block py-2 text-gray-700 hover:text-blue-600"
-              v-for="item in navigation"
-            >
-              {{ item.name }}
-            </a>
-          </div>
-        </div>
-      </nav>
-      <!-- Hero Section -->
-<section
-  class="min-h-screen flex items-center justify-center relative overflow-hidden"
-  style="
-    background: linear-gradient(
-      rgba(37, 99, 235, 0.1),
-      rgba(37, 99, 235, 0.2)
-    );
-  "
->
-  <div class="floating-particles">
-    <div
-      :key="n"
-      :style="getParticleStyle()"
-      class="particle"
-      v-for="n in 30"
-    ></div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdesamad Qouqi — Ingénieur IT, IA & Data</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <style>
+    :root {
+      --bg:        #f5f4f1;
+      --surface:   #eeece8;
+      --card:      #ffffff;
+      --border:    #d8d5cf;
+      --muted:     #a09d97;
+      --body:      #3a3835;
+      --heading:   #1a1917;
+      --accent:    #2a2826;
+      --highlight: #8b7355;
+      --tag-bg:    #e8e5df;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--body);
+      font-size: 15px;
+      line-height: 1.7;
+      cursor: none;
+    }
+
+    /* ── Custom cursor ── */
+    #cursor {
+      width: 10px; height: 10px;
+      background: var(--heading);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform .15s ease, width .3s ease, height .3s ease, opacity .3s ease;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--heading);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .4s cubic-bezier(.23,1,.32,1), width .3s, height .3s, opacity .3s;
+      opacity: .5;
+    }
+    body.hovering #cursor { width: 6px; height: 6px; }
+    body.hovering #cursor-ring { width: 52px; height: 52px; opacity: .25; }
+
+    /* ── Typo ── */
+    .display-serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      letter-spacing: -.02em;
+    }
+    .mono { font-family: 'DM Mono', monospace; font-size: .78rem; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(245,244,241,.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .4s, padding .4s;
+    }
+    nav.scrolled { border-color: var(--border); padding: .85rem 3rem; }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:1.25rem; color:var(--heading); letter-spacing:.03em; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .25s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--highlight); transition:width .3s; }
+    .nav-links a:hover { color:var(--heading); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-lang { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; background:var(--surface); border:1px solid var(--border); padding:.3rem .7rem; border-radius:2rem; cursor:pointer; color:var(--body); transition:all .2s; }
+    .nav-lang:hover { background:var(--accent); color:#fff; }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:.4rem; }
+    .hamburger span { display:block; width:22px; height:1.5px; background:var(--heading); transition:all .3s; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(139,115,85,.08), transparent),
+                  radial-gradient(ellipse 40% 60% at 20% 80%, rgba(58,56,53,.05), transparent);
+    }
+    .hero-grid {
+      position:absolute; inset:0; opacity:.25;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .hero-content { position:relative; z-index:2; max-width:820px; }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.6rem;
+      font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+      margin-bottom:2rem;
+    }
+    .hero-eyebrow span { display:inline-block; width:2rem; height:1px; background:var(--highlight); }
+    .hero-title {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height:1.05; letter-spacing:-.02em; color:var(--heading);
+      margin-bottom:1.5rem;
+    }
+    .hero-title em { font-style:italic; color:var(--highlight); }
+    .hero-sub { max-width:480px; color:var(--muted); font-size:.95rem; line-height:1.8; margin-bottom:2.5rem; }
+    .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:var(--heading); color:var(--bg); padding:.75rem 1.75rem;
+      font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+      border:none; cursor:pointer; transition:all .25s;
+    }
+    .btn-primary:hover { background:var(--highlight); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:.5rem;
+      border:1px solid var(--border); color:var(--body); padding:.75rem 1.75rem;
+      font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+      background:transparent; cursor:pointer; text-decoration:none; transition:all .25s;
+      position:relative;
+    }
+    .btn-ghost:hover { border-color:var(--heading); background:var(--surface); }
+    .btn-ghost .dropdown {
+      position:absolute; top:calc(100% + .5rem); left:0; min-width:220px;
+      background:var(--card); border:1px solid var(--border);
+      box-shadow:0 12px 40px rgba(0,0,0,.08);
+      opacity:0; pointer-events:none; transform:translateY(-6px); transition:all .25s;
+    }
+    .btn-ghost:hover .dropdown { opacity:1; pointer-events:all; transform:translateY(0); }
+    .dropdown a {
+      display:block; padding:.75rem 1.25rem;
+      font-size:.78rem; color:var(--body); text-decoration:none; letter-spacing:.05em;
+      border-bottom:1px solid var(--surface); transition:background .2s;
+    }
+    .dropdown a:last-child { border-bottom:none; }
+    .dropdown a:hover { background:var(--surface); }
+
+    .hero-index {
+      position:absolute; right:3rem; top:50%; transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:1.5rem; align-items:center;
+    }
+    .hero-index a {
+      writing-mode:vertical-rl; text-orientation:mixed;
+      font-size:.65rem; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--muted); text-decoration:none; transition:color .25s;
+    }
+    .hero-index a:hover { color:var(--heading); }
+    .hero-scroll {
+      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:.5rem;
+      color:var(--muted); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase;
+      text-decoration:none; transition:color .25s;
+    }
+    .hero-scroll:hover { color:var(--heading); }
+    .scroll-line {
+      width:1px; height:2.5rem; background:var(--border);
+      position:relative; overflow:hidden;
+    }
+    .scroll-line::after {
+      content:''; position:absolute; inset:0; background:var(--highlight);
+      animation: scrollAnim 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollAnim {
+      0% { transform:translateY(-100%); }
+      100% { transform:translateY(100%); }
+    }
+
+    /* ── Sections ── */
+    section { padding: 7rem 3rem; }
+    .section-label {
+      display:inline-flex; align-items:center; gap:.6rem;
+      font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+      margin-bottom:3.5rem;
+    }
+    .section-label span { display:inline-block; width:1.5rem; height:1px; background:var(--highlight); }
+    .section-title {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size: clamp(2.2rem, 5vw, 3.8rem); line-height:1.1; color:var(--heading);
+      margin-bottom:1rem;
+    }
+    .section-title em { font-style:italic; color:var(--highlight); }
+    .section-desc { max-width:520px; color:var(--muted); font-size:.9rem; line-height:1.8; margin-bottom:3.5rem; }
+
+    /* ── About ── */
+    .about-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:5rem; align-items:start; }
+    .about-map { width:100%; height:440px; border:1px solid var(--border); }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); margin-top:2rem; }
+    .stat-item { background:var(--bg); padding:1.25rem; }
+    .stat-val { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--heading); }
+    .stat-label { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:.15rem; }
+
+    /* ── Skills ── */
+    .skills-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .skill-cat { background:var(--bg); padding:2rem; }
+    .skill-cat-title { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:1.5rem; padding-bottom:.75rem; border-bottom:1px solid var(--border); }
+    .skill-item { display:flex; align-items:center; gap:.75rem; padding:.5rem 0; border-bottom:1px solid var(--surface); transition:all .2s; cursor:default; }
+    .skill-item:last-child { border-bottom:none; }
+    .skill-item:hover { padding-left:.5rem; }
+    .skill-item i { color:var(--highlight); width:14px; font-size:.8rem; flex-shrink:0; }
+    .skill-item span { font-size:.88rem; color:var(--body); }
+    .soft-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:1px; }
+    .soft-item { background:var(--bg); padding:1.75rem 1.5rem; transition:background .25s; }
+    .soft-item:hover { background:var(--surface); }
+    .soft-icon { font-size:1.1rem; color:var(--highlight); margin-bottom:.75rem; }
+    .soft-name { font-size:.88rem; font-weight:500; color:var(--heading); margin-bottom:.35rem; }
+    .soft-desc { font-size:.78rem; color:var(--muted); line-height:1.6; }
+
+    /* ── Experience ── */
+    .exp-list { display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); }
+    .exp-item { background:var(--bg); padding:0; overflow:hidden; transition:background .25s; }
+    .exp-item:hover { background:var(--surface); }
+    .exp-header { display:grid; grid-template-columns:160px 1fr auto; align-items:center; gap:2rem; padding:1.75rem 2rem; cursor:pointer; }
+    .exp-date { font-family:'DM Mono',monospace; font-size:.72rem; color:var(--muted); line-height:1.5; }
+    .exp-title-wrap {}
+    .exp-role { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:300; color:var(--heading); }
+    .exp-company { font-size:.78rem; color:var(--muted); letter-spacing:.05em; margin-top:.1rem; }
+    .exp-toggle { width:28px; height:28px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; }
+    .exp-toggle i { font-size:.65rem; color:var(--muted); transition:transform .3s; }
+    .exp-item.open .exp-toggle { background:var(--heading); border-color:var(--heading); }
+    .exp-item.open .exp-toggle i { color:#fff; transform:rotate(45deg); }
+    .exp-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+    .exp-body-inner { padding:0 2rem 2rem 2rem; padding-left:calc(160px + 4rem); }
+    .exp-desc { color:var(--muted); font-size:.9rem; line-height:1.8; margin-bottom:1.25rem; }
+    .exp-points { list-style:none; display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.5rem; }
+    .exp-points li { display:flex; gap:.75rem; font-size:.88rem; color:var(--body); }
+    .exp-points li::before { content:'—'; color:var(--highlight); flex-shrink:0; }
+    .exp-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1rem; }
+    .tag { font-family:'DM Mono',monospace; font-size:.68rem; padding:.25rem .6rem; background:var(--tag-bg); border:1px solid var(--border); color:var(--muted); letter-spacing:.05em; }
+    .exp-skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .exp-skill-pill { display:flex; align-items:center; gap:.5rem; font-size:.75rem; color:var(--muted); }
+    .exp-skill-pill i { color:var(--highlight); font-size:.7rem; }
+
+    /* ── Projects ── */
+    .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .project-card { background:var(--bg); overflow:hidden; position:relative; aspect-ratio:4/3; group; }
+    .project-img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease, filter .6s ease; filter:grayscale(60%) brightness(.95); }
+    .project-card:hover .project-img { transform:scale(1.05); filter:grayscale(20%) brightness(1); }
+    .project-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(26,25,23,.9) 0%, rgba(26,25,23,.3) 60%, transparent 100%);
+      display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem;
+      transform:translateY(4px); transition:transform .3s ease;
+    }
+    .project-card:hover .project-overlay { transform:translateY(0); }
+    .project-name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; color:#fff; line-height:1.3; margin-bottom:.4rem; }
+    .project-type { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:.75rem; }
+    .project-tags { display:flex; flex-wrap:wrap; gap:.3rem; }
+    .project-tag { font-family:'DM Mono',monospace; font-size:.62rem; padding:.2rem .5rem; background:rgba(255,255,255,.12); color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.15); }
+    .project-link { position:absolute; top:1rem; right:1rem; width:32px; height:32px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; color:#fff; font-size:.7rem; opacity:0; transition:opacity .3s; cursor:pointer; }
+    .project-card:hover .project-link { opacity:1; }
+
+    /* ── Software ── */
+    .software-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .software-item { background:var(--bg); padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:flex-start; gap:.75rem; transition:background .25s; }
+    .software-item:hover { background:var(--surface); }
+    .software-icon { font-size:1.4rem; color:var(--highlight); }
+    .software-name { font-size:.9rem; font-weight:500; color:var(--heading); }
+    .software-cat { font-family:'DM Mono',monospace; font-size:.67rem; color:var(--muted); letter-spacing:.06em; }
+    .software-desc { font-size:.78rem; color:var(--muted); line-height:1.6; }
+
+    /* ── Languages ── */
+    .lang-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .lang-card { background:var(--bg); padding:2rem; transition:background .25s; }
+    .lang-card:hover { background:var(--surface); }
+    .lang-flag { width:40px; height:28px; object-fit:cover; border:1px solid var(--border); margin-bottom:1rem; }
+    .lang-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:300; color:var(--heading); margin-bottom:.15rem; }
+    .lang-level { font-size:.72rem; letter-spacing:.08em; color:var(--muted); margin-bottom:1rem; }
+    .lang-dots { display:flex; gap:.3rem; }
+    .lang-dot { width:6px; height:6px; border-radius:50%; }
+    .lang-dot.filled { background:var(--highlight); }
+    .lang-dot.empty { background:var(--border); }
+
+    /* ── Certifications ── */
+    .cert-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .cert-card { background:var(--bg); padding:2.5rem 2rem; transition:background .25s; display:flex; flex-direction:column; gap:1rem; text-decoration:none; }
+    .cert-card:hover { background:var(--surface); }
+    .cert-icon { font-size:1.5rem; color:var(--highlight); }
+    .cert-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; color:var(--heading); line-height:1.3; }
+    .cert-by { font-size:.75rem; letter-spacing:.06em; color:var(--muted); }
+    .cert-arrow { margin-top:auto; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--highlight); display:flex; align-items:center; gap:.4rem; }
+
+    /* ── Contact ── */
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+    .contact-info { display:flex; flex-direction:column; gap:2rem; }
+    .contact-item { display:flex; gap:1.25rem; align-items:flex-start; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+    .contact-item:last-child { border-bottom:none; }
+    .contact-icon { width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .contact-icon i { font-size:.8rem; color:var(--highlight); }
+    .contact-label { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.25rem; }
+    .contact-val { font-size:.9rem; color:var(--heading); }
+    .contact-val a { color:var(--heading); text-decoration:none; transition:color .2s; }
+    .contact-val a:hover { color:var(--highlight); }
+    .contact-avail { background:var(--surface); border:1px solid var(--border); padding:2.5rem; }
+    .avail-header { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; }
+    .avail-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--heading); margin-bottom:.5rem; line-height:1.3; }
+    .avail-period { font-family:'DM Mono',monospace; font-size:.75rem; color:var(--highlight); margin-bottom:1.25rem; }
+    .avail-desc { font-size:.88rem; color:var(--muted); line-height:1.8; margin-bottom:2rem; }
+    .avail-ctas { display:flex; gap:.75rem; }
+
+    /* ── Footer ── */
+    footer { background:var(--heading); color:rgba(255,255,255,.5); padding:2.5rem 3rem; display:flex; justify-content:space-between; align-items:center; }
+    .footer-logo { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:1.1rem; color:rgba(255,255,255,.8); }
+    .footer-copy { font-size:.72rem; letter-spacing:.08em; }
+    .footer-link { color:rgba(255,255,255,.5); transition:color .2s; text-decoration:none; }
+    .footer-link:hover { color:rgba(255,255,255,.9); }
+
+    /* ── Chatbot ── */
+    .chatbot-fab {
+      position:fixed; bottom:2rem; right:2rem; z-index:500;
+      width:52px; height:52px; background:var(--heading); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; color:#fff;
+      transition:all .25s; box-shadow:0 8px 24px rgba(0,0,0,.15);
+    }
+    .chatbot-fab:hover { background:var(--highlight); }
+    .chatbot-fab i { font-size:1.1rem; }
+    .chatbot-win {
+      position:fixed; bottom:5.5rem; right:2rem; z-index:499;
+      width:360px; height:520px; background:var(--card);
+      border:1px solid var(--border); box-shadow:0 24px 60px rgba(0,0,0,.12);
+      display:flex; flex-direction:column; overflow:hidden;
+      transform:translateY(20px) scale(.96); opacity:0; pointer-events:none;
+      transition:all .3s cubic-bezier(.23,1,.32,1);
+    }
+    .chatbot-win.open { transform:translateY(0) scale(1); opacity:1; pointer-events:all; }
+    .chatbot-head { background:var(--heading); color:#fff; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; }
+    .chatbot-head-name { font-size:.85rem; font-weight:500; }
+    .chatbot-head-sub { font-size:.68rem; color:rgba(255,255,255,.5); margin-top:.1rem; }
+    .chatbot-close { background:none; border:none; cursor:pointer; color:rgba(255,255,255,.6); transition:color .2s; }
+    .chatbot-close:hover { color:#fff; }
+    .chatbot-msgs { flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:.75rem; }
+    .chatbot-msgs::-webkit-scrollbar { width:3px; }
+    .chatbot-msgs::-webkit-scrollbar-track { background:transparent; }
+    .chatbot-msgs::-webkit-scrollbar-thumb { background:var(--border); }
+    .msg { max-width:85%; line-height:1.6; font-size:.85rem; padding:.75rem 1rem; white-space:pre-line; }
+    .msg.bot { background:var(--surface); color:var(--body); align-self:flex-start; border:1px solid var(--border); }
+    .msg.user { background:var(--heading); color:#fff; align-self:flex-end; }
+    .chatbot-input { border-top:1px solid var(--border); display:flex; align-items:center; padding:.75rem 1rem; gap:.75rem; }
+    .chatbot-input input { flex:1; border:none; outline:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:.85rem; color:var(--heading); }
+    .chatbot-input input::placeholder { color:var(--muted); }
+    .chatbot-send { background:none; border:none; cursor:pointer; color:var(--muted); transition:color .2s; padding:.25rem; }
+    .chatbot-send:hover { color:var(--highlight); }
+
+    /* ── Contact popup ── */
+    .popup-overlay {
+      position:fixed; inset:0; z-index:600;
+      background:rgba(26,25,23,.5); backdrop-filter:blur(4px);
+      display:flex; align-items:center; justify-content:center; padding:1rem;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .popup-overlay.open { opacity:1; pointer-events:all; }
+    .popup-box {
+      background:var(--card); border:1px solid var(--border); padding:2.5rem;
+      width:100%; max-width:380px; box-shadow:0 32px 80px rgba(0,0,0,.12);
+      transform:translateY(20px); transition:transform .3s;
+    }
+    .popup-overlay.open .popup-box { transform:translateY(0); }
+    .popup-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; }
+    .popup-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--heading); }
+    .popup-close { background:none; border:none; cursor:pointer; color:var(--muted); transition:color .2s; }
+    .popup-close:hover { color:var(--heading); }
+    .popup-item { display:flex; align-items:center; gap:.75rem; padding:.85rem 0; border-bottom:1px solid var(--surface); font-size:.88rem; color:var(--body); }
+    .popup-item:last-child { border-bottom:none; }
+    .popup-item i { color:var(--highlight); width:14px; font-size:.85rem; }
+    .popup-item a { color:var(--body); text-decoration:none; transition:color .2s; }
+    .popup-item a:hover { color:var(--highlight); }
+
+    /* ── Mobile menu ── */
+    .mobile-menu {
+      display:none; position:fixed; inset:0; z-index:99; background:var(--bg);
+      flex-direction:column; justify-content:center; align-items:center; gap:2rem;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--heading); text-decoration:none; }
+    .mobile-close { position:absolute; top:1.5rem; right:2rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--heading); }
+
+    /* ── AOS overrides ── */
+    [data-aos] { transition-timing-function: cubic-bezier(.23,1,.32,1) !important; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns:1fr; }
+      .projects-grid { grid-template-columns:repeat(2,1fr); }
+      .software-grid { grid-template-columns:repeat(2,1fr); }
+      .lang-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      nav { padding:.85rem 1.25rem; }
+      nav.scrolled { padding:.75rem 1.25rem; }
+      .nav-links { display:none; }
+      .nav-lang { display:none; }
+      .hamburger { display:flex; }
+      section { padding:4rem 1.25rem; }
+      .hero { padding:0 1.25rem; }
+      .hero-index { display:none; }
+      .skills-wrap, .soft-grid { grid-template-columns:1fr; }
+      .projects-grid { grid-template-columns:1fr; }
+      .cert-grid { grid-template-columns:1fr; }
+      .contact-grid { grid-template-columns:1fr; gap:2rem; }
+      .software-grid { grid-template-columns:repeat(2,1fr); }
+      .lang-grid { grid-template-columns:repeat(2,1fr); }
+      .exp-header { grid-template-columns:1fr auto; }
+      .exp-date { display:none; }
+      .exp-body-inner { padding-left:2rem; }
+      footer { flex-direction:column; gap:1rem; text-align:center; }
+      .chatbot-win { width:calc(100vw - 2rem); right:1rem; }
+    }
+
+    /* ── Map styling ── */
+    #map { filter: grayscale(100%) contrast(1.1) brightness(1.05); }
+    .leaflet-popup-content-wrapper { border-radius:0 !important; border:1px solid var(--border); box-shadow:0 8px 24px rgba(0,0,0,.08) !important; font-family:'DM Sans',sans-serif; }
+    .leaflet-popup-content { font-size:13px; color:var(--body); }
+    .leaflet-popup-tip-container { display:none; }
+  </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div id="app">
+
+  <!-- ── Nav ── -->
+  <nav :class="{scrolled: scrolled}">
+    <div class="nav-logo">AQ</div>
+    <ul class="nav-links">
+      <li v-for="item in navigation" :key="item.id">
+        <a :href="item.href">{{ item.name }}</a>
+      </li>
+      <li>
+        <button class="nav-lang" @click="switchLanguage">{{ language === 'fr' ? 'EN' : 'FR' }}</button>
+      </li>
+    </ul>
+    <div class="hamburger" @click="mobileMenuOpen = true">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" :class="{open: mobileMenuOpen}">
+    <button class="mobile-close" @click="mobileMenuOpen = false"><i class="fas fa-times"></i></button>
+    <a v-for="item in navigation" :key="item.id" :href="item.href" @click="mobileMenuOpen=false">{{ item.name }}</a>
   </div>
-  <div class="container mx-auto px-6 text-center relative z-10">
-    <h1
-      class="text-4xl md:text-6xl font-bold mb-6 gradient-text"
-      data-aos="fade-up"
-    >
-      {{ texts.hero.title[language] }}
-    </h1>
-    <p
-      class="text-xl md:text-2xl mb-8 text-gray-700"
-      data-aos="fade-up"
-      data-aos-delay="200"
-      v-html="texts.hero.subtitle[language]"
-    ></p>
-    <div
-      class="flex flex-col md:flex-row items-center justify-center gap-4 mt-6"
-      data-aos="fade-up"
-      data-aos-delay="400"
-    >
-      <button
-        @click="showContactPopup = true"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors duration-300"
-      >
-        {{ texts.hero.contact[language] }}
-      </button>
 
-      <div class="relative group">
-        <button
-          class="flex items-center gap-2 bg-gray-100 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition-all duration-300"
-        >
-          <i class="fas fa-download"></i> Télécharger mon CV
+  <!-- ── Hero ── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span></span>
+        {{ language === 'fr' ? 'Disponible — Novembre 2025' : 'Available — November 2025' }}
+      </div>
+      <h1 class="hero-title">
+        Abdesamad<br>
+        <em>{{ language === 'fr' ? 'Qouqi' : 'Qouqi' }}</em>
+      </h1>
+      <p class="hero-sub">
+        {{ language === 'fr'
+          ? "Étudiant Ingénieur IT, IA & Data à l'EFREI Paris. À la recherche d'un stage en IA appliquée à l'IT, la Data et le Marketing Digital."
+          : "IT, AI & Data Engineering student at EFREI Paris. Seeking an internship in AI applied to IT, Data and Digital Marketing." }}
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-primary" @click="showContactPopup = true">
+          <i class="fas fa-arrow-right"></i>
+          {{ language === 'fr' ? 'Me contacter' : 'Contact me' }}
         </button>
-        <div
-          class="absolute mt-2 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 w-64"
-        >
-          <a
-            class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
-            download=""
-            href="Abdesamad_Qouqi_CV_version_française.pdf"
-            >Version Française</a
-          >
-          <a
-            class="block px-4 py-2 hover:bg-blue-50 text-gray-700"
-            download=""
-            href="Abdesamad_Qouqi_CV_english_version.pdf"
-            >English Version</a
-          >
+        <div class="btn-ghost" style="position:relative; cursor:pointer;">
+          <i class="fas fa-download"></i>
+          {{ language === 'fr' ? 'Télécharger CV' : 'Download CV' }}
+          <div class="dropdown">
+            <a href="Abdesamad_Qouqi_CV_version_française.pdf" download>Version Française</a>
+            <a href="Abdesamad_Qouqi_CV_english_version.pdf" download>English Version</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Flèche incitative scroll -->
-  <div
-    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-  >
-    <a class="text-blue-600 hover:text-blue-800 text-3xl" href="#about">
-      <i class="fas fa-chevron-down"></i>
+
+    <div class="hero-index">
+      <a href="#about">À propos</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Expérience</a>
+      <a href="#projects">Projets</a>
+    </div>
+
+    <a class="hero-scroll" href="#about">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
     </a>
-  </div>
-  <!-- Contact popup in Hero -->
-  <div
-    v-show="showContactPopup"
-    class="fixed inset-0 flex items-center justify-center p-4 z-30 bg-black bg-opacity-50"
-    @click.self="showContactPopup = false"
-  >
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm animate-fade-in">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-semibold text-blue-600">Contact</h3>
-        <button @click="showContactPopup = false" class="text-gray-500 hover:text-red-600">
-          <i class="fas fa-times"></i>
-        </button>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about" style="background:var(--surface);">
+    <div class="section-label" data-aos="fade-up"><span></span> {{ language === 'fr' ? 'À Propos' : 'About' }}</div>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title" data-aos="fade-up">
+          {{ language === 'fr' ? 'Ingénieur curieux,\n' : 'Curious engineer,\n' }}
+          <em>{{ language === 'fr' ? 'pluridisciplinaire' : 'multidisciplinary' }}</em>
+        </h2>
+        <p class="section-desc" data-aos="fade-up" data-aos-delay="100">
+          {{ language === 'fr'
+            ? "Mon parcours combine sciences de la santé et ingénierie informatique — une vision unique pour innover à l'intersection de l'IA, la Data et le marketing digital."
+            : "My background bridges health sciences and computer engineering — a unique perspective to innovate at the crossroads of AI, Data and digital marketing." }}
+        </p>
+        <div class="about-stats" data-aos="fade-up" data-aos-delay="150">
+          <div class="stat-item">
+            <div class="stat-val">2027</div>
+            <div class="stat-label">{{ language === 'fr' ? 'Diplôme Ingénieur' : 'Engineering Degree' }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">EFREI</div>
+            <div class="stat-label">{{ language === 'fr' ? 'École d\'ingénieur' : 'Engineering School' }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">ISSG</div>
+            <div class="stat-label">{{ language === 'fr' ? 'Majeure' : 'Major' }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">🇬🇧</div>
+            <div class="stat-label">{{ language === 'fr' ? 'Semestre international' : 'International semester' }}</div>
+          </div>
+        </div>
       </div>
-      <div class="space-y-3 text-sm text-gray-700">
-        <div><i class="fas fa-phone mr-2 text-blue-600"></i>+33 (0)7 64 54 89 45</div>
-        <div><i class="fas fa-envelope mr-2 text-blue-600"></i>abdesamad.qouqi.pro@gmail.com</div>
-        <div><i class="fab fa-linkedin mr-2 text-blue-600"></i>
-          <a :href="linkedinUrl" target="_blank" class="hover:underline text-blue-600">LinkedIn</a>
+      <div data-aos="fade-left" data-aos-delay="100">
+        <div class="about-map" id="map"></div>
+        <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Skills ── -->
+  <section id="skills">
+    <div class="section-label" data-aos="fade-up"><span></span> Skills</div>
+    <h2 class="section-title" data-aos="fade-up">Mes <em>compétences</em></h2>
+
+    <!-- Soft skills -->
+    <div class="soft-grid" data-aos="fade-up" data-aos-delay="50" style="margin-bottom:1px;">
+      <div class="soft-item" v-for="skill in softSkills" :key="skill.name">
+        <div class="soft-icon"><i :class="skill.icon"></i></div>
+        <div class="soft-name">{{ skill.name }}</div>
+        <div class="soft-desc">{{ skill.description }}</div>
+      </div>
+    </div>
+
+    <!-- Hard skills -->
+    <div class="skills-wrap" data-aos="fade-up" data-aos-delay="100">
+      <div class="skill-cat" v-for="(cat, idx) in hardSkills" :key="idx">
+        <div class="skill-cat-title">{{ cat.name }}</div>
+        <div class="skill-item" v-for="(skill, si) in cat.items" :key="si">
+          <i class="fas fa-minus"></i>
+          <span>{{ skill.name }}</span>
         </div>
       </div>
     </div>
-  </div>
-</section>
-      <!-- About Section -->
-      <section class="py-20 bg-white" id="about">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            À Propos de Moi
-          </h2>
-          <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="relative" data-aos="fade-right">
-              <div
-                class="w-full h-96 rounded-xl shadow-xl border border-blue-100 z-10"
-                data-aos="fade-right"
-                id="map"
-              ></div>
-              <link
-                href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-                rel="stylesheet"
-              />
-              <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-              <style>
-                #map {
-                  filter: hue-rotate(190deg) brightness(1.1) saturate(1.2);
-                }
-                .leaflet-popup-content-wrapper {
-                  background: white;
-                  border-radius: 8px;
-                  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                  font-family: "Poppins", sans-serif;
-                }
-                .leaflet-popup-content {
-                  color: #1e3a8a;
-                  font-size: 14px;
-                }
-                .leaflet-container a {
-                  color: #1e40af;
-                }
-              </style>
-              <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                  const map = L.map("map", {
-                    minZoom: 4,
-                    maxBounds: [
-                      [40.0, -5.0],
-                      [56.0, 10.0],
-                    ], // Limite à France/UK/Belgique
-                    zoomControl: false,
-                  }).setView([48.85, 2.35], 6); // Centré sur Paris
+  </section>
 
-                  L.control.zoom({ position: "bottomright" }).addTo(map);
+  <!-- ── Experience ── -->
+  <section id="experience" style="background:var(--surface);">
+    <div class="section-label" data-aos="fade-up"><span></span> {{ language === 'fr' ? 'Expériences' : 'Experience' }}</div>
+    <h2 class="section-title" data-aos="fade-up">Mon <em>parcours</em></h2>
+    <p class="section-desc" data-aos="fade-up">{{ language === 'fr' ? 'Cliquez sur une expérience pour en voir les détails.' : 'Click on an experience to see details.' }}</p>
 
-                  L.tileLayer(
-                    "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-                    {
-                      attribution:
-                        "&copy; OpenStreetMap contributors & CartoDB",
-                      subdomains: "abcd",
-                      maxZoom: 20,
-                    }
-                  ).addTo(map);
+    <div class="exp-list" data-aos="fade-up" data-aos-delay="100">
+      <div class="exp-item" :class="{open: exp.showDetails}" v-for="(exp, idx) in experiences" :key="idx">
+        <div class="exp-header" @click="toggleExperience(exp)">
+          <div class="exp-date">{{ exp.date }}</div>
+          <div class="exp-title-wrap">
+            <div class="exp-role">{{ exp.title }}</div>
+            <div class="exp-company">{{ exp.company }}</div>
+          </div>
+          <div class="exp-toggle"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="exp-body" :style="exp.showDetails ? 'max-height:600px' : ''">
+          <div class="exp-body-inner">
+            <p class="exp-desc">{{ exp.description }}</p>
+            <ul class="exp-points">
+              <li v-for="(point, pi) in exp.points" :key="pi">{{ point }}</li>
+            </ul>
+            <div class="exp-tags">
+              <span class="tag" v-for="(tech, ti) in exp.technologies" :key="ti">{{ tech }}</span>
+            </div>
+            <div class="exp-skills-grid">
+              <div class="exp-skill-pill" v-for="(skill, si) in exp.skills" :key="si">
+                <i :class="skill.icon"></i>
+                <span>{{ skill.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                  const locations = [
-                    {
-                      name: "Baccalauréat Scientifique",
-                      desc: "Lycée Racine",
-                      coords: [48.875, 2.31],
-                    },
-                    {
-                      name: "Licence Sciences pour la Santé - UPEC",
-                      desc: "Biologie & Bioinformatique",
-                      coords: [48.817, 2.4653],
-                    },
-                    {
-                      name: "Diplôme d'Ingénieur en informatique - EFREI",
-                      desc: "Filière Information Technology (IT)<br>Data Science",
-                      coords: [48.7904, 2.3274],
-                    },
-                    {
-                      name: "Semestre à l'international - Staffordshire University",
-                      desc: "Machine Learning, UML, Networks and Protocols, ...",
-                      coords: [52.9931, -2.1796],
-                    },
-                  ];
+  <!-- ── Projects ── -->
+  <section id="projects">
+    <div class="section-label" data-aos="fade-up"><span></span> Projets</div>
+    <h2 class="section-title" data-aos="fade-up">Quelques <em>réalisations</em></h2>
+    <div class="projects-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="project-card" v-for="(project, idx) in projects" :key="idx">
+        <img class="project-img" :src="project.image" :alt="project.title" />
+        <div class="project-overlay">
+          <div class="project-name">{{ project.title }}</div>
+          <div class="project-type">{{ project.type }}</div>
+          <div class="project-tags">
+            <span class="project-tag" v-for="(tech, ti) in project.technologies" :key="ti">{{ tech }}</span>
+          </div>
+        </div>
+        <div class="project-link" v-if="project.pdf || project.link" @click.stop="project.pdf ? openPdf(project.pdf) : openUrl(project.link)">
+          <i class="fas fa-arrow-up-right-from-square"></i>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                  locations.forEach((loc) => {
-                    L.marker(loc.coords, { title: loc.name })
-                      .addTo(map)
-                      .bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
-                  });
-                });
-              </script>
-            </div>
-            <div data-aos="fade-left">
-              <h3 class="text-2xl font-semibold mb-4">
-                Étudiant Ingénieur IT, IA &amp; Data
-              </h3>
-              <p class="text-gray-600 mb-6">
-                Passionné par l'intersection entre l'Intelligence Artificielle,
-                la Data, la Gestion de Projet et le Marketing Digital, je
-                souhaite me spécialiser dans l'application des technologies d'IA
-                pour résoudre des problématiques variées. Mon parcours
-                pluridisciplinaire, alliant sciences de la santé et ingénierie
-                informatique, me donne une perspective unique pour innover dans
-                ce domaine.
-              </p>
-              <p class="text-gray-600 mb-6">
-                Actuellement en formation d'ingénieur à l'EFREI, je compte
-                m'orienter vers les domaines de l'IT (Information Technology) et
-                de la Data Science, avec pour objectif de développer des
-                solutions innovantes qui transforment l'expérience client et
-                optimisent les stratégies digitales.
-              </p>
-              <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
-                  <i
-                    class="fas fa-graduation-cap text-blue-600 text-2xl mb-2"
-                  ></i>
-                  <h4 class="font-semibold">Formation</h4>
-                  <p class="text-sm text-gray-600">2021 - 2027</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg text-center card-hover">
-                  <i class="fas fa-robot text-blue-600 text-2xl mb-2"></i>
-                  <h4 class="font-semibold">Majeure</h4>
-                  <p class="text-sm text-gray-600">
-                    Information Systems Strategy and Governance (ISSG)
-                  </p>
-                </div>
-              <div class="flex space-x-4">
-                <a
-                  :href="linkedinUrl"
-                  class="text-blue-600 hover:text-blue-800"
-                  target="_blank"
-                >
-                  <i class="fab fa-linkedin text-2xl"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+  <!-- ── Software ── -->
+  <section id="software" style="background:var(--surface);">
+    <div class="section-label" data-aos="fade-up"><span></span> Logiciels</div>
+    <h2 class="section-title" data-aos="fade-up">Outils <em>& environnements</em></h2>
+    <div class="software-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="software-item" v-for="(sw, idx) in softwareList" :key="idx">
+        <div class="software-icon"><i :class="sw.icon"></i></div>
+        <div>
+          <div class="software-name">{{ sw.name }}</div>
+          <div class="software-cat">{{ sw.category }}</div>
         </div>
-      </section>
-      <!-- Skills Section -->
-      <section class="py-20 bg-white" id="skills">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Mes Compétences
-          </h2>
-          <!-- Soft Skills -->
-          <h3
-            class="text-2xl font-semibold mb-8 text-center"
-            data-aos="fade-up"
-          >
-            Soft Skills
-          </h3>
-          <div class="grid md:grid-cols-4 gap-6 mb-16">
-            <div
-              :key="skill.name"
-              class="bg-gray-50 p-6 rounded-lg text-center skill-card"
-              data-aos="fade-up"
-              v-for="skill in softSkills"
-            >
-              <i :class="skill.icon + ' text-3xl text-blue-600 mb-4'"></i>
-              <h4 class="font-semibold">{{ skill.name }}</h4>
-              <div class="skill-tooltip">
-                <p class="text-sm text-gray-600">{{ skill.description }}</p>
-              </div>
-            </div>
-          </div>
-          <!-- Hard Skills -->
-          <!-- Hard Skills -->
-          <h3
-            class="text-2xl font-semibold mb-8 text-center"
-            data-aos="fade-up"
-          >
-            Hard Skills
-          </h3>
-          <div class="grid md:grid-cols-3 gap-8">
-            <div
-              :data-aos-delay="index * 100"
-              :key="index"
-              class="bg-gray-50 p-6 rounded-lg shadow-lg card-hover"
-              data-aos="fade-up"
-              v-for="(category, index) in hardSkills"
-            >
-              <h3 class="text-xl font-semibold mb-6 text-center">
-                {{ category.name }}
-              </h3>
-              <div class="space-y-4">
-                <div
-                  :key="skillIndex"
-                  class="flex items-center space-x-3 relative group cursor-pointer"
-                  v-for="(skill, skillIndex) in category.items"
-                >
-                  <i class="fas fa-check-circle text-blue-600"></i>
-                  <span class="text-gray-700">{{ skill.name }}</span>
-                  <div
-                    class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white text-sm text-gray-700 p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 w-48 text-center"
-                  >
-                    {{ skill.description }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="software-desc">{{ sw.description }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Languages ── -->
+  <section id="languages">
+    <div class="section-label" data-aos="fade-up"><span></span> {{ language === 'fr' ? 'Langues' : 'Languages' }}</div>
+    <h2 class="section-title" data-aos="fade-up"><em>Langues</em> parlées</h2>
+    <div class="lang-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="lang-card" v-for="(lang, idx) in languages" :key="idx">
+        <img class="lang-flag" :src="lang.flag" :alt="lang.name" />
+        <div class="lang-name">{{ lang.name }}</div>
+        <div class="lang-level">{{ lang.level }}</div>
+        <div class="lang-dots">
+          <div class="lang-dot" :class="n <= lang.score ? 'filled' : 'empty'" v-for="n in 5" :key="n"></div>
         </div>
-      </section>
-       <!-- Experience Section -->
-      <section class="py-20 bg-white" id="experience">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Mes Expériences
-          </h2>
-          <div class="space-y-12">
-            <div
-              :class="{'active': exp.showDetails}"
-              :data-aos-delay="index * 100"
-              :key="index"
-              @click="toggleExperience(exp)"
-              class="bg-white p-8 rounded-xl shadow-lg experience-card card-3d glass-effect"
-              data-aos="fade-up"
-              v-for="(exp, index) in experiences"
-            >
-              <div class="flex flex-wrap md:flex-nowrap items-start gap-8">
-                <div class="w-full md:w-1/4 relative">
-                  <div class="sticky top-4">
-                    <span
-                      class="text-blue-600 font-semibold inline-block mb-2 px-4 py-1 bg-blue-50 rounded-full"
-                    >
-                      {{ exp.date }}
-                    </span>
-                    <h3 class="text-2xl font-bold mt-2 gradient-text">
-                      {{ exp.title }}
-                    </h3>
-                    <p class="text-gray-600 mt-1">{{ exp.company }}</p>
-                    <div class="mt-4">
-                      <div
-                        class="w-16 h-16 bg-gradient-1 rounded-lg flex items-center justify-center transform rotate-3 hover:rotate-6 transition-transform duration-300"
-                      >
-                        <i :class="exp.icon + ' text-white text-2xl'"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="w-full md:w-3/4">
-                  <p class="text-gray-700 mb-6 text-lg">
-                    {{ exp.description }}
-                  </p>
-                  <div class="space-y-4">
-                    <div
-                      :class="{'animate-slide-in': exp.showDetails}"
-                      :key="pointIndex"
-                      :style="{'animation-delay': pointIndex * 100 + 'ms'}"
-                      class="flex items-start hover-scale"
-                      v-for="(point, pointIndex) in exp.points"
-                    >
-                      <i
-                        class="fas fa-check-circle text-blue-600 mt-1 mr-3"
-                      ></i>
-                      <p class="text-gray-700">{{ point }}</p>
-                    </div>
-                  </div>
-                  <div
-                    :class="{'animate-fade-in': exp.showDetails}"
-                    class="mt-6 flex flex-wrap gap-2"
-                    v-if="exp.showDetails"
-                  >
-                    <span
-                      :class="getTechBadgeClass(tech)"
-                      :key="techIndex"
-                      class="px-4 py-2 rounded-full text-sm font-medium"
-                      v-for="(tech, techIndex) in exp.technologies"
-                    >
-                      <i :class="getTechIcon(tech) + ' mr-2'"></i>
-                      {{ tech }}
-                    </span>
-                  </div>
-                  <div
-                    class="mt-6 pt-6 border-t border-gray-100 animate-fade-in"
-                    v-if="exp.showDetails"
-                  >
-                    <h4 class="text-lg font-semibold mb-4">
-                      Compétences acquises
-                    </h4>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div
-                        :key="skillIndex"
-                        class="bg-gray-50 p-3 rounded-lg text-center hover-scale"
-                        v-for="(skill, skillIndex) in exp.skills"
-                      >
-                        <i
-                          :class="skill.icon + ' text-blue-600 text-xl mb-2'"
-                        ></i>
-                        <p class="text-sm text-gray-700">{{ skill.name }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Projects Section -->
-      <section class="py-20 bg-gray-50" id="projects">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Quelques Projets ...
-          </h2>
-          <div class="projects-mosaic">
-            <div
-              :data-aos-delay="index * 100"
-              :key="index"
-              class="project-item"
-              data-aos="fade-up"
-              v-for="(project, index) in projects"
-            >
-              <img
-                :alt="project.title"
-                :src="project.image"
-                class="project-image"
-              />
-              <div class="project-overlay">
-                <h3 class="font-bold text-lg">{{ project.title }}</h3>
-                <p class="text-sm mt-2">{{ project.type }}</p>
-                <div class="mt-3 flex flex-wrap gap-2">
-                  <span
-                    :class="getTechBadgeClass(tech)"
-                    :key="techIndex"
-                    class="px-2 py-1 text-xs rounded-full"
-                    v-for="(tech, techIndex) in project.technologies"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
-                <button
-                  @click.stop="openPdf(project.pdf)"
-                  class="mt-3 text-blue-400 hover:text-blue-600 text-sm flex items-center"
-                  v-if="project.pdf"
-                >
-                  <i class="fas fa-file-pdf mr-1"></i> Voir le rapport
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Software Section -->
-      <section class="py-20 bg-gray-50" id="software">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Logiciels
-          </h2>
-          <div class="software-grid">
-            <div
-              :data-aos-delay="index * 50"
-              :key="index"
-              class="software-item"
-              data-aos="fade-up"
-              v-for="(software, index) in softwareList"
-            >
-              <i :class="software.icon + ' text-4xl text-blue-600 mb-4'"></i>
-              <h3 class="font-semibold text-center">{{ software.name }}</h3>
-              <p class="text-sm text-gray-600 mt-2 text-center">
-                {{ software.category }}
-              </p>
-              <div class="software-tooltip">
-                <p class="text-sm text-gray-600">{{ software.description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Languages Section -->
-<section class="py-20 bg-gray-50" id="languages">
-  <div class="container mx-auto px-6">
-    <h2
-      class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-      data-aos="fade-up"
-    >
-      Langues
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
-      <div
-        :data-aos-delay="index * 100"
-        :key="lang.name"
-        class="bg-white p-6 rounded-lg shadow-lg card-3d glass-effect hover-scale w-full max-w-xs relative language-item"
-        data-aos="fade-up"
-        v-for="(lang, index) in languages"
-      >
-        <div class="flex items-center mb-4">
-          <img
-            :alt="lang.name"
-            :src="lang.flag"
-            class="w-12 h-8 mr-3 rounded shadow-sm"
-          />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Certifications ── -->
+  <section id="certifications" style="background:var(--surface);">
+    <div class="section-label" data-aos="fade-up"><span></span> Certifications</div>
+    <h2 class="section-title" data-aos="fade-up">Mes <em>certifications</em></h2>
+    <div class="cert-grid" data-aos="fade-up" data-aos-delay="100">
+      <a class="cert-card" href="toeic.pdf" target="_blank">
+        <div class="cert-icon"><i class="fas fa-language"></i></div>
+        <div class="cert-name">TOEIC — B2</div>
+        <div class="cert-by">English Certification</div>
+        <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a class="cert-card" href="cybersecurity_cisco_abdesamad_qouqi.pdf" target="_blank">
+        <div class="cert-icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="cert-name">Junior Cybersecurity Analyst</div>
+        <div class="cert-by">Cisco Networking Academy</div>
+        <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a class="cert-card" href="Digital Sticker_Introduction to Large Language Models.pdf" target="_blank">
+        <div class="cert-icon"><i class="fas fa-microchip"></i></div>
+        <div class="cert-name">Introduction to LLMs</div>
+        <div class="cert-by">IBM SkillsBuild</div>
+        <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-label" data-aos="fade-up"><span></span> Contact</div>
+    <h2 class="section-title" data-aos="fade-up">Travaillons <em>ensemble</em></h2>
+    <div class="contact-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
           <div>
-            <h3 class="font-semibold">{{ lang.name }}</h3>
-            <p class="text-sm text-gray-600">{{ lang.level }}</p>
+            <div class="contact-label">Téléphone</div>
+            <div class="contact-val"><a href="tel:+33764548945">+33 (0)7 64 54 89 45</a></div>
           </div>
         </div>
-        <div class="flex">
-          <div
-            :class="['w-2 h-2 rounded-full mr-1', 
-                               n <= lang.score ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gray-200']"
-            :key="n"
-            v-for="n in 5"
-          ></div>
-        </div>
-        <div class="certification-tooltip" v-if="lang.name === 'Anglais'">
-          <p class="text-sm mb-2">Télécharger ma certification TOEIC</p>
-          <button
-            @click="downloadToeic"
-            class="text-blue-600 hover:text-blue-800 text-sm flex items-center mx-auto"
-          >
-            <i class="fas fa-download mr-1"></i> Télécharger
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pt-20 pb-10 bg-white" id="certifications">
-  <div class="container mx-auto px-6">
-    <h2
-      class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-      data-aos="fade-up"
-    >
-      Mes Certifications
-    </h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- TOEIC -->
-      <a
-        class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-        data-aos="fade-up"
-        data-aos-delay="0"
-        href="toeic.pdf"
-        target="_blank"
-      >
-        <i class="fas fa-language text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">TOEIC</h3>
-        <p class="text-gray-600 text-sm">
-          Certification officielle d'anglais niveau B2
-        </p>
-      </a>
-      <!-- Cisco Cybersecurity -->
-      <a
-        class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-        data-aos="fade-up"
-        data-aos-delay="100"
-        href="cybersecurity_cisco_abdesamad_qouqi.pdf"
-        target="_blank"
-      >
-        <i class="fas fa-shield-alt text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">
-          Junior Cybersecurity Analyst
-        </h3>
-        <p class="text-gray-600 text-sm">
-          Délivrée par Cisco Networking Academy
-        </p>
-      </a>
-      <!-- IBM AI Certification -->
-      <a
-        class="block bg-gray-50 p-6 rounded-lg text-center shadow-lg card-hover glass-effect"
-        data-aos="fade-up"
-        data-aos-delay="200"
-        href="Digital Sticker_Introduction to Large Language Models.pdf"
-        target="_blank"
-      >
-        <i class="fas fa-robot text-blue-600 text-3xl mb-4"></i>
-        <h3 class="font-semibold text-lg mb-2">
-          Introduction to LLMs (AI)
-        </h3>
-        <p class="text-gray-600 text-sm">
-          Délivrée par IBM SkillsBuild
-        </p>
-      </a>
-    </div>
-  </div>
-</section>
-      <!-- Contact Section -->
-      <section class="py-20 bg-white" id="contact">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text"
-            data-aos="fade-up"
-          >
-            Me Contacter
-          </h2>
-          <div class="max-w-4xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12">
-              <div data-aos="fade-right">
-                <h3 class="text-2xl font-semibold mb-6">
-                  Informations de contact
-                </h3>
-                <div class="space-y-6">
-                  <div class="flex items-start">
-                    <i class="fas fa-phone text-blue-600 text-xl mt-1 mr-4"></i>
-                    <div>
-                      <h4 class="font-medium">Téléphone</h4>
-                      <p class="text-gray-600">+33 (0)7 64 54 89 45</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <i
-                      class="fas fa-envelope text-blue-600 text-xl mt-1 mr-4"
-                    ></i>
-                    <div>
-                      <h4 class="font-medium">Email</h4>
-                      <p class="text-gray-600">abdesamad.qouqi.pro@gmail.com</p>
-                      <div class="flex space-x-3 mt-2">
-                        <a
-                          class="text-blue-600 hover:text-blue-800 text-sm flex items-center"
-                          href="mailto:abdesamad.qouqi.pro@gmail.com?subject=Contact depuis portfolio&amp;body=Bonjour Abdesamad,"
-                        >
-                          <i class="fab fa-google mr-1"></i> Gmail
-                        </a>
-                        <a
-                          class="text-blue-600 hover:text-blue-800 text-sm flex items-center"
-                          href="mailto:abdesamad.qouqi@efrei.net?subject=Contact depuis portfolio&amp;body=Bonjour Abdesamad,"
-                        >
-                          <i class="fab fa-microsoft mr-1"></i> Outlook
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <i
-                      class="fab fa-linkedin text-blue-600 text-xl mt-1 mr-4"
-                    ></i>
-                    <div>
-                      <h4 class="font-medium">LinkedIn</h4>
-                      <a
-                        :href="linkedinUrl"
-                        class="text-blue-600 hover:text-blue-800"
-                        target="_blank"
-                        >Abdesamad Qouqi</a
-                      >
-                    </div>
-                  </div>
-                  <div class="flex items-start">
-                    <i
-                      class="fas fa-map-marker-alt text-blue-600 text-xl mt-1 mr-4"
-                    ></i>
-                    <div>
-                      <h4 class="font-medium">Localisation</h4>
-                      <p class="text-gray-600">Paris, France</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div data-aos="fade-left">
-                <h3 class="text-2xl font-semibold mb-6">
-                  Possibilités d'entretiens
-                </h3>
-                <div class="bg-gray-50 p-6 rounded-lg">
-                  <div class="flex items-start mb-4">
-                    <i
-                      class="fas fa-calendar-check text-blue-600 text-xl mt-1 mr-4"
-                    ></i>
-                    <div>
-                      <h4 class="font-medium">
-                        Stage en IT - IA - Data
-                      </h4>
-                      <p class="text-gray-600">
-                        3 novembre 2025 - 3 avril 2026
-                      </p>
-                    </div>
-                  </div>
-                  <p class="text-gray-700 mb-6">
-                    Je suis actuellement à la recherche d'un stage de 5 mois
-                    dans le domaine de l'IA appliquée à l'IT (Gestion de Projet,
-                    Marketing Digital, ...) avec une dimension "Data". N'hésitez pas à me
-                    contacter pour discuter d'opportunités potentielles.
-                  </p>
-                  <div class="flex space-x-3">
-                    <a
-                      class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center"
-                      href="https://calendar.google.com"
-                      target="_blank"
-                    >
-                      <i class="fas fa-video mr-2"></i> Visio
-                    </a>
-                    <a
-                      class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center"
-                      href="tel:+33764548945"
-                    >
-                      <i class="fas fa-phone mr-2"></i> Appel
-                    </a>
-                  </div>
-                </div>
-              </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val">
+              <a href="mailto:abdesamad.qouqi.pro@gmail.com">abdesamad.qouqi.pro@gmail.com</a>
             </div>
           </div>
         </div>
-      </section>
-      <!-- Footer -->
-      <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-          <div class="flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0">
-              <h3 class="text-2xl font-bold gradient-text">Abdesamad QOUQI</h3>
-              <p class="mt-2 text-gray-400">
-                Étudiant Ingénieur IT, IA &amp; Data
-              </p>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-val">
+              <a href="https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269" target="_blank">Abdesamad Qouqi</a>
             </div>
-            <div class="flex space-x-6">
-              <a
-                :href="linkedinUrl"
-                class="text-gray-400 hover:text-white transition-colors duration-300"
-                target="_blank"
-              >
-                <i class="fab fa-linkedin text-2xl"></i>
-              </a>
-            </div>
-          </div>
-          <div class="mt-8 text-center text-gray-400">
-            <p>© {{ new Date().getFullYear() }} Tous droits réservés</p>
           </div>
         </div>
-      </footer>
-      <!-- Chatbot -->
-      <div
-        class="chatbot-container"
-        v-if="!isMobile || (isMobile &amp;&amp; chatbotOpen)"
-      >
-        <div @click="toggleChatbot" class="chatbot-button" v-if="!chatbotOpen">
-          <i class="fas fa-robot text-white text-2xl"></i>
-        </div>
-        <div class="chatbot-window" v-if="chatbotOpen">
-          <div
-            class="bg-blue-600 text-white p-4 flex justify-between items-center"
-          >
-            <div class="flex items-center">
-              <i class="fas fa-robot mr-2"></i>
-              <span>Abdesamad Qouqi</span>
-            </div>
-            <button
-              @click="toggleChatbot"
-              class="text-white hover:text-gray-200"
-            >
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          <div class="chat-messages" ref="chatMessages">
-            <div
-              :class="['message p-3 rounded-lg mb-3', 
-                                 message.type === 'bot' ? 'bg-gray-100 text-gray-700' : 'bg-blue-600 text-white ml-auto']"
-              :key="index"
-              v-for="(message, index) in chatMessages"
-            >
-              {{ message.text }}
-            </div>
-          </div>
-          <div class="chat-input bg-white">
-            <input
-              @keyup.enter="sendMessage"
-              class="flex-1 px-4 py-2 focus:outline-none"
-              placeholder="Posez votre question..."
-              type="text"
-              v-model="currentMessage"
-            />
-            <button
-              @click="sendMessage"
-              class="px-4 text-blue-600 hover:text-blue-800"
-            >
-              <i class="fas fa-paper-plane"></i>
-            </button>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-location-dot"></i></div>
+          <div>
+            <div class="contact-label">Localisation</div>
+            <div class="contact-val">Paris, France</div>
           </div>
         </div>
       </div>
+      <div class="contact-avail" data-aos="fade-left">
+        <div class="avail-header">Disponibilité</div>
+        <div class="avail-title">Stage IT — IA — Data</div>
+        <div class="avail-period">3 nov. 2025 → 3 avr. 2026 · 5 mois</div>
+        <div class="avail-desc">
+          Je recherche un stage combinant IA appliquée à l'IT, gestion de projet, marketing digital et data. Ouvert aux opportunités hybrides et en présentiel sur Paris.
+        </div>
+        <div class="avail-ctas">
+          <a class="btn-primary" href="https://calendar.google.com" target="_blank">
+            <i class="fas fa-video"></i> Visio
+          </a>
+          <a class="btn-ghost" href="tel:+33764548945">
+            <i class="fas fa-phone"></i> Appel
+          </a>
+        </div>
+      </div>
     </div>
-    <!-- Vue.js Script -->
-    <script>
-      const { createApp } = Vue;
+  </section>
 
-      createApp({
-        data() {
-          return {
-            showContactPopup: false,
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-logo">Abdesamad Qouqi</div>
+    <div class="footer-copy">© {{ new Date().getFullYear() }} — Tous droits réservés</div>
+    <a class="footer-link" href="https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </footer>
 
-            language: "fr",
-            texts: {
-              hero: {
-                title: {
-                  fr: "Étudiant Ingénieur IT, IA, Data",
-                  en: "Data, AI & IT Engineering Student",
-                },
-                subtitle: {
-                  fr: "À la recherche d'un stage en IA appliquée à l'IT, à la Data et au Marketing Digital<br>Du 3 novembre 2025 au 3 avril 2026",
-                  en: "Looking for an internship in AI applied to Project Management, Data and Digital Marketing<br>From November 3, 2025 to April 3, 2026",
-                },
-                contact: { fr: "Me Contacter", en: "Contact Me" },
-                more: { fr: "En Savoir Plus", en: "Learn More" },
-                download: {
-                  fr: "Télécharger mon CV",
-                  en: "Download my CV",
-                },
-              },
-            },
+  <!-- ── Chatbot ── -->
+  <button class="chatbot-fab" @click="chatbotOpen = !chatbotOpen" v-if="!chatbotOpen">
+    <i class="fas fa-message"></i>
+  </button>
+  <div class="chatbot-win" :class="{open: chatbotOpen}">
+    <div class="chatbot-head">
+      <div>
+        <div class="chatbot-head-name">Abdesamad Qouqi</div>
+        <div class="chatbot-head-sub">Répond en quelques secondes</div>
+      </div>
+      <button class="chatbot-close" @click="chatbotOpen = false"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chatbot-msgs" ref="chatMessages">
+      <div class="msg" :class="msg.type" v-for="(msg, idx) in chatMessages" :key="idx">{{ msg.text }}</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" v-model="currentMessage" @keyup.enter="sendMessage" placeholder="Posez votre question…" />
+      <button class="chatbot-send" @click="sendMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
 
-            scrolled: false,
-            mobileMenuOpen: false,
-            isVisible: false,
-            isSubmitting: false,
-            isMobile: window.innerWidth < 768,
-            chatbotOpen: false,
-            currentMessage: "",
-            chatMessages: [
-              {
-                type: "bot",
-                text: "Bonjour ! Je suis Abdesamad. Je peux vous renseigner sur mon parcours, mes compétences en IA, Data Science et marketing digital, ou mes projets. Comment puis-je vous aider ?",
-              },
-            ],
-            hoveredLanguage: null,
-            linkedinUrl: "https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269",
-languages: [
-  {
-    name: "Français",
-    level: "Langue maternelle",
-    score: 5,
-    flag: "https://flagcdn.com/w160/fr.png",
-  },
-  {
-    name: "Darija",
-    level: "Langue maternelle",
-    score: 5,
-    flag: "https://flagcdn.com/w160/ma.png", // Drapeau du Maroc 🇲🇦
-  },
-  {
-    name: "Anglais",
-    level: "Niveau TOEIC B2",
-    score: 4,
-    flag: "https://flagcdn.com/w160/gb.png",
-  },
-  {
-    name: "Espagnol",
-    level: "Niveau B1",
-    score: 3,
-    flag: "https://flagcdn.com/w160/es.png",
-  },
-],
+  <!-- ── Contact popup ── -->
+  <div class="popup-overlay" :class="{open: showContactPopup}" @click.self="showContactPopup = false">
+    <div class="popup-box">
+      <div class="popup-head">
+        <div class="popup-title">Contact</div>
+        <button class="popup-close" @click="showContactPopup = false"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="popup-item"><i class="fas fa-phone"></i> +33 (0)7 64 54 89 45</div>
+      <div class="popup-item"><i class="fas fa-envelope"></i> abdesamad.qouqi.pro@gmail.com</div>
+      <div class="popup-item">
+        <i class="fab fa-linkedin"></i>
+        <a href="https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </div>
 
-            form: {
-              name: "",
-              email: "",
-              message: "",
-            },
-            errors: {},
-            navigation: [
-              { id: 1, name: "Accueil", href: "#" },
-              { id: 2, name: "À Propos", href: "#about" },
-              { id: 4, name: "Skills", href: "#skills" },
-              { id: 6, name: "Expérience", href: "#experience" },
-              { id: 5, name: "Projets", href: "#projects" },
-              { id: 7, name: "Logiciels", href: "#software" },
-              { id: 3, name: "Langues", href: "#languages" },
-              { id: 9, name: "Certifications", href: "#certifications" },
-              { id: 8, name: "Contact", href: "#contact" },
-            ],
-            softSkills: [
-              {
-                name: "Créativité",
-                icon: "fas fa-lightbulb",
-                description:
-                  "Capacité à proposer des solutions innovantes en combinant IA et marketing digital",
-              },
-              {
-                name: "Adaptabilité",
-                icon: "fas fa-bolt",
-                description:
-                  "Apprentissage rapide des nouvelles technologies et méthodologies",
-              },
-              {
-                name: "Rigueur",
-                icon: "fas fa-check-double",
-                description:
-                  "Approche méthodique et précise dans la résolution de problèmes complexes",
-              },
-              {
-                name: "Collaboration",
-                icon: "fas fa-users",
-                description:
-                  "Travail efficace en équipe pluridisciplinaire et gestion de projets",
-              },
-            ],
-            hardSkills: [
-              {
-                name: "Programmation",
-                items: [
-                  {
-                    name: "Python",
-                    level: 95,
-                    description:
-                      "Langage principal pour l'IA, l'automatisation et l'analyse de données",
-                  },
-                  {
-                    name: "HTML",
-                    level: 95,
-                    description:
-                      "Structure de pages web accessibles et bien organisées",
-                  },
-                  {
-                    name: "CSS",
-                    level: 95,
-                    description:
-                      "Stylisation responsive et animations modernes en web design",
-                  },
-                  {
-                    name: "JavaScript (Vue.Js)",
-                    level: 95,
-                    description:
-                      "Création d’interfaces interactives et dynamiques",
-                  },
-                  {
-                    name: "Java",
-                    level: 85,
-                    description:
-                      "Applications back-end robustes et orientées objet",
-                  },
-                ],
-              },
-              {
-                name: "IA & Data Science",
-                items: [
-                  {
-                    name: "Machine Learning",
-                    level: 90,
-                    description:
-                      "Modèles prédictifs à partir de données structurées pour l’aide à la décision",
-                  },
-                  {
-                    name: "Deep Learning",
-                    level: 85,
-                    description:
-                      "Réseaux neuronaux appliqués à la reconnaissance d’images, sons et textes",
-                  },
-                  {
-                    name: "Traitement du langage naturel (NLP)",
-                    level: 80,
-                    description:
-                      "Analyse de texte et génération automatique de langage",
-                  },
-                  {
-                    name: "Analyse de données",
-                    level: 85,
-                    description:
-                      "Exploration, visualisation et interprétation des données pour orienter des décisions",
-                  },
-                  {
-                    name: "Data visualisation",
-                    level: 80,
-                    description:
-                      "Création de dashboards avec Power BI, Matplotlib et Seaborn",
-                  },
-                ],
-              },
-              {
-                name: "Gestion & Marketing",
-                items: [
-                  {
-                    name: "Gestion de projet",
-                    level: 85,
-                    description:
-                      "Suivi agile (Scrum, Kanban) et coordination d’équipe",
-                  },
-                  {
-                    name: "Méthodologies AGILE & WATERFALL",
-                    level: 90,
-                    description:
-                      "Approches adaptatives ou planifiées pour piloter les projets",
-                  },
-                  {
-                    name: "Analyse de données",
-                    level: 90,
-                    description:
-                      "Exploration de données marketing pour insights décisionnels",
-                  },
-                  {
-                    name: "SEO/SEA",
-                    level: 80,
-                    description:
-                      "Amélioration de la visibilité sur Google (naturelle et payante)",
-                  },
-                  {
-                    name: "Growth Hacking",
-                    level: 75,
-                    description:
-                      "Stratégies digitales innovantes pour accélérer la croissance",
-                  },
-                ],
-              },
-            ],
+</div><!-- #app -->
 
-            projects: [
-                {
-                title: "Site Web de détection des dépôts sauvages dans plusieurs villes (URBIN)",
-                type: "URBIN : https://urbin.ct.ws/",
-                image: "https://images.unsplash.com/photo-1602262442764-c14f8db98045?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Chemin vers votre image locale
-                technologies: ["Vue.js", "Django", "Node.js"],
-                link: "https://urbin.ct.ws/"  // Lien vers votre site
-                },
-              {
-                title:
-                  "Algorithme Machine Learning de détection de fraudes bancaires",
-                type: "Projet académique - PDF",
-                image:
-                  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                technologies: ["Python", "TensorFlow", "Pandas"],
-                pdf: "rapport_ml.pdf",
-              },
-              {
-                title: "Site Web pour une boutique en ligne de parfums (SYLVA)",
-                type: "Projet académique - PDF",
-                image:
-                  "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                technologies: ["UML", "Java", "Design Patterns"],
-                pdf: "rapport_uml.pdf",
-              },
-              {
-                title:
-                  "Application de signalement des dépôts sauvages urbains (Ecospot)!",
-                type: "Projet de groupe - EFREI",
-                image:
-                  "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=3136&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                technologies: ["Figma", "React", "Node.js"],
-              },
-              {
-                title:
-                  "Base de données pour une agence de location de voitures",
-                type: "Projet de groupe - EFREI",
-                image:
-                  "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                technologies: ["SQL", "MySQL", "Normalisation"],
-              },
-              {
-                title: "Chatbot",
-                type: "Projet personnel",
-                image:
-                  "https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                technologies: ["NLP", "Python", "Dialogflow"],
-              },
-            ],
-
-            experiences: [
-                {
-                date: "JUIN 2025 → JUIL. 2025",
-                title: "Solution Delivery URBIN",
-                company: "EFREI Paris",
-                icon: "fas fa-trash-alt",
-                description:
-                  "Développement d'un Site Web de signalement des dépôts sauvages avec image, géolocalisation et carte dans plusieurs grandes villes françaises.",
-                points: [
-                    "Carte dynamique et statistiques en temps réel (Pillow, OpenCV, Chart.js)",
-                    "Détection visuelle basée sur caractéristiques extraites via algorithme Python (Flask)",
-                    "Base de données + Back-End Django (utilisateur et admin)",
-                    "Soutenance tech + présentation client pour validation finale",
-                ],
-                technologies: ["Python", "Django", "Vue.js"],
-                showDetails: false,
-                skills: [
-                  {
-                    name: "Collaboration",
-                    icon: "fas fa-comments",
-                  },
-                  { name: "Gestion de projet agile", icon: "fas fa-tasks" },
-                  { name: "Innovation technique", icon: "fas fa-lightbulb" },
-                  { name: "Travail d'équipe", icon: "fas fa-users" },
-                  {
-                    name: "Présentation technique",
-                    icon: "fas fa-presentation",
-                  },
-                  { name: "Veille technologique", icon: "fas fa-search" },
-                ],
-              },
-                {
-                date: "JAN. 2025 → MAI 2025",
-                title: "Semestre de mobilité internationale",
-                company: "Staffordshire University",
-                icon: "fas fa-globe-europe",
-                description:
-                  "Expérience internationale enrichissante combinant théorie et pratique en IA, avec un focus sur les technologies émergentes et l'innovation.",
-                points: [
-                  "Renforcement des compétences linguistiques à travers des projets internationaux",
-                  "Approfondissement théorique en IA & Machine Learning avec des experts du domaine",
-                  "Création d'un site e-commerce complet utilisant des recommandations IA",
-                  "Développement d'un ChatBot avancé intégrant le NLP et l'apprentissage continu",
-                ],
-                technologies: ["Python", "TensorFlow", "Vue.js", "NLP"],
-                showDetails: false,
-                skills: [
-                  {
-                    name: "Communication internationale",
-                    icon: "fas fa-comments",
-                  },
-                  { name: "Gestion de projet agile", icon: "fas fa-tasks" },
-                  { name: "Innovation technique", icon: "fas fa-lightbulb" },
-                  { name: "Travail d'équipe", icon: "fas fa-users" },
-                  {
-                    name: "Présentation technique",
-                    icon: "fas fa-presentation",
-                  },
-                  { name: "Veille technologique", icon: "fas fa-search" },
-                ],
-              },
-              {
-                date: "SEP. 2024 → AVR. 2025",
-                title: "Projet personnel",
-                company: "Autodidacte",
-                icon: "fas fa-laptop-code",
-                description:
-                  "Développement approfondi de compétences en IA à travers des projets personnels innovants et des formations spécialisées.",
-                points: [
-                  "Étude approfondie des concepts clés en IA et des dernières avancées",
-                  "Suivi de formations certifiantes sur Coursera et participation active à la communauté",
-                  "Développement d'un système de classification d'images utilisant des CNN avancés",
-                  "Expérimentation avec les dernières versions de TensorFlow et création de modèles optimisés",
-                ],
-                technologies: [
-                  "Python",
-                  "TensorFlow",
-                  "scikit-learn",
-                  "OpenCV",
-                ],
-                showDetails: false,
-                skills: [
-                  { name: "Auto-apprentissage", icon: "fas fa-book-reader" },
-                  {
-                    name: "Résolution de problèmes",
-                    icon: "fas fa-puzzle-piece",
-                  },
-                  { name: "Deep Learning", icon: "fas fa-brain" },
-                  { name: "Vision par ordinateur", icon: "fas fa-eye" },
-                  {
-                    name: "Optimisation de modèles",
-                    icon: "fas fa-chart-line",
-                  },
-                  { name: "Documentation technique", icon: "fas fa-file-code" },
-                ],
-              },
-              {
-                date: "SEP. 2025 → JAN. 2025",
-                title: "Projets en groupe",
-                company: "EFREI Paris",
-                icon: "fas fa-users",
-                description:
-                  "Travail collaboratif sur plusieurs projets académiques mettant en œuvre des compétences variées en programmation, gestion de projet et communication.",
-                points: [
-                  "Développement Figma d'une application de gestion de déchets (Ecospot!)",
-                  "Création de base de données SQL pour une agence de location de voiture",
-                  "Culture d'entreprise et méthodologies Agile",
-                  "Communication efficace en équipe pluridisciplinaire",
-                  "Recherche opérationnelle et optimisation",
-                ],
-                technologies: ["Figma", "SQL", "Agile", "Communication"],
-                showDetails: false,
-                skills: [
-                  { name: "Travail d'équipe", icon: "fas fa-users" },
-                  { name: "Gestion de projet", icon: "fas fa-tasks" },
-                  { name: "Prototypage", icon: "fab fa-figma" },
-                  { name: "Bases de données", icon: "fas fa-database" },
-                  { name: "Communication", icon: "fas fa-comments" },
-                  { name: "Recherche", icon: "fas fa-search" },
-                ],
-              },
-              {
-                date: "DÉC. 2017",
-                title: "Stage d’observation",
-                company: "Cyanide Studio",
-                icon: "fas fa-gamepad",
-                description:
-                  'Découverte des différentes étapes de conception d’un jeu vidéo dans un studio professionnel, à travers une immersion dans les équipes de production du jeu "Call of Cthulhu".',
-                points: [
-                  "Interviews de différentes professions impliquées dans la création d’un jeu vidéo",
-                  'Participation à la rédaction d’un chapitre de jeu ("Call of Cthulhu")',
-                  "Réalisation de plusieurs tests gameplay",
-                  "Rédaction quotidienne de rapports de bugs",
-                ],
-                technologies: [
-                  "Game Design",
-                  "Test QA",
-                  "Narration interactive",
-                ],
-                showDetails: false,
-                skills: [
-                  { name: "Curiosité métier", icon: "fas fa-search" },
-                  { name: "Écriture narrative", icon: "fas fa-pen" },
-                  { name: "Tests qualité", icon: "fas fa-bug" },
-                  { name: "Observation terrain", icon: "fas fa-eye" },
-                ],
-              },
-            ],
-            softwareList: [
-              {
-                name: "VS Code",
-                icon: "fas fa-code",
-                category: "Développement",
-                description:
-                  "Éditeur de code léger et modulable, utilisé pour coder en Python, JavaScript, etc.",
-              },
-              {
-                name: "GitHub",
-                icon: "fab fa-github",
-                category: "Versioning",
-                description:
-                  "Outil de versioning collaboratif pour gérer et documenter des projets de développement et de data",
-              },
-              {
-                name: "Jupyter",
-                icon: "fas fa-book-open",
-                category: "Data Science",
-                description:
-                  "Environnement interactif pour l’analyse, la visualisation et le prototypage en Python",
-              },
-              {
-                name: "Pandas",
-                icon: "fas fa-table",
-                category: "Data",
-                description:
-                  "Bibliothèque Python pour la manipulation, l’analyse et le nettoyage de données tabulaires",
-              },
-              {
-                name: "TensorFlow",
-                icon: "fas fa-brain",
-                category: "IA",
-                description:
-                  "Framework de machine learning pour construire et entraîner des modèles d’IA avancés",
-              },
-              {
-                name: "Power BI",
-                icon: "fas fa-chart-bar",
-                category: "Visualisation",
-                description:
-                  "Outil de data visualisation pour transformer des données complexes en rapports clairs et interactifs",
-              },
-              {
-                name: "Postman",
-                icon: "fas fa-server",
-                category: "API",
-                description:
-                  "Plateforme pour tester, appeler et documenter des APIs dans des projets digitaux et data",
-              },
-              {
-                name: "Figma",
-                icon: "fab fa-figma",
-                category: "Prototypage",
-                description:
-                  "Outil collaboratif pour créer des maquettes et interfaces utilisateurs intuitives",
-              },
-            ],
-          };
+<script>
+const { createApp } = Vue;
+createApp({
+  data() {
+    return {
+      language: 'fr',
+      scrolled: false,
+      mobileMenuOpen: false,
+      showContactPopup: false,
+      chatbotOpen: false,
+      currentMessage: '',
+      chatMessages: [
+        { type: 'bot', text: "Bonjour ! Je suis Abdesamad. Posez-moi vos questions sur mon parcours, mes compétences ou mon stage." }
+      ],
+      linkedinUrl: 'https://fr.linkedin.com/in/abdesamad-qouqi-3ab4a6269',
+      navigation: [
+        { id:1, name:'À Propos', href:'#about' },
+        { id:2, name:'Skills', href:'#skills' },
+        { id:3, name:'Expérience', href:'#experience' },
+        { id:4, name:'Projets', href:'#projects' },
+        { id:5, name:'Contact', href:'#contact' },
+      ],
+      softSkills: [
+        { name:'Créativité', icon:'fas fa-lightbulb', description:'Solutions innovantes combinant IA et marketing digital.' },
+        { name:'Adaptabilité', icon:'fas fa-bolt', description:'Apprentissage rapide de nouvelles technologies et méthodes.' },
+        { name:'Rigueur', icon:'fas fa-check-double', description:'Approche méthodique et précise dans la résolution de problèmes.' },
+        { name:'Collaboration', icon:'fas fa-users', description:'Travail efficace en équipe pluridisciplinaire.' },
+      ],
+      hardSkills: [
+        {
+          name:'Programmation',
+          items: [
+            { name:'Python' },{ name:'HTML / CSS' },{ name:'JavaScript — Vue.js' },{ name:'Java' },
+          ]
         },
-        methods: {
-          switchLanguage() {
-            this.language = this.language === "fr" ? "en" : "fr";
-          },
-
-          toggleMobileMenu() {
-            this.mobileMenuOpen = !this.mobileMenuOpen;
-          },
-          handleScroll() {
-            this.scrolled = window.scrollY > 50;
-          },
-          getParticleStyle() {
-            const size = Math.random() * 4 + 2;
-            return {
-              width: size + "px",
-              height: size + "px",
-              left: Math.random() * 100 + "%",
-              top: Math.random() * 100 + "%",
-              animation: `float ${Math.random() * 3 + 2}s linear infinite`,
-            };
-          },
-          toggleChatbot() {
-            this.chatbotOpen = !this.chatbotOpen;
-            if (this.chatbotOpen) {
-              this.$nextTick(() => {
-                this.scrollToBottom();
-              });
-            }
-          },
-          downloadToeic() {
-            window.open("toeic.pdf", "_blank");
-          },
-          scrollToBottom() {
-            const container = this.$refs.chatMessages;
-            if (container) {
-              container.scrollTop = container.scrollHeight;
-            }
-          },
-          async sendMessage() {
-            if (!this.currentMessage.trim()) return;
-
-            // Add user message
-            this.chatMessages.push({
-              type: "user",
-              text: this.currentMessage,
-            });
-
-            const userMessage = this.currentMessage;
-            this.currentMessage = "";
-
-            // Simulate bot thinking
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Add bot response
-            this.chatMessages.push({
-              type: "bot",
-              text: this.getBotResponse(userMessage),
-            });
-
-            this.$nextTick(() => {
-              this.scrollToBottom();
-            });
-          },
-          downloadToeic() {
-            // In a real app, this would download the actual PDF
-            alert("Téléchargement de la certification TOEIC en cours...");
-          },
-          showGlobeTooltip(point) {
-            // This would show more detailed info in a real implementation
-            console.log("Showing info for point:", point);
-          },
-          rotateGlobe() {
-            // Add rotation animation to globe
-            const globe = document.querySelector(".globe");
-            globe.style.transform = "rotateY(180deg)";
-            setTimeout(() => {
-              globe.style.transform = "rotateY(360deg)";
-            }, 1000);
-          },
-          getBotResponse(message) {
-            message = message.toLowerCase();
-
-            const responses = {
-              formation: {
-                keywords: [
-                  "formation",
-                  "études",
-                  "école",
-                  "parcours",
-                  "diplôme",
-                ],
-                response:
-                  "Mon parcours académique est assez unique :\n1. Baccalauréat Scientifique (Maths, Physique-Chimie, SVT)\n2. Licence Sciences pour la Santé à l'UPEC (avec de la bioinformatique)\n3. Diplôme d'Ingénieur en Informatique à l'EFREI (spécialité Technologies Immersives & IA)\n4. Semestre international en Angleterre (Machine Learning, UML)\n\nQuel aspect de ma formation vous intéresse plus particulièrement ?",
-              },
-              experience: {
-                keywords: [
-                  "expérience",
-                  "projet",
-                  "travail",
-                  "stage",
-                  "professionnel",
-                ],
-                response:
-                  "J'ai travaillé sur plusieurs projets passionnants :\n- Système de recommandation IA pour e-commerce\n- Chatbot marketing avec NLP\n- Analyse de sentiment en temps réel\n- Optimisation SEO automatisée par IA\n\nJ'ai également effectué un semestre international en Angleterre axé sur le Machine Learning. Je recherche actuellement un stage en IA appliquée au Marketing Digital pour Novembre 2025.",
-              },
-              competences: {
-                keywords: [
-                  "compétence",
-                  "skill",
-                  "programmation",
-                  "langage",
-                  "technique",
-                ],
-                response:
-                  "Mes compétences principales :\n\n🔹 Hard Skills :\n- Python, Java, JavaScript (Vue.Js)\n- Machine/Deep Learning\n- NLP & Computer Vision\n- Gestion de projet (Agile, Kanban)\n- Analyse de données & SEO\n\n🔹 Soft Skills :\n- Créativité technique\n- Adaptabilité rapide\n- Rigueur scientifique\n- Collaboration efficace\n\nSur quelle compétence souhaitez-vous plus de détails ?",
-              },
-              contact: {
-                keywords: [
-                  "contact",
-                  "disponible",
-                  "email",
-                  "rencontrer",
-                  "joindre",
-                  "linkedin",
-                ],
-                response:
-                  "Vous pouvez me contacter de plusieurs manières :\n📧 Email : contact@example.com\n🔗 LinkedIn : linkedin.com/in/abdesamad\n📅 Calendrier : Disponible pour un call\n\nJe réponds généralement dans les 24h. Pour un échange plus technique, je suis disponible pour une visio.",
-              },
-
-              data: {
-                keywords: [
-                  "data",
-                  "données",
-                  "dataset",
-                  "pandas",
-                  "analyse",
-                  "visualisation",
-                  "dataviz",
-                ],
-                response:
-                  "La Data Science est un domaine central de ma formation. Voici ce que je maîtrise :\n📊 Analyse exploratoire de données avec Python et Pandas\n📈 Visualisation de données (Power BI, Matplotlib, Seaborn)\n🧹 Nettoyage, préparation et traitement des jeux de données\n🧠 Application de modèles de Machine Learning pour extraire des insights\n\nSouhaitez-vous un exemple concret de projet data ?",
-              },
-
-              ia: {
-                keywords: [
-                  "ia",
-                  "intelligence artificielle",
-                  "machine learning",
-                  "deep learning",
-                  "ai",
-                ],
-                response:
-                  "L'IA est ma passion ! Je me spécialise particulièrement dans :\n🤖 Applications marketing (recommandation, personnalisation)\n📊 Analyse prédictive du comportement client\n💬 Chatbots intelligents pour le service client\n🖼️ Computer Vision pour l'analyse d'images\n\nJ'adore explorer comment l'IA peut transformer les stratégies digitales. Avez-vous un domaine d'application spécifique en tête ?",
-              },
-              marketing: {
-                keywords: [
-                  "marketing",
-                  "digital",
-                  "seo",
-                  "growth",
-                  "publicité",
-                ],
-                response:
-                  "En marketing digital, je combine mes compétences techniques avec une approche data-driven :\n🔎 SEO/SEA optimisé par IA\n📈 Analyse de performance multicanal\n🎯 Publicité programmatique\n📊 Growth hacking automatisé\n\nJe m'intéresse particulièrement à l'application de l'IA pour automatiser et optimiser les campagnes marketing.",
-              },
-              stage: {
-                keywords: [
-                  "stage",
-                  "recherche",
-                  "alternance",
-                  "emploi",
-                  "opportunité",
-                  "novembre",
-                ],
-                response:
-                  "Je recherche activement un stage de 5 mois (Nov 2025 - Avr 2026) qui combine IA et Marketing Digital. Idéalement, je souhaite travailler sur :\n- Systèmes de recommandation personnalisée\n- Optimisation automatisée de campagnes\n- Analyse prédictive du comportement client\n- Chatbots marketing intelligents\n\nSi vous avez des opportunités correspondantes, je serais ravi d'en discuter !",
-              },
-              projets: {
-                keywords: ["projet", "réalisation", "portfolio", "travaux"],
-                response:
-                  "Voici quelques-uns de mes projets récents :\n1. Système de recommandation IA pour e-commerce (Python, TensorFlow)\n2. Chatbot marketing avec analyse de sentiment (NLP, Node.js)\n3. Outil d'optimisation SEO automatisé (Python, NLTK)\n4. Analyse d'images produits par Computer Vision\n\nLequel vous intéresse ? Je peux vous donner plus de détails techniques.",
-              },
-            };
-
-            // Find matching response
-            for (const category in responses) {
-              if (
-                responses[category].keywords.some((keyword) =>
-                  message.includes(keyword)
-                )
-              ) {
-                return responses[category].response;
-              }
-            }
-
-            // Default response
-            return "Je suis ravi d'échanger avec vous ! Pour mieux vous répondre, pourriez-vous préciser votre question ? Voici quelques sujets que je peux détailler :\n- Ma formation académique\n- Mes expériences professionnelles\n- Mes compétences techniques\n- Mes projets en IA et marketing\n- Comment me contacter\n- Ma recherche de stage";
-          },
-          toggleExperience(exp) {
-            this.experiences.forEach((e) => {
-              if (e !== exp) e.showDetails = false;
-            });
-            exp.showDetails = !exp.showDetails;
-          },
-          getTechBadgeClass(tech) {
-            const techCategories = {
-              Python: "bg-blue-100 text-blue-700",
-              TensorFlow: "bg-orange-100 text-orange-700",
-              PyTorch: "bg-red-100 text-red-700",
-              JavaScript: "bg-yellow-100 text-yellow-700",
-              "Vue.js": "bg-green-100 text-green-700",
-              R: "bg-purple-100 text-purple-700",
-              SQL: "bg-indigo-100 text-indigo-700",
-              Docker: "bg-blue-100 text-blue-700",
-              NLP: "bg-teal-100 text-teal-700",
-              OpenCV: "bg-green-100 text-green-700",
-              RStudio: "bg-blue-100 text-blue-700",
-              Cytoscape: "bg-purple-100 text-purple-700",
-              React: "bg-blue-100 text-blue-700",
-              AWS: "bg-orange-100 text-orange-700",
-              "Node.js": "bg-green-100 text-green-700",
-              Firebase: "bg-yellow-100 text-yellow-700",
-              Flask: "bg-gray-100 text-gray-700",
-              NLTK: "bg-green-100 text-green-700",
-              SEO: "bg-purple-100 text-purple-700",
-              "Google API": "bg-blue-100 text-blue-700",
-              Dialogflow: "bg-green-100 text-green-700",
-              Figma: "bg-purple-100 text-purple-700",
-              Agile: "bg-indigo-100 text-indigo-700",
-              Communication: "bg-pink-100 text-pink-700",
-              UML: "bg-blue-100 text-blue-700",
-              "Design Patterns": "bg-yellow-100 text-yellow-700",
-              MySQL: "bg-blue-100 text-blue-700",
-              Normalisation: "bg-green-100 text-green-700",
-            };
-            return techCategories[tech] || "bg-gray-100 text-gray-700";
-          },
-          getTechIcon(tech) {
-            const techIcons = {
-              Python: "fab fa-python",
-              TensorFlow: "fas fa-brain",
-              PyTorch: "fas fa-fire",
-              JavaScript: "fab fa-js",
-              "Vue.js": "fab fa-vuejs",
-              R: "fas fa-chart-line",
-              SQL: "fas fa-database",
-              Docker: "fab fa-docker",
-              NLP: "fas fa-language",
-              OpenCV: "fas fa-eye",
-              RStudio: "fas fa-chart-bar",
-              Cytoscape: "fas fa-project-diagram",
-              React: "fab fa-react",
-              AWS: "fab fa-aws",
-              "Node.js": "fab fa-node",
-              Firebase: "fas fa-fire",
-              Flask: "fas fa-flask",
-              NLTK: "fas fa-language",
-              SEO: "fas fa-search",
-              "Google API": "fab fa-google",
-              Dialogflow: "fas fa-robot",
-              Figma: "fab fa-figma",
-              Agile: "fas fa-tasks",
-              Communication: "fas fa-comments",
-              UML: "fas fa-project-diagram",
-              "Design Patterns": "fas fa-shapes",
-              MySQL: "fas fa-database",
-              Normalisation: "fas fa-sitemap",
-            };
-            return techIcons[tech] || "fas fa-code";
-          },
-          openPdf(pdfName) {
-            window.open(pdfName, "_blank");
-          },
-          async submitForm() {
-            this.errors = {};
-
-            if (!this.form.name) this.errors.name = "Le nom est requis";
-            if (!this.form.email) this.errors.email = "L'email est requis";
-            if (!this.form.message)
-              this.errors.message = "Le message est requis";
-
-            if (Object.keys(this.errors).length > 0) return;
-
-            this.isSubmitting = true;
-
-            try {
-              await new Promise((resolve) => setTimeout(resolve, 2000));
-              this.form.name = "";
-              this.form.email = "";
-              this.form.message = "";
-              this.$nextTick(() => {
-                alert(
-                  "Message envoyé avec succès! Je vous répondrai dans les plus brefs délais."
-                );
-              });
-            } catch (error) {
-              alert("Une erreur est survenue. Veuillez réessayer.");
-            } finally {
-              this.isSubmitting = false;
-            }
-          },
+        {
+          name:'IA & Data Science',
+          items: [
+            { name:'Machine Learning' },{ name:'Deep Learning' },{ name:'NLP' },{ name:'Analyse de données' },{ name:'Data visualisation' },
+          ]
         },
-        mounted() {
-          window.addEventListener("scroll", this.handleScroll);
-          window.addEventListener("resize", () => {
-            this.isMobile = window.innerWidth < 768;
-          });
-          AOS.init({
-            duration: 1000,
-            once: true,
-          });
-          setTimeout(() => {
-            this.isVisible = true;
-          }, 500);
+        {
+          name:'Gestion & Marketing',
+          items: [
+            { name:'Gestion de projet' },{ name:'Agile / Waterfall' },{ name:'SEO / SEA' },{ name:'Growth Hacking' },
+          ]
         },
-        beforeUnmount() {
-          window.removeEventListener("scroll", this.handleScroll);
-          window.removeEventListener("resize", () => {
-            this.isMobile = window.innerWidth < 768;
-          });
+      ],
+      projects: [
+        {
+          title: "URBIN — Détection des dépôts sauvages",
+          type: "Solution Delivery — EFREI",
+          image: "https://images.unsplash.com/photo-1602262442764-c14f8db98045?q=80&w=1200&auto=format&fit=crop",
+          technologies: ["Vue.js", "Django", "Node.js"],
+          link: "https://urbin.ct.ws/"
         },
-      }).mount("#app");
-    </script>
-  </body>
+        {
+          title: "Détection de fraudes bancaires",
+          type: "Projet académique",
+          image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+          technologies: ["Python", "TensorFlow", "Pandas"],
+          pdf: "rapport_ml.pdf"
+        },
+        {
+          title: "SYLVA — Boutique en ligne de parfums",
+          type: "Projet académique",
+          image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1200&auto=format&fit=crop",
+          technologies: ["UML", "Java", "Design Patterns"],
+          pdf: "rapport_uml.pdf"
+        },
+        {
+          title: "Ecospot — Signalement urbain",
+          type: "Projet de groupe — EFREI",
+          image: "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=1200&auto=format&fit=crop",
+          technologies: ["Figma", "React", "Node.js"]
+        },
+        {
+          title: "Location de voitures — Base de données",
+          type: "Projet de groupe — EFREI",
+          image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200&auto=format&fit=crop",
+          technologies: ["SQL", "MySQL", "Normalisation"]
+        },
+        {
+          title: "Chatbot NLP",
+          type: "Projet personnel",
+          image: "https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+          technologies: ["NLP", "Python", "Dialogflow"]
+        },
+      ],
+      experiences: [
+        {
+          date: "JUIN → JUIL. 2025",
+          title: "Solution Delivery URBIN",
+          company: "EFREI Paris",
+          icon: "fas fa-trash-alt",
+          description: "Développement d'un site web de signalement des dépôts sauvages avec image, géolocalisation et carte dans plusieurs grandes villes françaises.",
+          points: [
+            "Carte dynamique et statistiques en temps réel (Pillow, OpenCV, Chart.js)",
+            "Détection visuelle par algorithme Python (Flask)",
+            "Base de données + Back-End Django",
+            "Soutenance tech + présentation client",
+          ],
+          technologies: ["Python", "Django", "Vue.js"],
+          showDetails: false,
+          skills: [
+            { name:'Collaboration', icon:'fas fa-comments' },
+            { name:'Gestion agile', icon:'fas fa-tasks' },
+            { name:'Innovation', icon:'fas fa-lightbulb' },
+            { name:'Travail d\'équipe', icon:'fas fa-users' },
+            { name:'Présentation', icon:'fas fa-person-chalkboard' },
+            { name:'Veille techno', icon:'fas fa-search' },
+          ]
+        },
+        {
+          date: "JAN. → MAI 2025",
+          title: "Mobilité internationale",
+          company: "Staffordshire University — UK",
+          icon: "fas fa-globe-europe",
+          description: "Semestre international enrichissant combinant théorie et pratique en IA, avec focus sur les technologies émergentes.",
+          points: [
+            "Renforcement des compétences linguistiques via des projets internationaux",
+            "Approfondissement en IA & Machine Learning",
+            "Création d'un site e-commerce avec recommandations IA",
+            "Développement d'un chatbot avancé avec NLP",
+          ],
+          technologies: ["Python", "TensorFlow", "Vue.js", "NLP"],
+          showDetails: false,
+          skills: [
+            { name:'Communication internationale', icon:'fas fa-comments' },
+            { name:'Gestion agile', icon:'fas fa-tasks' },
+            { name:'Innovation', icon:'fas fa-lightbulb' },
+            { name:'Travail d\'équipe', icon:'fas fa-users' },
+            { name:'Présentation tech', icon:'fas fa-person-chalkboard' },
+            { name:'Veille techno', icon:'fas fa-search' },
+          ]
+        },
+        {
+          date: "SEP. 2024 → AVR. 2025",
+          title: "Projet personnel — IA",
+          company: "Autodidacte",
+          icon: "fas fa-laptop-code",
+          description: "Développement approfondi de compétences en IA à travers des projets personnels innovants et des formations spécialisées.",
+          points: [
+            "Étude des concepts clés et dernières avancées IA",
+            "Formations certifiantes sur Coursera",
+            "Système de classification d'images avec CNN avancés",
+            "Expérimentation avec TensorFlow et modèles optimisés",
+          ],
+          technologies: ["Python", "TensorFlow", "scikit-learn", "OpenCV"],
+          showDetails: false,
+          skills: [
+            { name:'Auto-apprentissage', icon:'fas fa-book-reader' },
+            { name:'Résolution de problèmes', icon:'fas fa-puzzle-piece' },
+            { name:'Deep Learning', icon:'fas fa-brain' },
+            { name:'Vision par ordinateur', icon:'fas fa-eye' },
+            { name:'Optimisation', icon:'fas fa-chart-line' },
+            { name:'Documentation', icon:'fas fa-file-code' },
+          ]
+        },
+        {
+          date: "SEP. → JAN. 2025",
+          title: "Projets en groupe",
+          company: "EFREI Paris",
+          icon: "fas fa-users",
+          description: "Travail collaboratif sur plusieurs projets académiques : programmation, gestion de projet et communication.",
+          points: [
+            "Développement Figma d'une application de gestion de déchets (Ecospot!)",
+            "Création d'une base de données SQL pour agence de location de voiture",
+            "Méthodologies Agile et culture d'entreprise",
+            "Recherche opérationnelle et optimisation",
+          ],
+          technologies: ["Figma", "SQL", "Agile", "Communication"],
+          showDetails: false,
+          skills: [
+            { name:'Travail d\'équipe', icon:'fas fa-users' },
+            { name:'Gestion de projet', icon:'fas fa-tasks' },
+            { name:'Prototypage', icon:'fab fa-figma' },
+            { name:'Bases de données', icon:'fas fa-database' },
+            { name:'Communication', icon:'fas fa-comments' },
+            { name:'Recherche', icon:'fas fa-search' },
+          ]
+        },
+        {
+          date: "DÉC. 2017",
+          title: "Stage d'observation",
+          company: "Cyanide Studio",
+          icon: "fas fa-gamepad",
+          description: "Découverte des étapes de conception d'un jeu vidéo — immersion dans les équipes du jeu «\u00a0Call of Cthulhu\u00a0».",
+          points: [
+            "Interviews de professionnels du jeu vidéo",
+            "Participation à la rédaction d'un chapitre de jeu",
+            "Tests gameplay et rédaction de rapports de bugs",
+          ],
+          technologies: ["Game Design", "Test QA", "Narration interactive"],
+          showDetails: false,
+          skills: [
+            { name:'Curiosité métier', icon:'fas fa-search' },
+            { name:'Écriture narrative', icon:'fas fa-pen' },
+            { name:'Tests qualité', icon:'fas fa-bug' },
+            { name:'Observation terrain', icon:'fas fa-eye' },
+          ]
+        },
+      ],
+      softwareList: [
+        { name:'VS Code', icon:'fas fa-code', category:'Développement', description:'Éditeur modulable pour Python, JavaScript, etc.' },
+        { name:'GitHub', icon:'fab fa-github', category:'Versioning', description:'Gestion et documentation de projets collaboratifs.' },
+        { name:'Jupyter', icon:'fas fa-book-open', category:'Data Science', description:'Analyse, visualisation et prototypage en Python.' },
+        { name:'Pandas', icon:'fas fa-table', category:'Data', description:'Manipulation et nettoyage de données tabulaires.' },
+        { name:'TensorFlow', icon:'fas fa-brain', category:'IA', description:'Framework pour modèles de Machine Learning avancés.' },
+        { name:'Power BI', icon:'fas fa-chart-bar', category:'Visualisation', description:'Dashboards interactifs à partir de données complexes.' },
+        { name:'Postman', icon:'fas fa-server', category:'API', description:'Test et documentation d\'APIs dans des projets digitaux.' },
+        { name:'Figma', icon:'fab fa-figma', category:'Prototypage', description:'Maquettes et interfaces utilisateurs collaboratives.' },
+      ],
+      languages: [
+        { name:'Français', level:'Langue maternelle', score:5, flag:'https://flagcdn.com/w160/fr.png' },
+        { name:'Darija', level:'Langue maternelle', score:5, flag:'https://flagcdn.com/w160/ma.png' },
+        { name:'Anglais', level:'TOEIC — B2', score:4, flag:'https://flagcdn.com/w160/gb.png' },
+        { name:'Espagnol', level:'Niveau B1', score:3, flag:'https://flagcdn.com/w160/es.png' },
+      ],
+    };
+  },
+  methods: {
+    switchLanguage() { this.language = this.language === 'fr' ? 'en' : 'fr'; },
+    toggleExperience(exp) {
+      this.experiences.forEach(e => { if (e !== exp) e.showDetails = false; });
+      exp.showDetails = !exp.showDetails;
+    },
+    openPdf(p) { window.open(p, '_blank'); },
+    openUrl(u) { window.open(u, '_blank'); },
+    async sendMessage() {
+      if (!this.currentMessage.trim()) return;
+      this.chatMessages.push({ type:'user', text: this.currentMessage });
+      const msg = this.currentMessage.toLowerCase();
+      this.currentMessage = '';
+      await new Promise(r => setTimeout(r, 900));
+      this.chatMessages.push({ type:'bot', text: this.getBotResponse(msg) });
+      this.$nextTick(() => {
+        const c = this.$refs.chatMessages;
+        if (c) c.scrollTop = c.scrollHeight;
+      });
+    },
+    getBotResponse(msg) {
+      const r = [
+        { k:['formation','études','école','diplôme','parcours'], r:"Mon parcours :\n1. Bac Scientifique (Lycée Racine)\n2. Licence Sciences pour la Santé — UPEC\n3. Ingénieur Informatique — EFREI (en cours, 2027)\n4. Semestre international — Staffordshire University 🇬🇧" },
+        { k:['stage','alternance','emploi','novembre','opportunité'], r:"Je recherche un stage de 5 mois (Nov 2025 – Avr 2026) en IA appliquée à l'IT, la Data ou le Marketing Digital. N'hésitez pas à me contacter !" },
+        { k:['compétence','skill','python','ia','machine learning'], r:"Mes compétences clés :\n• Python, Vue.js, Java\n• Machine / Deep Learning\n• NLP & Computer Vision\n• Gestion de projet Agile\n• SEO / SEA & Growth Hacking" },
+        { k:['contact','email','linkedin','joindre'], r:"📧 abdesamad.qouqi.pro@gmail.com\n📱 +33 (0)7 64 54 89 45\n🔗 linkedin.com/in/abdesamad-qouqi" },
+        { k:['projet','réalisation','urbin','ecospot'], r:"Mes projets phares :\n• URBIN — signalement des dépôts sauvages (Django + Vue.js)\n• Détection de fraudes bancaires (TensorFlow)\n• Chatbot NLP — projet personnel\n• Ecospot — appli de gestion de déchets (Figma + React)" },
+      ];
+      for (const entry of r) {
+        if (entry.k.some(k => msg.includes(k))) return entry.r;
+      }
+      return "Je suis ravi d'échanger ! Vous pouvez me demander des infos sur ma formation, mes projets, mes compétences ou mon stage. 😊";
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', () => { this.scrolled = window.scrollY > 40; });
+
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    const animCursor = () => {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    };
+    animCursor();
+    document.querySelectorAll('a, button, .exp-header, .project-card, .cert-card, .soft-item, .software-item').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    AOS.init({ duration: 800, once: true, offset: 60 });
+
+    // Map
+    setTimeout(() => {
+      if (typeof L === 'undefined') return;
+      const map = L.map('map', { zoomControl: false }).setView([50.5, 0], 5);
+      L.control.zoom({ position:'bottomright' }).addTo(map);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap & CartoDB', subdomains:'abcd', maxZoom:20
+      }).addTo(map);
+      const locations = [
+        { name:'Baccalauréat Scientifique', desc:'Lycée Racine, Paris', coords:[48.875, 2.31] },
+        { name:'Licence Sciences pour la Santé — UPEC', desc:'Biologie & Bioinformatique', coords:[48.817, 2.4653] },
+        { name:'Diplôme d\'Ingénieur — EFREI', desc:'IT & Data Science', coords:[48.7904, 2.3274] },
+        { name:'Semestre international — Staffordshire University', desc:'Machine Learning, UML, Networks…', coords:[52.9931, -2.1796] },
+      ];
+      locations.forEach(loc => {
+        L.marker(loc.coords).addTo(map).bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+      });
+    }, 500);
+  }
+}).mount('#app');
+</script>
+</body>
 </html>
