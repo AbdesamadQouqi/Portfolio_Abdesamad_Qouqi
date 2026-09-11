@@ -542,7 +542,6 @@
     .mobile-menu.open a:nth-child(6) { transition-delay:.25s; }
     .mobile-close { position:absolute; top:1.5rem; right:2rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--heading); }
 
-    /* Masque le trait de scroll (hero-scroll) quand le menu burger est ouvert */
     .mobile-menu.open ~ .hero .hero-scroll { display:none !important; }
 
     [data-aos] { transition-timing-function: cubic-bezier(.23,1,.32,1) !important; }
@@ -564,14 +563,11 @@
       section { padding:4rem 1.25rem; }
       .hero { padding:0 1.25rem; }
 
-      /* Carte masquée sur mobile */
       .about-grid > div:last-child { display:none; }
 
-      /* Réduction espace sous le texte "Un parcours hybride..." */
       .about-text .section-desc { margin-bottom: .5rem; }
       .about-grid { gap: 1.25rem; }
 
-      /* Formation & Expériences : carrousel horizontal - les 2 timelines sur la même ligne */
       .about-grid > div[data-aos="fade-up"] { overflow: hidden; }
       .about-grid > div[data-aos="fade-up"] {
         display: flex;
@@ -593,7 +589,6 @@
         margin-top: 0 !important;
       }
 
-      /* Soft & Hard skills : carrousel horizontal */
       .skills-group .soft-grid,
       .skills-group .skills-wrap {
         display: flex;
@@ -617,24 +612,22 @@
         border: 1px solid var(--border);
       }
 
-      /* Réduction espace sous les cards soft skills avant le titre hard skills */
       .skills-group + .skills-group { margin-top: 1.5rem; }
 
-      /* Réduction espace sous les cards hard skills avant le titre outils */
       .skills-sub-title { margin: 1.5rem 0 .75rem; }
 
-      /* Réduction espace sous le carrousel outils avant le titre langues */
       .software-carousel { padding: 1.25rem 0; }
 
-      /* Langues : 3 sur une ligne */
-      .lang-grid { grid-template-columns: repeat(3, 1fr); }
+      .lang-grid { grid-template-columns: repeat(3, 1fr); gap: 0; }
+      .lang-card { padding: 1rem .5rem; }
+      .lang-name { font-size: 1rem; }
+      .lang-level { font-size: .65rem; }
+      .lang-flag { width: 32px; height: 22px; }
 
-      /* Réduction espace sous les cards langues avant le titre réalisations */
       .lang-grid { margin-bottom: .5rem; }
       #skills { padding-bottom: 1rem; }
       #projects { padding-top: 1rem; }
 
-      /* Certifications : carrousel horizontal (3 sur la même ligne, scrollables) */
       #certifications .section-title { margin-bottom: 1.75rem; }
       .cert-grid {
         display: flex;
@@ -655,7 +648,6 @@
         border: 1px solid var(--border);
       }
 
-      /* Contact : infos en haut, rectangle en bas */
       .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
 
       .software-grid { grid-template-columns:repeat(2,1fr); }
@@ -668,7 +660,6 @@
       #certifications { padding-bottom: 2rem; }
     }
 
-    /* Ajustements supplémentaires pour les écrans très étroits (petits phones) */
     @media (max-width: 400px) {
       nav { padding:.7rem 1rem; }
       nav.scrolled { padding:.6rem 1rem; }
@@ -684,6 +675,11 @@
       .soft-item,
       .skill-cat,
       .cert-card { flex: 0 0 92%; }
+      .lang-card { padding: .85rem .4rem; }
+      .lang-name { font-size: .9rem; }
+      .lang-level { font-size: .6rem; }
+      .lang-dots { gap: .2rem; }
+      .lang-dot { width: 5px; height: 5px; }
     }
 
     #map { filter: grayscale(100%) contrast(1.1) brightness(1.05); }
@@ -1491,9 +1487,8 @@ createApp({
 
       let fixedH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       const remeasureH = () => {
-        // Ignore les micro-variations dues à la barre d'adresse mobile (show/hide)
         const newH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        if (Math.abs(newH - fixedH) > 150) fixedH = newH; // vraie rotation/resize seulement
+        if (Math.abs(newH - fixedH) > 150) fixedH = newH;
       };
 
       const onScroll = () => {
@@ -1508,7 +1503,6 @@ createApp({
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
-          // Sur mobile : uniquement le trait de progression, fixe en haut à droite
           el.style.top = getEndTop() + 'px';
           el.style.right = getEndRight() + 'px';
           el.style.transform = 'scale(0.88)';
