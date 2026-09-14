@@ -9,6 +9,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Logo_A.png">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -225,14 +226,22 @@
     .skills-wrap { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
     .skill-cat { background:var(--bg); padding:2rem; }
     .skill-cat-title { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:1.5rem; padding-bottom:.75rem; border-bottom:1px solid var(--border); }
-    .skill-item { display:flex; align-items:center; gap:.75rem; padding:.5rem 0; border-bottom:1px solid var(--surface); transition:all .2s; cursor:default; }
+    .skill-item { display:flex; align-items:center; gap:.75rem; padding:.5rem 0; border-bottom:1px solid var(--surface); transition:all .2s; cursor:default; position:relative; }
     .skill-item:last-child { border-bottom:none; }
     .skill-item:hover { padding-left:.5rem; }
     .skill-item i { color:var(--highlight); width:14px; font-size:.8rem; flex-shrink:0; }
     .skill-item span { font-size:.88rem; color:var(--body); }
+    .skill-tooltip {
+      position:absolute; left:0; right:0; top:100%; margin-top:.25rem;
+      background:var(--heading); color:#fff; font-size:.7rem; line-height:1.5;
+      padding:.55rem .7rem; border-radius:3px; text-align:left;
+      opacity:0; transform:translateY(-4px); pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+      z-index:6;
+    }
+    .skill-item:hover .skill-tooltip { opacity:1; transform:translateY(0); }
     .soft-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:1px; }
-    .soft-item { background:var(--bg); padding:1.75rem 1.5rem; transition:background .25s; }
-    .soft-item:hover { background:var(--surface); }
+    .soft-item { background:var(--bg); padding:1.75rem 1.5rem; }
     .soft-icon { font-size:1.1rem; color:var(--highlight); margin-bottom:.75rem; }
     .soft-name { font-size:.88rem; font-weight:500; color:var(--heading); margin-bottom:.35rem; }
     .soft-desc { font-size:.78rem; color:var(--muted); line-height:1.6; }
@@ -393,8 +402,7 @@
     }
 
     .lang-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
-    .lang-card { background:var(--bg); padding:2rem; transition:background .25s; display:flex; flex-direction:column; align-items:center; text-align:center; }
-    .lang-card:hover { background:var(--surface); }
+    .lang-card { background:var(--bg); padding:2rem; display:flex; flex-direction:column; align-items:center; text-align:center; }
     .lang-flag { width:40px; height:28px; object-fit:cover; border:1px solid var(--border); margin-bottom:1rem; }
     .lang-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:300; color:var(--heading); margin-bottom:.15rem; }
     .lang-level { font-size:.72rem; letter-spacing:.08em; color:var(--muted); margin-bottom:1rem; }
@@ -413,19 +421,31 @@
       position:relative; overflow:hidden;
     }
     .cert-card:hover { background:var(--surface); }
-    .cert-icon { font-size:1.5rem; color:var(--highlight); transition:transform .3s ease; }
-    .cert-card:hover .cert-icon { transform:translateY(-2px); }
-    .cert-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; color:var(--heading); line-height:1.3; }
-    .cert-by { font-size:.75rem; letter-spacing:.06em; color:var(--muted); }
-    .cert-desc {
-      font-size:.78rem; color:var(--muted); line-height:1.6;
-      max-height:0; opacity:0; overflow:hidden;
-      transition:max-height .35s ease, opacity .3s ease;
+    .cert-icon { font-size:1.5rem; color:var(--highlight); transition:opacity .3s ease; }
+    .cert-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; color:var(--heading); line-height:1.3; transition:opacity .3s ease; }
+    .cert-by { font-size:.75rem; letter-spacing:.06em; color:var(--muted); transition:opacity .3s ease; }
+    .cert-card:hover > .cert-icon,
+    .cert-card:hover > .cert-name,
+    .cert-card:hover > .cert-by { opacity:0; }
+    .cert-arrow {
+      margin-top:auto; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--highlight); display:flex; align-items:center; gap:.4rem;
+      position:relative; z-index:2; width:fit-content;
+      padding:.3rem .6rem; border-radius:2px; transition:background .25s ease;
     }
-    .cert-card:hover .cert-desc { max-height:6em; opacity:1; }
-    .cert-arrow { margin-top:auto; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--highlight); display:flex; align-items:center; gap:.4rem; }
+    .cert-card:hover .cert-arrow { background:var(--bg); }
     .cert-arrow i { transition:transform .25s ease; }
-    .cert-card:hover .cert-arrow i { transform:translateX(3px); }
+    .cert-desc {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:1.75rem 2rem 3.25rem;
+      font-size:.78rem; color:var(--muted); line-height:1.6;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+      opacity:0; pointer-events:none;
+      transition:opacity .35s ease;
+    }
+    .cert-card:hover .cert-desc { opacity:1; }
 
     #contact { padding-top:2.5rem; padding-bottom:3rem; }
     #contact .section-title { margin-bottom: 2.25rem; }
@@ -542,6 +562,7 @@
     .mobile-menu.open a:nth-child(6) { transition-delay:.25s; }
     .mobile-close { position:absolute; top:1.5rem; right:2rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--heading); }
 
+    /* Masque le trait de scroll (hero-scroll) quand le menu burger est ouvert */
     .mobile-menu.open ~ .hero .hero-scroll { display:none !important; }
 
     [data-aos] { transition-timing-function: cubic-bezier(.23,1,.32,1) !important; }
@@ -563,11 +584,14 @@
       section { padding:4rem 1.25rem; }
       .hero { padding:0 1.25rem; }
 
+      /* Carte masquée sur mobile */
       .about-grid > div:last-child { display:none; }
 
+      /* Réduction espace sous le texte "Un parcours hybride..." */
       .about-text .section-desc { margin-bottom: .5rem; }
       .about-grid { gap: 1.25rem; }
 
+      /* Formation & Expériences : carrousel horizontal - les 2 timelines sur la même ligne */
       .about-grid > div[data-aos="fade-up"] { overflow: hidden; }
       .about-grid > div[data-aos="fade-up"] {
         display: flex;
@@ -589,6 +613,7 @@
         margin-top: 0 !important;
       }
 
+      /* Soft & Hard skills : carrousel horizontal */
       .skills-group .soft-grid,
       .skills-group .skills-wrap {
         display: flex;
@@ -612,22 +637,24 @@
         border: 1px solid var(--border);
       }
 
+      /* Réduction espace sous les cards soft skills avant le titre hard skills */
       .skills-group + .skills-group { margin-top: 1.5rem; }
 
+      /* Réduction espace sous les cards hard skills avant le titre outils */
       .skills-sub-title { margin: 1.5rem 0 .75rem; }
 
+      /* Réduction espace sous le carrousel outils avant le titre langues */
       .software-carousel { padding: 1.25rem 0; }
 
-      .lang-grid { grid-template-columns: repeat(3, 1fr); gap: 0; }
-      .lang-card { padding: 1rem .5rem; }
-      .lang-name { font-size: 1rem; }
-      .lang-level { font-size: .65rem; }
-      .lang-flag { width: 32px; height: 22px; }
+      /* Langues : 3 sur une ligne */
+      .lang-grid { grid-template-columns: repeat(3, 1fr); }
 
+      /* Réduction espace sous les cards langues avant le titre réalisations */
       .lang-grid { margin-bottom: .5rem; }
       #skills { padding-bottom: 1rem; }
       #projects { padding-top: 1rem; }
 
+      /* Certifications : carrousel horizontal (3 sur la même ligne, scrollables) */
       #certifications .section-title { margin-bottom: 1.75rem; }
       .cert-grid {
         display: flex;
@@ -648,6 +675,7 @@
         border: 1px solid var(--border);
       }
 
+      /* Contact : infos en haut, rectangle en bas */
       .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
 
       .software-grid { grid-template-columns:repeat(2,1fr); }
@@ -660,6 +688,7 @@
       #certifications { padding-bottom: 2rem; }
     }
 
+    /* Ajustements supplémentaires pour les écrans très étroits (petits phones) */
     @media (max-width: 400px) {
       nav { padding:.7rem 1rem; }
       nav.scrolled { padding:.6rem 1rem; }
@@ -675,11 +704,6 @@
       .soft-item,
       .skill-cat,
       .cert-card { flex: 0 0 92%; }
-      .lang-card { padding: .85rem .4rem; }
-      .lang-name { font-size: .9rem; }
-      .lang-level { font-size: .6rem; }
-      .lang-dots { gap: .2rem; }
-      .lang-dot { width: 5px; height: 5px; }
     }
 
     #map { filter: grayscale(100%) contrast(1.1) brightness(1.05); }
@@ -746,8 +770,8 @@
         <div class="btn-ghost" style="position:relative; cursor:pointer;">
           Télécharger mon CV
           <div class="dropdown">
-            <a href="Abdesamad Qouqi CV 2027.pdf" download>Version Française</a>
-            <a href="Abdesamad Qouqi CV 2027 eng.pdf" download>English Version</a>
+            <a href="Abdesamad_Qouqi_CV_version_française.pdf" download>Version Française</a>
+            <a href="Abdesamad_Qouqi_CV_english_version.pdf" download>English Version</a>
           </div>
         </div>
       </div>
@@ -834,6 +858,7 @@
           <div class="skill-item" v-for="(skill, si) in cat.items" :key="si">
             <i class="fas fa-minus"></i>
             <span>{{ skill.name }}</span>
+            <div class="skill-tooltip" v-if="skill.desc">{{ skill.desc }}</div>
           </div>
         </div>
       </div>
@@ -908,7 +933,7 @@
   <section id="certifications" style="background:var(--surface);">
     <h2 class="section-title" data-aos="fade-up">Mes <em>certifications</em></h2>
     <div class="cert-grid" data-aos="fade-up" data-aos-delay="100">
-      <a class="cert-card" href="toeic.pdf" target="_blank">
+      <a class="cert-card" href="toeic_abdesamad_qouqi.pdf" target="_blank">
         <div class="cert-icon"><i class="fas fa-language"></i></div>
         <div class="cert-name">TOEIC — C1</div>
         <div class="cert-by">English Certification</div>
@@ -922,28 +947,28 @@
         <div class="cert-desc">Bases de la cybersécurité : menaces, vulnérabilités, protocoles et bonnes pratiques défensives.</div>
         <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
       </a>
-      <a class="cert-card" href="Digital Sticker_Introduction to Large Language Models.pdf" target="_blank">
+      <a class="cert-card" href="ibmskillsbuild_abdesamad_qouqi.jpg" target="_blank">
         <div class="cert-icon"><i class="fas fa-microchip"></i></div>
         <div class="cert-name">Introduction to LLMs</div>
         <div class="cert-by">IBM SkillsBuild</div>
         <div class="cert-desc">Fondamentaux des grands modèles de langage : architecture, entraînement et cas d'usage.</div>
         <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
       </a>
-      <a class="cert-card" href="prompt_engineering_linkedin.pdf" target="_blank">
+      <a class="cert-card" href="https://www.linkedin.com/learning/certificates/dd95ef9e69940c3e87077b4412e86973738e8a77bac7b23aa24c8c523db4ea9d/?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B59%2FV1N99RImg%2F34cOqUFVQ%3D%3D" target="_blank">
         <div class="cert-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
         <div class="cert-name">Prompt Engineering for AI-Powered Content Generation</div>
         <div class="cert-by">LinkedIn Learning Community</div>
         <div class="cert-desc">Techniques de rédaction de prompts efficaces pour la génération de contenu assistée par IA.</div>
         <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
       </a>
-      <a class="cert-card" href="ai_powered_people_manager_linkedin.pdf" target="_blank">
+      <a class="cert-card" href="https://www.linkedin.com/learning/certificates/61ee34dc21c25c9691a1b5597ca55c11b5408c2b5e7e387030129721680ff394/?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B59%2FV1N99RImg%2F34cOqUFVQ%3D%3D" target="_blank">
         <div class="cert-icon"><i class="fas fa-user-tie"></i></div>
         <div class="cert-name">AI-Powered People Manager</div>
         <div class="cert-by">LinkedIn Learning Community</div>
         <div class="cert-desc">Utilisation de l'IA pour améliorer le management d'équipe, le recrutement et la performance.</div>
         <div class="cert-arrow">Voir <i class="fas fa-arrow-right"></i></div>
       </a>
-      <a class="cert-card" href="bases_ia_generative_efrei.pdf" target="_blank">
+      <a class="cert-card" href="https://www.linkedin.com/safety/go/?url=https%3A%2F%2Fopenbadgepassport.com%2Fapp%2Fbadge%2Finfo%2F1033142&urlhash=7uur&mt=eXrhLfPs1WG4D2YQ6Srt4uA0a9KIgh_Nide8M-9qUS9M16nHZNXODP0pDKvB6va3TzCA0QFHFXR2aWX9eavsPn-MqLbN&isSdui=true&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B59%2FV1N99RImg%2F34cOqUFVQ%3D%3D" target="_blank">
         <div class="cert-icon"><i class="fas fa-robot"></i></div>
         <div class="cert-name">Bases de l'IA générative</div>
         <div class="cert-by">EFREI Paris</div>
@@ -1065,25 +1090,38 @@ createApp({
         {
           name:'Programmation',
           items: [
-            { name:'Python' },{ name:'HTML / CSS' },{ name:'JavaScript — Vue.js' },{ name:'Java' },
+            { name:'Python', desc:'Scripts, automatisation et projets IA / data.' },
+            { name:'HTML / CSS', desc:'Structure et mise en forme de pages web.' },
+            { name:'JavaScript — Vue.js', desc:'Interfaces réactives et applications front-end.' },
+            { name:'Java', desc:'Programmation orientée objet et logique applicative.' },
           ]
         },
         {
           name:'IA & Data Science',
           items: [
-            { name:'Machine Learning' },{ name:'Deep Learning' },{ name:'NLP' },{ name:'Analyse de données' },{ name:'Data visualisation' },
+            { name:'Machine Learning', desc:'Modèles prédictifs à partir de données.' },
+            { name:'Deep Learning', desc:'Réseaux de neurones pour tâches complexes.' },
+            { name:'NLP', desc:'Traitement et compréhension du langage naturel.' },
+            { name:'Analyse de données', desc:'Exploration et interprétation de jeux de données.' },
+            { name:'Data visualisation', desc:'Représentation graphique claire des résultats.' },
           ]
         },
         {
           name:'Gestion de projet',
           items: [
-            { name:'Gestion de projet' },{ name:'Agile / Waterfall' },{ name:'Scrum' },{ name:'Planification' },
+            { name:'Gestion de projet', desc:'Pilotage des délais, ressources et objectifs.' },
+            { name:'Agile / Waterfall', desc:'Méthodologies itératives ou séquentielles.' },
+            { name:'Scrum', desc:'Sprints, rituels et gestion d\'équipe agile.' },
+            { name:'Planification', desc:'Organisation des tâches et des priorités.' },
           ]
         },
         {
           name:'Marketing',
           items: [
-            { name:'SEO / SEA' },{ name:'Growth Hacking' },{ name:'Marketing digital' },{ name:'Analyse de campagnes' },
+            { name:'SEO / SEA', desc:'Référencement naturel et campagnes payantes.' },
+            { name:'Growth Hacking', desc:'Tactiques rapides pour accélérer la croissance.' },
+            { name:'Marketing digital', desc:'Stratégies de visibilité et d\'acquisition en ligne.' },
+            { name:'Analyse de campagnes', desc:'Suivi des performances et optimisation des actions.' },
           ]
         },
       ],
@@ -1487,8 +1525,9 @@ createApp({
 
       let fixedH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       const remeasureH = () => {
+        // Ignore les micro-variations dues à la barre d'adresse mobile (show/hide)
         const newH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        if (Math.abs(newH - fixedH) > 150) fixedH = newH;
+        if (Math.abs(newH - fixedH) > 150) fixedH = newH; // vraie rotation/resize seulement
       };
 
       const onScroll = () => {
@@ -1503,6 +1542,7 @@ createApp({
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
+          // Sur mobile : uniquement le trait de progression, fixe en haut à droite
           el.style.top = getEndTop() + 'px';
           el.style.right = getEndRight() + 'px';
           el.style.transform = 'scale(0.88)';
