@@ -618,7 +618,9 @@
       .skills-group .skills-wrap {
         display: flex;
         flex-direction: row;
+        align-items: stretch;
         overflow-x: auto;
+        overflow-y: hidden;
         scroll-snap-type: x mandatory;
         gap: 1rem;
         background: transparent;
@@ -635,6 +637,8 @@
         flex: 0 0 85%;
         scroll-snap-align: start;
         border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
       }
 
       /* Réduction espace sous les cards soft skills avant le titre hard skills */
@@ -646,20 +650,28 @@
       /* Réduction espace sous le carrousel outils avant le titre langues */
       .software-carousel { padding: 1.25rem 0; }
 
-      /* Langues : 3 sur une ligne */
+      /* Langues : 3 sur une ligne, cards resserrées pour ne pas déborder */
       .lang-grid { grid-template-columns: repeat(3, 1fr); }
+      .lang-card { padding: 1.1rem .3rem; }
+      .lang-flag { width: 30px; height: 21px; margin-bottom: .6rem; }
+      .lang-name { font-size: 1rem; }
+      .lang-level { font-size: .62rem; margin-bottom: .6rem; }
+      .lang-dots { gap: .2rem; }
 
       /* Réduction espace sous les cards langues avant le titre réalisations */
       .lang-grid { margin-bottom: .5rem; }
       #skills { padding-bottom: 1rem; }
       #projects { padding-top: 1rem; }
+      #projects .section-title { margin-bottom: 1.25rem; }
 
       /* Certifications : carrousel horizontal (3 sur la même ligne, scrollables) */
       #certifications .section-title { margin-bottom: 1.75rem; }
       .cert-grid {
         display: flex;
         flex-direction: row;
+        align-items: stretch;
         overflow-x: auto;
+        overflow-y: hidden;
         scroll-snap-type: x mandatory;
         gap: 1rem;
         background: transparent;
@@ -673,6 +685,8 @@
         flex: 0 0 85%;
         scroll-snap-align: start;
         border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
       }
 
       /* Contact : infos en haut, rectangle en bas */
@@ -704,6 +718,10 @@
       .soft-item,
       .skill-cat,
       .cert-card { flex: 0 0 92%; }
+      .lang-card { padding: .85rem .2rem; }
+      .lang-flag { width: 26px; height: 18px; margin-bottom: .45rem; }
+      .lang-name { font-size: .88rem; }
+      .lang-level { font-size: .56rem; }
     }
 
     #map { filter: grayscale(100%) contrast(1.1) brightness(1.05); }
